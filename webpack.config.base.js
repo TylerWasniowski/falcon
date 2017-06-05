@@ -7,11 +7,18 @@ import webpack from 'webpack';
 import { dependencies as externals } from './app/package.json';
 
 export default {
+  externals: Object.keys(externals || {}),
+
   module: {
     rules: [{
       test: /\.jsx?$/,
-      use: 'babel-loader',
-      exclude: /node_modules/
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true
+        }
+      }
     }]
   },
 
@@ -36,6 +43,4 @@ export default {
   plugins: [
     new webpack.NamedModulesPlugin(),
   ],
-
-  externals: Object.keys(externals || {})
 };

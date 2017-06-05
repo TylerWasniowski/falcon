@@ -1,80 +1,32 @@
 // @flow
 import React, { Component } from 'react';
+import getDatabases from '../api/Database';
 import Table from '../containers/Table';
 import SideBar from '../containers/SideBar';
 import NavBar from '../containers/NavBar';
 import Tab from '../components/Tab';
-import type { TableType } from '../types/tableType';
-import type { DatabaseType } from '../types/databaseType';
 import styles from './Home.css';
-
+import type { TableType } from '../types/TableType';
+import type { DatabaseType } from '../types/DatabaseType';
 
 export default class HomePage extends Component {
-
   state: {
     selectedTable: ?TableType,
     databases: Array<DatabaseType>
   };
 
-  constructor(props: {}) {
+  constructor(props: Object = {}) {
     super(props);
     this.state = {
       selectedTable: null,
-      databases: [
-        {
-          databaseName: 'databaseFoo',
-          tables: [
-            {
-              databaseName: 'databaseFoo',
-              tableName: 'tableFoo',
-              columns: [
-                'col1', 'col2', 'col3'
-              ],
-              rows: [
-                {
-                  columnName: 'col1',
-                  value: [2, 5, 9]
-                },
-                {
-                  columnName: 'col2',
-                  value: [8, 1, 12]
-                },
-                {
-                  columnName: 'col3',
-                  value: [8, 0, 30]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          databaseName: 'databaseBar',
-          tables: [
-            {
-              databaseName: 'databaseBar',
-              tableName: 'tableBar',
-              columns: [
-                'col1', 'col2', 'col3'
-              ],
-              rows: [
-                {
-                  columnName: 'col1',
-                  value: [39, 12, 4]
-                },
-                {
-                  columnName: 'col2',
-                  value: [2, 1, 4]
-                },
-                {
-                  columnName: 'col3',
-                  value: [5, 15, 72]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      databases: []
     };
+    this.setDatabaseResults();
+  }
+
+  async setDatabaseResults() {
+    const databases = await getDatabases();
+    this.setState({ databases });
   }
 
   render() {
@@ -83,10 +35,9 @@ export default class HomePage extends Component {
         <NavBar />
         <SideBar
           databases={this.state.databases}
-          onTableSelect={(selectedTable) => this.setState({ selectedTable })}
+          onTableSelect={selectedTable => this.setState({ selectedTable })}
         />
         <Tab table={this.state.selectedTable} />
-
         <div className={styles.container} data-tid="container">
           <Table table={this.state.selectedTable} />
         </div>
