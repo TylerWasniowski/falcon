@@ -1,11 +1,10 @@
 // @flow
 import React from 'react';
-import { HashRouter as Router } from 'react-router-dom';
 import { Switch, Route } from 'react-router';
+import { HashRouter as Router } from 'react-router-dom';
 import App from './containers/App';
 import Home from './containers/Home';
 import Login from './containers/Login';
-
 
 export default () => (
   <Router>

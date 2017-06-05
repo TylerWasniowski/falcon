@@ -2,9 +2,7 @@
 import React, { Component } from 'react';
 import styles from './NavBar.css';
 
-
 export default class NavBar extends Component {
-
   state: {
     sections: Array<string>
   };
@@ -17,8 +15,9 @@ export default class NavBar extends Component {
   }
 
   render() {
-    const links = this.state.sections.map((section) =>
-      <li key={section}><a href="#">{section}</a></li>);
+    const links = this.state.sections.map(section =>
+      <li key={section}><a href="#">{section}</a></li>
+    );
 
     return (
       <div className={styles.navbarWrapper}>
@@ -30,7 +29,4 @@ export default class NavBar extends Component {
       </div>
     );
   }
-
-
 }
-

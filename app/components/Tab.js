@@ -1,12 +1,13 @@
 // @flow
 import React from 'react';
-import type { TableType } from '../types/tableType';
+import type { TableType } from '../types/TableType';
 import styles from './Tab.css';
 import '../app.global.css';
 
-
-const Tab = ({ table }: {table: ?TableType}) => {
-  if (!table) return (<div className={styles.tab} />);
+const Tab = ({ table }: { table: ?TableType }) => {
+  if (!table) {
+    return <div className={styles.tab} />;
+  }
 
   return (
     <div className={styles.tab}>

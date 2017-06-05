@@ -1,7 +1,7 @@
 .sidebar {
   top: 11%;
   height: 92%;
-  width: 15%;
+  width: 18%;
   background-color: #F5F5F5;
   border-width: 1px 1px 0px 0px;
   border-color: #bfbfbf;
@@ -17,7 +17,7 @@
 }
 
 .sidebar ul ul {
-  padding: 20px;
+  padding: 18px;
 }
 
 .sidebar li a {
@@ -26,7 +26,7 @@
 }
 
 .sidebar i{
-  margin: 3px;
+  margin: 2px;
 }
 
 .sidebar .sidebarItem {
@@ -36,7 +36,8 @@
   text-align: left;
   border: none;
   outline: none;
-  padding: 10px 10px;
+  padding: 5px 5px;
+  font-size: 14px;
 }
 
 .sidebar .sidebarItem:hover {
