@@ -40,7 +40,6 @@ export default merge(baseConfig, {
 
   /**
    * Set target to Electron specific node.js env.
-   * https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
    */
   target: 'electron-main',
 
