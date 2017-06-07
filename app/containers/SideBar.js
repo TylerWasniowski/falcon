@@ -12,14 +12,14 @@ export default class SideBar extends Component {
   };
 
   render() {
-    const databases = this.props.databases.map(database => (
-      <SideBarItem
+    const databases = this.props.databases.map(database =>
+      (<SideBarItem
         key={database.databaseName}
         name={database.databaseName}
         onTableSelect={this.props.onTableSelect}
         tables={database.tables}
-      />
-    ));
+      />)
+    );
 
     return (
       <div className={styles.sidebar}>

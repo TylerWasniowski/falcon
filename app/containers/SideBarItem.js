@@ -34,7 +34,7 @@ export default class SideBarItem extends Component {
 
   render() {
     const tables = this.props.tables.map((table: TableType) =>
-      <li key={table.tableName}>
+      (<li key={table.tableName}>
         <a
           href="#"
           onClick={e => this.onTableClick(e, table)}
@@ -42,7 +42,7 @@ export default class SideBarItem extends Component {
         >
           <i className="fa fa-table" aria-hidden="true" /> {table.tableName}
         </a>
-      </li>
+      </li>)
     );
 
     return (

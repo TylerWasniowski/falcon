@@ -1,32 +1,66 @@
 .login {
-  position: fixed;
-  width: 100%;
+  left: 15%;
   height: 100%;
+  width: 82%;
+  position: fixed!important;
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
 }
 
-.login form {
-  width: 30%;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-content: center;
-  height: 40%;
+.login .controls {
+  width: 100%;
 }
 
-.login input {
-  padding: 12px 20px;
-  margin: 8px 0;
+.login .versionNum {
+  font-size: 80%;
+  color: #b3b3b3;
+  margin-top: -1em;
+}
+
+.login form {
+  width: 28%;
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  height: 55%;
+}
+
+.login input[type=text] {
+  margin: 1em 0;
+  padding: .8em 1em;
+  width: 100%;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
-.login p{
-  font-size: 50%;
-  color: #b3b3b3;
+.login input[type=submit] {
+  margin: 1em 0;
+  height: 2em;
+  width: 50%;
+  background-color: #428bca;
+  border: 1px solid #3277b3;
+  border-radius: 4px;
+  color: white;
+  transition: .2s ease-in-out
+}
+
+.login input[type=submit]:hover,
+.login button:hover {
+  background-color: #3277b3;
+  border: 1px solid #275d8b;
+}
+
+.login button {
+  margin: 1em 0;
+  height: 2em;
+  width: 50%;
+  background-color: #428bca;
+  border: 1px solid #3277b3;
+  border-radius: 4px;
+  color: white;
+  transition: .2s ease-in-out
 }

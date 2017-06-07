@@ -6,13 +6,12 @@ import App from './containers/App';
 import Home from './containers/Home';
 import Login from './containers/Login';
 
-export default () => (
-  <Router>
+export default () =>
+  (<Router>
     <App>
       <Switch>
         <Route path="/home" component={Home} />
         <Route path="/" component={Login} history={history} />
       </Switch>
     </App>
-  </Router>
-);
+  </Router>);

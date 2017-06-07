@@ -7,13 +7,13 @@ import type { DatabaseType } from '../types/DatabaseType';
 //        - How will ordering of databases and tables be dealt with? This
 //          example is only given one database, so doesn't deal with it
 export default async function getDatabases(): Promise<Array<DatabaseType>> {
-  const dbpath = path.join('app', 'demo.sqlite');
+  const databasePath = path.join('app', 'demo.sqlite');
   const serverInfo = {
-    database: dbpath,
+    database: databasePath,
     client: 'sqlite'
   };
   const serverSession = db.createServer(serverInfo);
-  const connection = await serverSession.createConnection(dbpath);
+  const connection = await serverSession.createConnection(databasePath);
   await connection.connect(serverInfo);
   const databases: Array<string> = await connection.listDatabases();
   const tables: Array<string> = await connection
@@ -41,8 +41,7 @@ export default async function getDatabases(): Promise<Array<DatabaseType>> {
           }))
         )
     )
-  )
-  .then(_databases =>
+  ).then(_databases =>
     _databases.map((database, databaseIndex) => ({
       tables: database,
       databaseName: databases[databaseIndex]
