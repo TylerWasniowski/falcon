@@ -23,22 +23,21 @@ p {
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 li a {
-    display: block;
-    color: black;
-    text-decoration: none;
+  display: block;
+  color: black;
+  text-decoration: none;
 }
 
 li a:hover {
-
 }
 
 a {
   color: black;
-  opacity: .75;
+  opacity: 0.75;
   text-decoration: none;
 }
 
