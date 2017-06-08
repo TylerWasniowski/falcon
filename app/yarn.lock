@@ -45,8 +45,8 @@ assert-plus@^0.2.0:
   resolved "https://registry.yarnpkg.com/assert-plus/-/assert-plus-0.2.0.tgz#d74e1b87e7affc0db8aadb7021f3fe48101ab234"
 
 async@^0.9.0:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/async/-/async-0.9.2.tgz#aea74d5e61c1f899613bf64bda66d4c78f2fd17d"
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/async/-/async-0.9.0.tgz#ac3613b1da9bed1b47510bb4651b8931e47146c7"
 
 async@^1.5.2:
   version "1.5.2"
@@ -127,8 +127,8 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
 cassandra-driver@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/cassandra-driver/-/cassandra-driver-3.2.1.tgz#c9764d9cb95a47a4a34569fcc11fe773363b9807"
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/cassandra-driver/-/cassandra-driver-3.2.2.tgz#bcbae15169141df08b4e32d477fa58b99eac5040"
   dependencies:
     long "^2.2.0"
 
@@ -206,7 +206,7 @@ extsprintf@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
 
-falcon-core@0.0.1-2:
+falcon-core@^0.0.1-2:
   version "0.0.1-2"
   resolved "https://registry.yarnpkg.com/falcon-core/-/falcon-core-0.0.1-2.tgz#752ea320cb3dbcec93bca0d4387cd9fce19e8098"
   dependencies:

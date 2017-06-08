@@ -10,13 +10,13 @@ export default class NavBar extends Component {
   constructor(props: {}) {
     super(props);
     this.state = {
-      sections: ['Link1', 'Link2', 'Link3']
+      sections: ['Link1', '#query', 'Link3']
     };
   }
 
   render() {
     const links = this.state.sections.map(section =>
-      <li key={section}><a href="#">{section}</a></li>
+      <li key={section}><a href={section}>{section}</a></li>
     );
 
     return (

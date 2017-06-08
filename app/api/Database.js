@@ -3,10 +3,73 @@ import { db } from 'falcon-core';
 import path from 'path';
 import type { DatabaseType } from '../types/DatabaseType';
 
+/**
+ * @TODO: Make this the default export. Classese are a better choice for
+ *        database connections, which are stateful. They require a constant
+ *        connunication with the database. A purely functional approach would require
+ *        Killing the database connection after each request, which isn't all
+ *        that performant
+ *
+ * @TODO: Consider using **object pools**
+ *
+ * This class should be treated as a singleton. Creating multiple connections will waste
+ * memory.
+ */
+export class Database {
+  /**
+   * @TODO: Write a flow-typed definition for falcon-core so we can just import the
+   *        type here. Migrate from weak types
+   */
+  connection: {
+    client: 'sqlite' | 'mysql' | 'postgresql',
+    connect: (config: Object) => void,
+    executeQuery: (conn: string) => Promise<Array<Object>>
+  }
+
+  config: {
+    serverInfo: {
+      database: string
+    }
+  } = {}
+
+  // @TODO
+  // pool: Map<string, { databaseName: string }>
+
+  session: {
+    createConnection: (databaseName: string) => Object
+  }
+
+  /**
+   * @HACK: The database is temporarily hardcoded to a fixed sqlite database. This is
+   *        just for demo purposes for the time being
+   */
+  constructor() {
+    this.config.serverInfo = {
+      database: path.join('app', 'demo.sqlite'),
+      client: 'sqlite'
+    };
+    this.session = db.createServer(this.config.serverInfo);
+  }
+
+  async connect() {
+    this.connection = await this.session.createConnection(this.config.serverInfo.database);
+    if (!this.connection) {
+      throw new Error('Connection has not been established yet');
+    }
+    this.connection.connect(this.config.serverInfo);
+  }
+
+  async sendQueryToDatabase(query: string): Promise<Array<Object>> {
+    return this.connection.executeQuery(query);
+  }
+
+  static getDatabases = getDatabases;
+}
+
 // @TODO: Gets and returns an object to be used to set the state of Home
 //        - How will ordering of databases and tables be dealt with? This
 //          example is only given one database, so doesn't deal with it
-export default async function getDatabases(): Promise<Array<DatabaseType>> {
+async function getDatabases(): Promise<Array<DatabaseType>> {
   const databasePath = path.join('app', 'demo.sqlite');
   const serverInfo = {
     database: databasePath,
@@ -48,3 +111,5 @@ export default async function getDatabases(): Promise<Array<DatabaseType>> {
     }))
   );
 }
+
+export default getDatabases;
