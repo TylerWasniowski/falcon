@@ -1,6 +1,7 @@
 // @flow
 import { db } from 'falcon-core';
 import path from 'path';
+import type { exportOptionsType, ProviderInterfaceType } from 'falcon-core';
 import type { DatabaseType } from '../types/DatabaseType';
 
 /**
@@ -15,51 +16,62 @@ import type { DatabaseType } from '../types/DatabaseType';
  * This class should be treated as a singleton. Creating multiple connections will waste
  * memory.
  */
+
+type configType = {
+  serverInfo: {
+    database: string
+  }
+};
+
 export class Database {
   /**
-   * @TODO: Write a flow-typed definition for falcon-core so we can just import the
-   *        type here. Migrate from weak types
+   * @TODO: Write a flow-typed definition for falcon-core so we can just import
+   *        the type here. Migrate from weak types
    */
   connection: {
     client: 'sqlite' | 'mysql' | 'postgresql',
-    connect: (config: Object) => void,
-    executeQuery: (conn: string) => Promise<Array<Object>>
-  }
+    connect: configType => void,
+    executeQuery: (
+      conn: string
+    ) => Promise<Array<ProviderInterfaceType.queryResponseType>>
+  };
 
-  config: {
-    serverInfo: {
-      database: string
-    }
-  } = {}
+  config: configType;
 
   // @TODO
   // pool: Map<string, { databaseName: string }>
 
   session: {
-    createConnection: (databaseName: string) => Object
-  }
+    createConnection: (databaseName: string) => ProviderInterfaceType
+  };
 
   /**
-   * @HACK: The database is temporarily hardcoded to a fixed sqlite database. This is
-   *        just for demo purposes for the time being
+   * @HACK: The database is temporarily hardcoded to a fixed sqlite database.
+   *        This is just for demo purposes for the time being
    */
   constructor() {
-    this.config.serverInfo = {
-      database: path.join('app', 'demo.sqlite'),
-      client: 'sqlite'
+    this.config = {
+      serverInfo: {
+        database: path.join('app', 'demo.sqlite'),
+        client: 'sqlite'
+      }
     };
     this.session = db.createServer(this.config.serverInfo);
   }
 
   async connect() {
-    this.connection = await this.session.createConnection(this.config.serverInfo.database);
+    this.connection = await this.session.createConnection(
+      this.config.serverInfo.database
+    );
     if (!this.connection) {
       throw new Error('Connection has not been established yet');
     }
     this.connection.connect(this.config.serverInfo);
   }
 
-  async sendQueryToDatabase(query: string): Promise<Array<Object>> {
+  async sendQueryToDatabase(
+    query: string
+  ): Promise<Array<ProviderInterfaceType.queryResponseType>> {
     return this.connection.executeQuery(query);
   }
 
@@ -112,4 +124,50 @@ async function getDatabases(): Promise<Array<DatabaseType>> {
   );
 }
 
+type exportType = 'json' | 'csv';
+
+export async function exportFile(
+  type: exportType,
+  exportPath: string,
+  exportOptions: exportOptionsType
+): Promise<string> {
+  const databasePath = path.join('app', 'demo.sqlite');
+  const serverInfo = {
+    database: databasePath,
+    client: 'sqlite'
+  };
+  const serverSession = db.createServer(serverInfo);
+  const connection = await serverSession.createConnection(databasePath);
+
+  await connection.connect(serverInfo);
+
+  switch (type) {
+    case 'json':
+      return connection.exportJson(exportPath, exportOptions);
+    case 'csv':
+      return connection.exportCsv(exportPath, exportOptions);
+    default:
+      throw new Error(`Invalid or unsupported export type "${type}"`);
+  }
+}
+
 export default getDatabases;
+
+export type DatabaseApiType = {
+  connection: {
+    client: 'sqlite' | 'mysql' | 'postgresql',
+    connect: configType => void,
+    executeQuery: (
+      conn: string
+    ) => Promise<Array<ProviderInterfaceType.queryResponseType>>
+  },
+  config: configType,
+  session: {
+    createConnection: string => ProviderInterfaceType
+  },
+  connect: () => void,
+  sendQueryToDatabase: (
+    query: string
+  ) => Promise<Array<ProviderInterfaceType.queryResponseType>>
+};
+

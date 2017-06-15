@@ -1,0 +1,36 @@
+.controls {
+  margin-top: .5vh;
+  margin-bottom: 1vh;
+  padding-bottom: 1vh;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.controls button {
+  margin: .5em;
+  padding: .25em;
+  background-color: #428bca;
+  border: 1px solid #3277b3;
+  border-radius: 4px;
+  color: white;
+  transition: .2s ease-in-out
+}
+
+.controls button:hover {
+  background-color: #3277b3;
+  border: 1px solid #275d8b;
+}
+
+.controls button:disabled {
+  margin: .5em;
+  padding: .25em;
+  background-color: #275d8b;
+  border: 1px solid #224f77;
+  border-radius: 4px;
+  color: white;
+  transition: none
+}
+
+.controls button:disabled:hover {
+  background-color: #275d8b;
+  border: 1px solid #224f77;
+}

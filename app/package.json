@@ -2,18 +2,18 @@
   "name": "falcon",
   "productName": "falcon",
   "version": "1.0.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "description": "A modern, cross-platform, and universal database client",
   "main": "./main.js",
   "author": {
-    "name": "C. T. Lin",
+    "name": "Falcon Team",
     "email": "falcon-client@gmail.com",
     "url": "https://github.com/falcon-client"
   },
   "scripts": {
-    "postinstall": "npm rebuild --runtime=electron --target=1.6.0 --dist-url=https://atom.io/download/electron --build-from-source"
+    "postinstall": "npm rebuild --runtime=electron --target=1.7.0 --dist-url=https://atom.io/download/electron --build-from-source"
   },
   "license": "MIT",
   "dependencies": {
-    "falcon-core": "^0.0.1-2"
+    "falcon-core": "0.0.1-8"
   }
 }

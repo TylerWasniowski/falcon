@@ -1,46 +1,130 @@
 // @flow
 import React, { Component } from 'react';
+import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Link } from 'react-router-dom';
+import Grid from './Grid';
+import Query from './Query';
 import getDatabases from '../api/Database';
-import Table from '../containers/Table';
-import SideBar from '../containers/SideBar';
-import NavBar from '../containers/NavBar';
-import Tab from '../components/Tab';
-import styles from './Home.css';
-import type { TableType } from '../types/TableType';
 import type { DatabaseType } from '../types/DatabaseType';
+
+const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
 
 export default class HomePage extends Component {
   state: {
-    selectedTable: ?TableType,
-    databases: Array<DatabaseType>
+    selectedTableName: ?string,
+    databases: Array<DatabaseType>,
+    showQuery: boolean
   };
 
-  constructor(props: Object = {}) {
+  didMount: boolean = false;
+
+  constructor(props: {}) {
     super(props);
     this.state = {
-      selectedTable: null,
-      databases: []
+      selectedTableName: null,
+      databases: [],
+      showQuery: false
     };
-    this.setDatabaseResults();
   }
 
   async setDatabaseResults() {
     const databases = await getDatabases();
-    this.setState({ databases });
+    this.setState({
+      databases,
+      selectedTableName: 'albums'
+    });
+  }
+
+  onSelectedTableNameChange(subMenu: SubMenu, self: HomePage) {
+    if (!self.didMount) {
+      return;
+    }
+
+    this.setState({
+      selectedTableName: subMenu.key,
+      showQuery: subMenu.key === 'Query'
+    });
+  }
+
+  componentDidMount() {
+    this.didMount = true;
+    this.setDatabaseResults();
+  }
+
+  componentWillUnmount() {
+    this.didMount = false;
   }
 
   render() {
     return (
       <div>
-        <NavBar />
-        <SideBar
-          databases={this.state.databases}
-          onTableSelect={selectedTable => this.setState({ selectedTable })}
-        />
-        <Tab table={this.state.selectedTable} />
-        <div className={styles.container} data-tid="container">
-          <Table table={this.state.selectedTable} />
-        </div>
+        <Layout>
+          <Header className="header">
+            <div className="logo" />
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={['2']}
+              style={{ lineHeight: '64px' }}
+            >
+              <Menu.Item key="1"><Link to="/home">Home</Link></Menu.Item>
+              <Menu.Item key="2"><Link to="/home">View</Link></Menu.Item>
+            </Menu>
+          </Header>
+          <Content>
+            <Breadcrumb style={{ margin: '12px 0', padding: '0 50px' }}>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+              <Breadcrumb.Item>Databases</Breadcrumb.Item>
+              <Breadcrumb.Item>SQLite</Breadcrumb.Item>
+            </Breadcrumb>
+            <Layout style={{ padding: '24px 0', background: '#fff' }}>
+              <Sider
+                width={200}
+                style={{
+                  background: '#fff',
+                  overflow: 'auto',
+                  height: '400px'
+                }}
+              >
+                <Menu
+                  mode="inline"
+                  defaultSelectedKeys={['1']}
+                  defaultOpenKeys={['compat-db']}
+                  style={{ height: '100%' }}
+                  onSelect={e => this.onSelectedTableNameChange(e, this)}
+                >
+                  <Menu.Item key="Query">
+                    <Icon type="code" />
+                    Query
+                  </Menu.Item>
+                  {this.state.databases.map(database =>
+                    (<SubMenu
+                      key="compat-db"
+                      title={<span><Icon type="database" />compat-db</span>}
+                    >
+                      {database.tables.map(table =>
+                        (<Menu.Item key={table.tableName}>
+                          <Icon type="bars" />
+                          {table.tableName}
+                        </Menu.Item>)
+                      )}
+                    </SubMenu>)
+                  )}
+                </Menu>
+              </Sider>
+              <Content style={{ padding: '0 24px', minHeight: 280 }}>
+                {(this.state.showQuery && <Query />) ||
+                  <Grid
+                    databases={this.state.databases}
+                    loading={false}
+                    selectedTableName={this.state.selectedTableName}
+                    pagination={{ pageSize: 200 }}
+                  />}
+              </Content>
+            </Layout>
+          </Content>
+        </Layout>
       </div>
     );
   }

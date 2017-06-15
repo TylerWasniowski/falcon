@@ -1,190 +1,80 @@
 // @flow
-import React, { Component } from 'react';
-import LoginSideBar from './LoginSideBar';
-import type { LoginDatabaseType } from '../types/LoginDatabaseType';
-import styles from './Login.css';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Input, Col, Row, Select, InputNumber, Button } from 'antd';
+import img from '../../resources/falcon.png';
 
-export default class Login extends Component {
-  state: {
-    currentDatabase: LoginDatabaseType,
-    savedDatabases: Array<LoginDatabaseType>,
-    // Set to default values or values loaded from saved side bar database
-    placeholderFields: Object,
-    databaseEngines: Array<string>
-  };
+const InputGroup = Input.Group;
+const Option = Select.Option;
+const logoStyle = {
+  margin: '0 auto',
+  display: 'block'
+};
 
-  constructor(props: { history: Object }) {
-    super(props);
-    this.state = {
-      currentDatabase: {
-        type: 'Cassandra',
-        fields: {
-          nickname: '',
-          host: '',
-          username: '',
-          password: '',
-          port: ''
-        }
-      },
-      savedDatabases: [],
-      placeholderFields: {
-        nickname: '',
-        host: 'localhost',
-        username: '',
-        password: '',
-        port: '7199'
-      },
-      databaseEngines: ['Cassandra', 'MySQL', 'SQLite']
-    };
-  }
-
-  // Used when <select> changes its value so that fields are re-rendered
-  setTemplateDatabase = (engine: 'Cassandra' | 'MySQL' | 'SQLite') => {
-    switch (engine) {
-      case 'Cassandra':
-        return this.setCurrentDatabase({
-          type: 'Cassandra',
-          fields: {
-            nickname: '',
-            host: 'localhost',
-            username: '',
-            password: '',
-            port: 7199
-          }
-        });
-      case 'MySQL':
-        return this.setCurrentDatabase({
-          type: 'MySQL',
-          fields: {
-            nickname: '',
-            host: 'localhost',
-            username: '',
-            password: '',
-            port: 3306
-          }
-        });
-      case 'SQLite':
-        return this.setCurrentDatabase({
-          type: 'SQLite',
-          fields: {
-            nickname: '',
-            file: ''
-          }
-        });
-      default:
-        throw new Error(`Unknown database type "${engine}" given`);
-    }
-  };
-
-  handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-    this.props.history.push('/home');
-  };
-
-  // Adds to state.savedDatabases if it's not already in there
-  addToSaved = (e: SyntheticEvent) => {
-    e.preventDefault();
-    if (this.isDatabaseSaved(this.state.currentDatabase)) {
-      return;
-    }
-    const fieldsKeys = Object.keys(this.state.currentDatabase.fields);
-    const copy: LoginDatabaseType = {
-      ...this.state.currentDatabase,
-      fields: { nickname: '' }
-    };
-
-    fieldsKeys.forEach(key => {
-      copy.fields[key] =
-        this.state.currentDatabase.fields[key] ||
-        this.state.placeholderFields[key];
-    });
-
-    // Sorts then saves databases
-    this.setState({
-      savedDatabases: [
-        ...this.state.savedDatabases,
-        copy
-      ].sort((a: LoginDatabaseType, b: LoginDatabaseType) =>
-        a.fields.nickname.localeCompare(b.fields.nickname)
-      )
-    });
-  };
-
-  // Sets this.state.currentDatabase and this.state.placeholderFields
-  setCurrentDatabase = (database: LoginDatabaseType) => {
-    const emptyFields = { nickname: '' };
-    Object.keys(database.fields).forEach(field => {
-      emptyFields[field] = '';
-    });
-    const copy: LoginDatabaseType = { ...database, fields: emptyFields };
-    this.setState({
-      placeholderFields: { ...database.fields },
-      currentDatabase: copy
-    });
-  };
-
-  isDatabaseSaved = (database: LoginDatabaseType) =>
-    this.state.savedDatabases.some(
-      el => el.fields.nickname === database.fields.nickname
-    );
-
-  render() {
-    const selectOptions = this.state.databaseEngines.map(engine =>
-      <option key={engine} value={engine}>{engine}</option>
-    );
-
-    const inputFields = Object.keys(
-      this.state.currentDatabase.fields
-    ).map(field =>
-      (<div key={field}>
-        <span>{field.charAt(0).toUpperCase() + field.slice(1)}</span>
-        <input
-          type="text"
-          name={field}
-          value={this.state.currentDatabase.fields[field]}
-          placeholder={this.state.placeholderFields[field]}
-          onChange={e => {
-            const currentDatabase = Object.assign(
-              {},
-              this.state.currentDatabase
-            );
-            currentDatabase.fields[field] = e.target.value;
-            this.setState({ currentDatabase });
-          }}
-        />
-      </div>)
-    );
-
-    return (
-      <div>
-        <LoginSideBar
-          savedDatabases={this.state.savedDatabases}
-          setCurrentDatabase={this.setCurrentDatabase}
-        />
-        <div className={styles.login}>
+export default function Login() {
+  return (
+    <Col span={24}>
+      <Row type="flex" justify="center">
+        <Col span={8} />
+        <Col span={8}>
           <img
-            src="../resources/falcon.png"
-            width="300em"
-            height="225em"
+            style={logoStyle}
+            src={img}
+            width="100rem"
+            height="100rem"
             alt="Logo"
           />
-          <p className={styles.versionNum}>v 0.0.1</p>
-          <form onSubmit={this.handleSubmit}>
-            {inputFields}
-            <select
-              onChange={e => this.setTemplateDatabase(e.target.value)}
-              id="databaseEngine"
-              name="databaseEngine"
-            >
-              {selectOptions}
-            </select>
-            <div className={styles.controls}>
-              <button onClick={this.addToSaved}>Add to Favorites</button>
-              <input type="submit" value="Submit" />
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  }
+        </Col>
+        <Col span={8} />
+      </Row>
+      <Col span={8} />
+      <Col span={8}>
+        <br />
+        <InputGroup size="large">
+          <Input
+            size="large"
+            defaultValue="My First Connection"
+            placeholder="connection name"
+          />
+        </InputGroup>
+        <br />
+        <InputGroup compact>
+          <Select size="large" defaultValue="sqlite">
+            <Option value="sqlite">sqlite</Option>
+            <Option value="mysql">mysql</Option>
+            <Option value="postgres">postgres</Option>
+            <Option value="cassandra">cassandra</Option>
+          </Select>
+        </InputGroup>
+        <br />
+        <InputGroup size="large">
+          <Input size="large" defaultValue="localhost" placeholder="host" />
+        </InputGroup>
+        <br />
+        <InputGroup size="large">
+          <Input size="large" defaultValue="root" placeholder="username" />
+        </InputGroup>
+        <br />
+        <InputGroup size="large">
+          <Input size="large" placeholder="password" />
+        </InputGroup>
+        <br />
+        <InputGroup size="large">
+          <InputNumber
+            placeholder="port"
+            min={1}
+            max={10}
+            defaultValue={3306}
+          />
+        </InputGroup>
+        <br />
+        <Link to="/home">
+          <Button type="primary" loading={false} size="large">
+            Connect
+          </Button>
+        </Link>
+      </Col>
+      <Col span={8} />
+    </Col>
+  );
 }

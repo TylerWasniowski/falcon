@@ -1,5 +1,7 @@
 // @flow
-import { app, Menu, shell, BrowserWindow } from 'electron';
+/* eslint import/no-extraneous-dependencies: 0 */
+import { app, Menu, shell, BrowserWindow, dialog } from 'electron';
+import { exportFile } from './api/Database';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -78,6 +80,26 @@ export default class MenuBuilder {
         }
       ]
     };
+    const subMenuFile = {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Show Favorites Menu',
+          accelerator: 'Alt+Command+N',
+          click: () => {}
+        },
+        {
+          label: 'New Window',
+          accelerator: 'Command+N',
+          click: () => {}
+        },
+        {
+          label: 'New Tab',
+          accelerator: 'Command+T',
+          click: () => {}
+        }
+      ]
+    };
     const subMenuEdit = {
       label: 'Edit',
       submenu: [
@@ -132,6 +154,48 @@ export default class MenuBuilder {
         }
       ]
     };
+    const subMenuDatabase = {
+      label: 'Database',
+      submenu: [
+        {
+          label: 'Import',
+          accelerator: '',
+          click: () => {
+            dialog.showSaveDialog();
+          }
+        },
+        {
+          label: 'Export',
+          accelerator: '',
+          click: async () => {
+            const exportPath = dialog.showSaveDialog(this.mainWindow, {
+              filters: [
+                { name: 'json', extensions: ['json'] },
+                { name: 'csv', extensions: ['csv'] }
+              ]
+            });
+            const fileType = exportPath.substring(
+              exportPath.lastIndexOf('.') + 1
+            );
+            await exportFile(fileType, exportPath, {
+              table: 'albums'
+            });
+          }
+        }
+      ]
+    };
+    const subMenuHistory = {
+      label: 'History',
+      submenu: []
+    };
+    const subMenuBookmarks = {
+      label: 'Bookmarks',
+      submenu: []
+    };
+    const subMenuDevelop = {
+      label: 'Develop',
+      submenu: []
+    };
     const subMenuWindow = {
       label: 'Window',
       submenu: [
@@ -181,7 +245,18 @@ export default class MenuBuilder {
       ? subMenuViewDev
       : subMenuViewProd;
 
-    return [subMenuAbout, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
+    return [
+      subMenuAbout,
+      subMenuFile,
+      subMenuEdit,
+      subMenuView,
+      subMenuDatabase,
+      subMenuHistory,
+      subMenuBookmarks,
+      subMenuDevelop,
+      subMenuWindow,
+      subMenuHelp
+    ];
   }
 
   buildDefaultTemplate() {

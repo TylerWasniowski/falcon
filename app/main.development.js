@@ -1,4 +1,4 @@
-/* eslint global-require: 1, flowtype-errors/show-errors: 0 */
+/* eslint global-require: 0, flowtype-errors/show-errors: 0 */
 // @flow
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
@@ -27,7 +27,7 @@ const installExtensions = async () => {
 
   return Promise.all(
     extensions.map(name => installer.default(installer[name], forceDownload))
-  ).catch(console.log);
+  ).catch(console.log); // eslint-disable-line no-console
 };
 
 app.on('window-all-closed', () => {

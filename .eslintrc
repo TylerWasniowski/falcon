@@ -4,31 +4,49 @@
     "sourceType": "module",
     "allowImportExportEverywhere": true
   },
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "bliss"
+  ],
   "env": {
     "browser": true,
     "node": true
   },
   "rules": {
-    "arrow-parens": ["off"],
     "compat/compat": "error",
-    "consistent-return": "off",
-    "comma-dangle": "off",
     "flowtype-errors/show-errors": "error",
-    "generator-star-spacing": "off",
+    "fp/no-arguments": "off",
+    "fp/no-class": "off",
+    "fp/no-delete": "off",
+    "fp/no-events": "off",
+    "fp/no-get-set": "off",
+    "fp/no-let": "off",
+    "fp/no-loops": "off",
+    "fp/no-mutating-assign": "off",
+    "fp/no-mutating-methods": "off",
+    "fp/no-mutation": "off",
+    "fp/no-nil": "off",
+    "fp/no-proxy": "off",
+    "fp/no-rest-parameters": "off",
+    "fp/no-this": "off",
+    "fp/no-throw": "off",
+    "fp/no-unused-expression": "off",
+    "fp/no-valueof-field": "off",
     "import/no-unresolved": "error",
-    "import/no-extraneous-dependencies": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["./test/*.js", "./test/**/*.js", "./*.js", "./app/*.development.js", "./app/**/*.development.js"],
+        "peerDependencies": ["./test/*.js", "./test/**/*.js", "./*.js", "./app/*.development.js", "./app/**/*.development.js"],
+        "packageDir": "./"
+      }
+    ],
     "no-console": "off",
-    "no-use-before-define": "off",
-    "no-multi-assign": "off",
-    "promise/param-names": "error",
-    "promise/always-return": "error",
-    "promise/catch-or-return": "error",
+    "promise/avoid-new": "off",
     "promise/no-native": "off",
     "react/sort-comp": ["error", {
-      "order": ["type-annotations", "static-methods", "lifecycle", "everything-else", "render"]
+      "order": ["type-annotations", "constructor", "static-methods", "everything-else", "lifecycle", "render"]
     }],
-    "react/jsx-no-bind": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": "off"
   },
