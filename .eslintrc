@@ -36,8 +36,8 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["./test/*.js", "./test/**/*.js", "./*.js", "./app/*.development.js", "./app/**/*.development.js"],
-        "peerDependencies": ["./test/*.js", "./test/**/*.js", "./*.js", "./app/*.development.js", "./app/**/*.development.js"],
+        "devDependencies": ["./test/*.js", "./test/**/*.js", "./*.js", "./app/*.dev.js", "./app/**/*.dev.js"],
+        "peerDependencies": ["./test/*.js", "./test/**/*.js", "./*.js", "./app/*.dev.js", "./app/**/*.dev.js"],
         "packageDir": "./"
       }
     ],
