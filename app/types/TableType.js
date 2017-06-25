@@ -8,6 +8,6 @@ export type TableType = {
   columns: Array<string>,
   rows: Array<{
     rowID: string,
-    value: Array<string>
+    value: Array<string | number>
   }>
 };

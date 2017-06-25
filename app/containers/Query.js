@@ -1,7 +1,10 @@
 // @flow
+/* eslint no-underscore-dangle: ["error", { "allow": ["_index"] }] */
 import React, { Component } from 'react';
-import { message, Table } from 'antd';
+import _ from 'lodash';
+import { message } from 'antd';
 import AceEditor from 'react-ace';
+import ReactTable from 'react-table';
 import debounce from 'lodash/debounce';
 import 'brace';
 import 'brace/mode/sql';
@@ -12,14 +15,17 @@ import 'brace/ext/searchbox';
 import type { queryResponseType } from 'falcon-core';
 import styles from './Query.css';
 import { Database } from '../api/Database';
-import type { PaginationType, SortedInfoType } from '../types/AntDesignTypes';
 
 export default class Query extends Component {
   state: {
     result: queryResponseType,
     query: string,
-    sortedInfo: SortedInfoType | {},
-    database: Database
+    database: Database,
+    selectedRowIndex: ?number,
+    selectedCellColumnId: ?number,
+    selectedCellRowIndex: ?number,
+    tableData: Array<{ [key: string]: string | number | boolean }>,
+    tableColumns: Array<{ Header: string, accessor: string }>
   };
 
   didMount: boolean = false;
@@ -29,8 +35,12 @@ export default class Query extends Component {
     this.state = {
       result: {},
       query: "SELECT * FROM 'albums'",
-      sortedInfo: {},
-      database: new Database()
+      database: new Database(),
+      selectedRowIndex: null,
+      selectedCellColumnId: null,
+      selectedCellRowIndex: null,
+      tableData: [],
+      tableColumns: []
     };
   }
 
@@ -40,31 +50,87 @@ export default class Query extends Component {
     }
 
     this.setState({ query });
-
     try {
       const resultsArray = await this.state.database.sendQueryToDatabase(
         this.state.query
       );
-      this.setState({ result: resultsArray[0] });
+      this.setState({
+        result: resultsArray[0],
+        tableData: this.getTableData(resultsArray[0]),
+        tableColumns: this.getTableColumns(resultsArray[0])
+      });
     } catch (error) {
       message.error(error.message);
     }
   }
 
-  onTableChange(
-    pagination: PaginationType,
-    filters: string[],
-    sorter: SortedInfoType,
-    self: Query
-  ) {
-    if (!self || !self.didMount) {
-      return;
-    }
-
-    this.setState({
-      sortedInfo: sorter
+  getTableData = (result: queryResponseType) => {
+    const tableHeaders = result.fields.map(e => e.name);
+    const tableData = result.rows.map(e => {
+      const tableRow = {};
+      tableHeaders.forEach(header => {
+        tableRow[header] = e[header];
+      });
+      return tableRow;
     });
-  }
+    return tableData;
+  };
+
+  getTableColumns = (result: queryResponseType) =>
+    result.fields.map(e => {
+      const obj = {
+        Header: e.name,
+        accessor: e.name,
+        Cell: row => {
+          if (
+            this.state.selectedCellColumnId === e.name &&
+            this.state.selectedCellRowIndex === row.index
+          ) {
+            return (
+              <div style={{ color: 'black' }}>
+                <input
+                  defaultValue={row.value}
+                  autoFocus
+                  style={{ width: '100%' }}
+                  onBlur={event => {
+                    const tableData = _.cloneDeep(this.state.tableData);
+                    tableData[row.index][row.column.Header] =
+                      event.target.value;
+                    this.setState({ tableData });
+                  }}
+                />
+              </div>
+            );
+          } else if (!row.value) {
+            return (
+              <div
+                style={{
+                  backgroundColor: '#FFF8B2',
+                  padding: '2px 5px',
+                  borderRadius: '2px',
+                  width: 'min-content',
+                  textOverflow: 'ellipsis'
+                }}
+              >
+                NULL
+              </div>
+            );
+          }
+          return (
+            <div
+              style={{
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {row.value}
+            </div>
+          );
+        }
+      };
+      return obj;
+    });
 
   async componentDidMount() {
     this.didMount = true;
@@ -78,14 +144,13 @@ export default class Query extends Component {
 
   render() {
     // If results aren't ready, then return just the editor
-    if (!this.state.result.fields) {
+    if (!this.state.tableData) {
       return (
         <div>
           <AceEditor
             mode="sql"
             theme="xcode"
             name="querybox"
-            ref="queryBoxTextarea"
             value={this.state.query}
             focus
             width={'100%'}
@@ -105,31 +170,12 @@ export default class Query extends Component {
       );
     }
 
-    const { sortedInfo } = this.state;
-    const columns = this.state.result.fields.map((e, i, array) => ({
-      title: e.name,
-      dataIndex: e.name,
-      key: e.name,
-      sorter: (a, b) => {
-        if (typeof a[e.name] === 'number') {
-          return a[e.name] - b[e.name];
-        }
-        if (typeof a[e.name] === 'string') {
-          return a[e.name].localeCompare(b[e]);
-        }
-        throw new Error(`Cannot compare type of value: ${a[e.name]}`);
-      },
-      width: `${100 / array.length}%`,
-      sortOrder: sortedInfo.columnKey === e.name && sortedInfo.order
-    }));
-
     return (
       <div>
         <AceEditor
           mode="sql"
           theme="xcode"
           name="querybox"
-          ref="queryBoxTextarea"
           value={this.state.query}
           focus
           width={'100%'}
@@ -146,17 +192,40 @@ export default class Query extends Component {
           <button>Load Query</button>
         </div>
         {this.state.result.fields &&
-          <Table
-            columns={columns}
-            rowKey={record => record.registered}
-            dataSource={this.state.result.rows}
-            pagination={{ pageSize: 200 }}
-            size="small"
-            filterMultiple
-            scroll={{ y: 400 }}
-            loading={false}
-            onChange={(a, b, c) => this.onTableChange(a, b, c, this)}
-          />}
+          <div className="table-wrap">
+            <ReactTable
+              style={{ height: '52vh' }}
+              className="-striped -highlight"
+              columns={this.state.tableColumns}
+              data={this.state.tableData}
+              defaultPageSize={100}
+              minRows={15}
+              pageSizeOptions={[100, 500, 1000]}
+              getTrProps={(params, rowInfo) => ({
+                // @TODO: If below line isn't used, some table don't render.
+                //        Find out why and fix
+                style: rowInfo !== undefined &&
+                  rowInfo.row._index === this.state.selectedRowIndex
+                  ? { backgroundColor: '#0B54D5', color: 'white' }
+                  : {},
+                onClick: () => {
+                  this.setState({
+                    selectedRowIndex: rowInfo.row._index,
+                    selectedCellColumnId: null,
+                    selectedCellRowIndex: null
+                  });
+                }
+              })}
+              getTdProps={(state, rowInfo, column) => ({
+                onDoubleClick: () => {
+                  this.setState({
+                    selectedCellColumnId: column.id,
+                    selectedCellRowIndex: rowInfo.row._index
+                  });
+                }
+              })}
+            />
+          </div>}
       </div>
     );
   }

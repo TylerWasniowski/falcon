@@ -15,8 +15,7 @@ const Option = Select.Option;
 
 type Props = {
   databases: Array<DatabaseType>,
-  selectedTableName: ?string,
-  loading: boolean
+  selectedTableName: ?string
 };
 
 export default class Structure extends Component {

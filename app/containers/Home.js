@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { Link } from 'react-router-dom';
-import Grid from './Grid';
+import GridWrapper from './GridWrapper';
 import Query from './Query';
 import getDatabases from '../api/Database';
 import type { DatabaseType } from '../types/DatabaseType';
@@ -83,8 +83,11 @@ export default class HomePage extends Component {
                 width={200}
                 style={{
                   background: '#fff',
+                  /**
+                  * @TODO: height: 80vh is a hack for sidebar to fill space
+                  */
                   overflow: 'auto',
-                  height: '400px'
+                  height: '78vh'
                 }}
               >
                 <Menu
@@ -115,11 +118,9 @@ export default class HomePage extends Component {
               </Sider>
               <Content style={{ padding: '0 24px', minHeight: 280 }}>
                 {(this.state.showQuery && <Query />) ||
-                  <Grid
+                  <GridWrapper
                     databases={this.state.databases}
-                    loading={false}
                     selectedTableName={this.state.selectedTableName}
-                    pagination={{ pageSize: 200 }}
                   />}
               </Content>
             </Layout>

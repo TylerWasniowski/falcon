@@ -1,0 +1,39 @@
+.gridBody,
+.gridHeader {
+  border: 1px solid #a6a6a6;
+
+}
+
+.gridHeader {
+  border-bottom: 0;
+  font-weight: bold;
+  overflow: hidden !important;
+  background-color: #404040;
+  color: #fff;
+}
+
+.gridCell,
+.headerCell {
+  border-right: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  padding: 0.5em
+}
+
+.editingCell{
+  display: flex;
+  align-items: baseline;
+  font-weight: bold;
+  padding: 0;
+  outline: true;
+}
+
+.oddRow {
+  background-color: #f2f2f2;
+}
+
+.selectedRow {
+  background-color: #0B54D5;
+  color: white;
+}

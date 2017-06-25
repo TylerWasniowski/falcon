@@ -6,7 +6,6 @@ import { HashRouter as Router } from 'react-router-dom';
 import App from './containers/App';
 import Home from './containers/Home';
 import Login from './containers/Login';
-import Query from './containers/Query';
 
 export default () =>
   (<Router>

@@ -170,4 +170,3 @@ export type DatabaseApiType = {
     query: string
   ) => Promise<Array<ProviderInterfaceType.queryResponseType>>
 };
-

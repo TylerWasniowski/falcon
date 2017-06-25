@@ -157,7 +157,9 @@ export default merge.smart(baseConfig, {
   },
 
   entry: {
-    vendor: Object.keys(dependencies).filter(dependency => dependency !== 'font-awesome')
+    vendor: Object.keys(dependencies).filter(
+      dependency => dependency !== 'font-awesome'
+    )
   },
 
   output: {
