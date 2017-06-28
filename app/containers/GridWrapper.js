@@ -5,6 +5,7 @@ import ReactTable from 'react-table';
 import _ from 'lodash';
 import Structure from '../components/Structure';
 import styles from './GridWrapper.css';
+import SpecialTypeMarker from '../components/SpecialTypeMarker';
 import type { DatabaseType } from '../types/DatabaseType';
 import type { TableType } from '../types/TableType';
 
@@ -79,19 +80,7 @@ export default class GridWrapper extends Component {
             </div>
           );
         } else if (!row.value) {
-          return (
-            <div
-              style={{
-                backgroundColor: '#FFF8B2',
-                padding: '2px 5px',
-                borderRadius: '2px',
-                width: 'min-content',
-                textOverflow: 'ellipsis'
-              }}
-            >
-              NULL
-            </div>
-          );
+          return <SpecialTypeMarker value="NULL" />;
         }
         return (
           <div
@@ -165,10 +154,11 @@ export default class GridWrapper extends Component {
                   //        Find out why and fix
                   if (rowInfo === undefined) return {};
                   return {
-                    style: rowInfo !== undefined &&
+                    style:
+                      rowInfo !== undefined &&
                       rowInfo.row._index === this.state.selectedRowIndex
-                      ? { backgroundColor: '#0B54D5', color: 'white' }
-                      : {},
+                        ? { backgroundColor: '#0B54D5', color: 'white' }
+                        : {},
                     onClick: e => {
                       e.preventDefault();
                       this.setState({
