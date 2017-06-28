@@ -12,6 +12,7 @@ import 'brace/snippets/sql';
 import 'brace/theme/xcode';
 import 'brace/ext/language_tools';
 import 'brace/ext/searchbox';
+import SpecialTypeMarker from '../components/SpecialTypeMarker';
 import type { queryResponseType } from 'falcon-core';
 import styles from './Query.css';
 import { Database } from '../api/Database';
@@ -102,19 +103,7 @@ export default class Query extends Component {
               </div>
             );
           } else if (!row.value) {
-            return (
-              <div
-                style={{
-                  backgroundColor: '#FFF8B2',
-                  padding: '2px 5px',
-                  borderRadius: '2px',
-                  width: 'min-content',
-                  textOverflow: 'ellipsis'
-                }}
-              >
-                NULL
-              </div>
-            );
+            return <SpecialTypeMarker value="NULL" />;
           }
           return (
             <div
@@ -204,10 +193,11 @@ export default class Query extends Component {
               getTrProps={(params, rowInfo) => ({
                 // @TODO: If below line isn't used, some table don't render.
                 //        Find out why and fix
-                style: rowInfo !== undefined &&
+                style:
+                  rowInfo !== undefined &&
                   rowInfo.row._index === this.state.selectedRowIndex
-                  ? { backgroundColor: '#0B54D5', color: 'white' }
-                  : {},
+                    ? { backgroundColor: '#0B54D5', color: 'white' }
+                    : {},
                 onClick: () => {
                   this.setState({
                     selectedRowIndex: rowInfo.row._index,

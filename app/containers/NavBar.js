@@ -16,7 +16,11 @@ export default class NavBar extends Component {
 
   render() {
     const links = this.state.sections.map(section =>
-      <li key={section}><a href={section}>{section}</a></li>
+      (<li key={section}>
+        <a href={section}>
+          {section}
+        </a>
+      </li>)
     );
 
     return (

@@ -68,8 +68,12 @@ export default class HomePage extends Component {
               defaultSelectedKeys={['2']}
               style={{ lineHeight: '64px' }}
             >
-              <Menu.Item key="1"><Link to="/home">Home</Link></Menu.Item>
-              <Menu.Item key="2"><Link to="/home">View</Link></Menu.Item>
+              <Menu.Item key="1">
+                <Link to="/home">Home</Link>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Link to="/home">View</Link>
+              </Menu.Item>
             </Menu>
           </Header>
           <Content>
@@ -104,7 +108,11 @@ export default class HomePage extends Component {
                   {this.state.databases.map(database =>
                     (<SubMenu
                       key="compat-db"
-                      title={<span><Icon type="database" />compat-db</span>}
+                      title={
+                        <span>
+                          <Icon type="database" />compat-db
+                        </span>
+                      }
                     >
                       {database.tables.map(table =>
                         (<Menu.Item key={table.tableName}>
