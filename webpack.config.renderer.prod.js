@@ -5,7 +5,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
+// import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
@@ -153,7 +153,7 @@ export default merge.smart(baseConfig, {
       )
     }),
 
-    new UglifyJSPlugin(),
+    // new UglifyJSPlugin(),
 
     new ExtractTextPlugin('style.css'),
 
