@@ -196,6 +196,7 @@
     "classnames": "^2.2.5",
     "electron-debug": "^1.2.0",
     "font-awesome": "^4.7.0",
+    "fsevents": "^1.1.2",
     "history": "^4.6.3",
     "lodash": "^4.17.4",
     "react": "^15.6.1",
