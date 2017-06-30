@@ -129,7 +129,7 @@ type EnzymeMatchersType = {
   toIncludeText(text: string): void,
   toHaveValue(value: any): void,
   toMatchElement(element: React$Element<any>): void,
-  toMatchSelector(selector: string): void,
+  toMatchSelector(selector: string): void
 };
 
 type JestExpectType = {
@@ -435,9 +435,8 @@ declare var describe: {
   /**
    * Skip running this describe block
    */
-  skip(name: string, fn: Function): void,
+  skip(name: string, fn: Function): void
 };
-
 
 /** An individual test unit */
 declare var it: {

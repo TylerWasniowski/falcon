@@ -472,28 +472,44 @@ declare module 'flow-runtime/dist/flow-runtime.umd.js' {
   declare module.exports: $Exports<'flow-runtime/dist/flow-runtime.umd'>;
 }
 declare module 'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/simplestClassWithDefaultProps.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/simplestClassWithDefaultProps'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/simplestClassWithDefaultProps'
+  >;
 }
 declare module 'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/simplestClassWithProps.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/simplestClassWithProps'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/simplestClassWithProps'
+  >;
 }
 declare module 'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/simplestClassWithTypeParameters.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/simplestClassWithTypeParameters'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/simplestClassWithTypeParameters'
+  >;
 }
 declare module 'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/typeParametersWithInheritance.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/typeParametersWithInheritance'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/__tests__/__fixtures__/ClassDeclaration/typeParametersWithInheritance'
+  >;
 }
 declare module 'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithAnnotatedFunctionArguments.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithAnnotatedFunctionArguments'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithAnnotatedFunctionArguments'
+  >;
 }
 declare module 'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithFunctionArguments.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithFunctionArguments'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithFunctionArguments'
+  >;
 }
 declare module 'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithTypeParameterArguments.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithTypeParameterArguments'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithTypeParameterArguments'
+  >;
 }
 declare module 'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithUnionArguments.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithUnionArguments'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/__tests__/__fixtures__/ParameterizedFunctionType/typeParametersWithUnionArguments'
+  >;
 }
 declare module 'flow-runtime/lib/__tests__/fixtures.js' {
   declare module.exports: $Exports<'flow-runtime/lib/__tests__/fixtures'>;
@@ -502,7 +518,9 @@ declare module 'flow-runtime/lib/__tests__/fixtures.test.js' {
   declare module.exports: $Exports<'flow-runtime/lib/__tests__/fixtures.test'>;
 }
 declare module 'flow-runtime/lib/__tests__/fixtures/ParameterizedFunctionType/typeParametersWithUnionArguments.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/__tests__/fixtures/ParameterizedFunctionType/typeParametersWithUnionArguments'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/__tests__/fixtures/ParameterizedFunctionType/typeParametersWithUnionArguments'
+  >;
 }
 declare module 'flow-runtime/lib/annotateValue.js' {
   declare module.exports: $Exports<'flow-runtime/lib/annotateValue'>;
@@ -517,28 +535,40 @@ declare module 'flow-runtime/lib/cyclic.js' {
   declare module.exports: $Exports<'flow-runtime/lib/cyclic'>;
 }
 declare module 'flow-runtime/lib/declarations/ClassDeclaration.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/declarations/ClassDeclaration'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/declarations/ClassDeclaration'
+  >;
 }
 declare module 'flow-runtime/lib/declarations/Declaration.js' {
   declare module.exports: $Exports<'flow-runtime/lib/declarations/Declaration'>;
 }
 declare module 'flow-runtime/lib/declarations/ExtendsDeclaration.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/declarations/ExtendsDeclaration'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/declarations/ExtendsDeclaration'
+  >;
 }
 declare module 'flow-runtime/lib/declarations/index.js' {
   declare module.exports: $Exports<'flow-runtime/lib/declarations/index'>;
 }
 declare module 'flow-runtime/lib/declarations/ModuleDeclaration.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/declarations/ModuleDeclaration'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/declarations/ModuleDeclaration'
+  >;
 }
 declare module 'flow-runtime/lib/declarations/ModuleExportsDeclaration.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/declarations/ModuleExportsDeclaration'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/declarations/ModuleExportsDeclaration'
+  >;
 }
 declare module 'flow-runtime/lib/declarations/TypeDeclaration.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/declarations/TypeDeclaration'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/declarations/TypeDeclaration'
+  >;
 }
 declare module 'flow-runtime/lib/declarations/VarDeclaration.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/declarations/VarDeclaration'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/declarations/VarDeclaration'
+  >;
 }
 declare module 'flow-runtime/lib/decorateFunction.js' {
   declare module.exports: $Exports<'flow-runtime/lib/decorateFunction'>;
@@ -547,40 +577,62 @@ declare module 'flow-runtime/lib/decorateFunction.test.js' {
   declare module.exports: $Exports<'flow-runtime/lib/decorateFunction.test'>;
 }
 declare module 'flow-runtime/lib/decorateGeneratorFunction.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/decorateGeneratorFunction'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/decorateGeneratorFunction'
+  >;
 }
 declare module 'flow-runtime/lib/errorMessages.js' {
   declare module.exports: $Exports<'flow-runtime/lib/errorMessages'>;
 }
 declare module 'flow-runtime/lib/errorReporting/__tests__/JSONErrorReporter.test.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/errorReporting/__tests__/JSONErrorReporter.test'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/errorReporting/__tests__/JSONErrorReporter.test'
+  >;
 }
 declare module 'flow-runtime/lib/errorReporting/__tests__/makeJSONError.test.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/errorReporting/__tests__/makeJSONError.test'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/errorReporting/__tests__/makeJSONError.test'
+  >;
 }
 declare module 'flow-runtime/lib/errorReporting/__tests__/makeTypeError.test.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/errorReporting/__tests__/makeTypeError.test'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/errorReporting/__tests__/makeTypeError.test'
+  >;
 }
 declare module 'flow-runtime/lib/errorReporting/__tests__/TypeErrorReporter.test.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/errorReporting/__tests__/TypeErrorReporter.test'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/errorReporting/__tests__/TypeErrorReporter.test'
+  >;
 }
 declare module 'flow-runtime/lib/errorReporting/JSONErrorReporter.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/errorReporting/JSONErrorReporter'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/errorReporting/JSONErrorReporter'
+  >;
 }
 declare module 'flow-runtime/lib/errorReporting/makeJSONError.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/errorReporting/makeJSONError'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/errorReporting/makeJSONError'
+  >;
 }
 declare module 'flow-runtime/lib/errorReporting/makeTypeError.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/errorReporting/makeTypeError'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/errorReporting/makeTypeError'
+  >;
 }
 declare module 'flow-runtime/lib/errorReporting/makeWarningMessage.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/errorReporting/makeWarningMessage'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/errorReporting/makeWarningMessage'
+  >;
 }
 declare module 'flow-runtime/lib/errorReporting/RuntimeTypeError.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/errorReporting/RuntimeTypeError'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/errorReporting/RuntimeTypeError'
+  >;
 }
 declare module 'flow-runtime/lib/errorReporting/TypeErrorReporter.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/errorReporting/TypeErrorReporter'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/errorReporting/TypeErrorReporter'
+  >;
 }
 declare module 'flow-runtime/lib/getErrorMessage.js' {
   declare module.exports: $Exports<'flow-runtime/lib/getErrorMessage'>;
@@ -619,7 +671,9 @@ declare module 'flow-runtime/lib/registerBuiltins.js' {
   declare module.exports: $Exports<'flow-runtime/lib/registerBuiltins'>;
 }
 declare module 'flow-runtime/lib/registerBuiltinTypeHandlers.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/registerBuiltinTypeHandlers'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/registerBuiltinTypeHandlers'
+  >;
 }
 declare module 'flow-runtime/lib/registerPrimitiveTypes.js' {
   declare module.exports: $Exports<'flow-runtime/lib/registerPrimitiveTypes'>;
@@ -679,7 +733,9 @@ declare module 'flow-runtime/lib/types/FunctionTypeParam.js' {
   declare module.exports: $Exports<'flow-runtime/lib/types/FunctionTypeParam'>;
 }
 declare module 'flow-runtime/lib/types/FunctionTypeRestParam.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/types/FunctionTypeRestParam'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/types/FunctionTypeRestParam'
+  >;
 }
 declare module 'flow-runtime/lib/types/FunctionTypeReturn.js' {
   declare module.exports: $Exports<'flow-runtime/lib/types/FunctionTypeReturn'>;
@@ -715,7 +771,9 @@ declare module 'flow-runtime/lib/types/ObjectType.js' {
   declare module.exports: $Exports<'flow-runtime/lib/types/ObjectType'>;
 }
 declare module 'flow-runtime/lib/types/ObjectTypeCallProperty.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/types/ObjectTypeCallProperty'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/types/ObjectTypeCallProperty'
+  >;
 }
 declare module 'flow-runtime/lib/types/ObjectTypeIndexer.js' {
   declare module.exports: $Exports<'flow-runtime/lib/types/ObjectTypeIndexer'>;
@@ -724,10 +782,14 @@ declare module 'flow-runtime/lib/types/ObjectTypeProperty.js' {
   declare module.exports: $Exports<'flow-runtime/lib/types/ObjectTypeProperty'>;
 }
 declare module 'flow-runtime/lib/types/ParameterizedFunctionType.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/types/ParameterizedFunctionType'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/types/ParameterizedFunctionType'
+  >;
 }
 declare module 'flow-runtime/lib/types/ParameterizedTypeAlias.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/types/ParameterizedTypeAlias'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/types/ParameterizedTypeAlias'
+  >;
 }
 declare module 'flow-runtime/lib/types/PartialType.js' {
   declare module.exports: $Exports<'flow-runtime/lib/types/PartialType'>;
@@ -769,7 +831,9 @@ declare module 'flow-runtime/lib/types/TypeParameter.js' {
   declare module.exports: $Exports<'flow-runtime/lib/types/TypeParameter'>;
 }
 declare module 'flow-runtime/lib/types/TypeParameterApplication.js' {
-  declare module.exports: $Exports<'flow-runtime/lib/types/TypeParameterApplication'>;
+  declare module.exports: $Exports<
+    'flow-runtime/lib/types/TypeParameterApplication'
+  >;
 }
 declare module 'flow-runtime/lib/types/TypeReference.js' {
   declare module.exports: $Exports<'flow-runtime/lib/types/TypeReference'>;

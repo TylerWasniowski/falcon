@@ -1235,7 +1235,9 @@ declare module 'stylelint/lib/formatters/jsonFormatter.js' {
   declare module.exports: $Exports<'stylelint/lib/formatters/jsonFormatter'>;
 }
 declare module 'stylelint/lib/formatters/needlessDisablesStringFormatter.js' {
-  declare module.exports: $Exports<'stylelint/lib/formatters/needlessDisablesStringFormatter'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/formatters/needlessDisablesStringFormatter'
+  >;
 }
 declare module 'stylelint/lib/formatters/stringFormatter.js' {
   declare module.exports: $Exports<'stylelint/lib/formatters/stringFormatter'>;
@@ -1283,79 +1285,125 @@ declare module 'stylelint/lib/reference/shorthandData.js' {
   declare module.exports: $Exports<'stylelint/lib/reference/shorthandData'>;
 }
 declare module 'stylelint/lib/rules/at-rule-blacklist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/at-rule-blacklist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/at-rule-blacklist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/at-rule-empty-line-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/at-rule-empty-line-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/at-rule-empty-line-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/at-rule-name-case/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/at-rule-name-case/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/at-rule-name-case/index'
+  >;
 }
 declare module 'stylelint/lib/rules/at-rule-name-newline-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/at-rule-name-newline-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/at-rule-name-newline-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/at-rule-name-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/at-rule-name-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/at-rule-name-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/at-rule-no-unknown/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/at-rule-no-unknown/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/at-rule-no-unknown/index'
+  >;
 }
 declare module 'stylelint/lib/rules/at-rule-no-vendor-prefix/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/at-rule-no-vendor-prefix/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/at-rule-no-vendor-prefix/index'
+  >;
 }
 declare module 'stylelint/lib/rules/at-rule-semicolon-newline-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/at-rule-semicolon-newline-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/at-rule-semicolon-newline-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/at-rule-semicolon-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/at-rule-semicolon-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/at-rule-semicolon-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/at-rule-whitelist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/at-rule-whitelist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/at-rule-whitelist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/atRuleNameSpaceChecker.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/atRuleNameSpaceChecker'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/atRuleNameSpaceChecker'
+  >;
 }
 declare module 'stylelint/lib/rules/block-closing-brace-empty-line-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/block-closing-brace-empty-line-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/block-closing-brace-empty-line-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/block-closing-brace-newline-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/block-closing-brace-newline-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/block-closing-brace-newline-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/block-closing-brace-newline-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/block-closing-brace-newline-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/block-closing-brace-newline-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/block-closing-brace-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/block-closing-brace-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/block-closing-brace-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/block-closing-brace-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/block-closing-brace-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/block-closing-brace-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/block-no-empty/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/block-no-empty/index'>;
 }
 declare module 'stylelint/lib/rules/block-no-single-line/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/block-no-single-line/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/block-no-single-line/index'
+  >;
 }
 declare module 'stylelint/lib/rules/block-opening-brace-newline-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/block-opening-brace-newline-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/block-opening-brace-newline-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/block-opening-brace-newline-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/block-opening-brace-newline-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/block-opening-brace-newline-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/block-opening-brace-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/block-opening-brace-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/block-opening-brace-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/block-opening-brace-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/block-opening-brace-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/block-opening-brace-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/checkRuleEmptyLineBefore.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/checkRuleEmptyLineBefore'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/checkRuleEmptyLineBefore'
+  >;
 }
 declare module 'stylelint/lib/rules/color-hex-case/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/color-hex-case/index'>;
 }
 declare module 'stylelint/lib/rules/color-hex-length/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/color-hex-length/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/color-hex-length/index'
+  >;
 }
 declare module 'stylelint/lib/rules/color-named/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/color-named/index'>;
@@ -1364,169 +1412,277 @@ declare module 'stylelint/lib/rules/color-no-hex/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/color-no-hex/index'>;
 }
 declare module 'stylelint/lib/rules/color-no-invalid-hex/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/color-no-invalid-hex/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/color-no-invalid-hex/index'
+  >;
 }
 declare module 'stylelint/lib/rules/comment-empty-line-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/comment-empty-line-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/comment-empty-line-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/comment-no-empty/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/comment-no-empty/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/comment-no-empty/index'
+  >;
 }
 declare module 'stylelint/lib/rules/comment-whitespace-inside/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/comment-whitespace-inside/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/comment-whitespace-inside/index'
+  >;
 }
 declare module 'stylelint/lib/rules/comment-word-blacklist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/comment-word-blacklist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/comment-word-blacklist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/custom-media-pattern/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/custom-media-pattern/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/custom-media-pattern/index'
+  >;
 }
 declare module 'stylelint/lib/rules/custom-property-empty-line-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/custom-property-empty-line-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/custom-property-empty-line-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/custom-property-no-outside-root/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/custom-property-no-outside-root/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/custom-property-no-outside-root/index'
+  >;
 }
 declare module 'stylelint/lib/rules/custom-property-pattern/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/custom-property-pattern/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/custom-property-pattern/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-bang-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-bang-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-bang-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-bang-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-bang-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-bang-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-block-no-duplicate-properties/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-block-no-duplicate-properties/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-block-no-duplicate-properties/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-block-no-ignored-properties/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-block-no-ignored-properties/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-block-no-ignored-properties/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-block-no-redundant-longhand-properties/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-block-no-redundant-longhand-properties/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-block-no-redundant-longhand-properties/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-block-no-shorthand-property-overrides/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-block-no-shorthand-property-overrides/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-block-no-shorthand-property-overrides/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-block-properties-order/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-block-properties-order/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-block-properties-order/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-block-semicolon-newline-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-block-semicolon-newline-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-block-semicolon-newline-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-block-semicolon-newline-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-block-semicolon-newline-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-block-semicolon-newline-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-block-semicolon-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-block-semicolon-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-block-semicolon-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-block-semicolon-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-block-semicolon-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-block-semicolon-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-block-single-line-max-declarations/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-block-single-line-max-declarations/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-block-single-line-max-declarations/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-block-trailing-semicolon/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-block-trailing-semicolon/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-block-trailing-semicolon/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-colon-newline-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-colon-newline-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-colon-newline-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-colon-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-colon-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-colon-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-colon-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-colon-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-colon-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-empty-line-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-empty-line-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-empty-line-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-no-important/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-no-important/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-no-important/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-property-unit-blacklist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-property-unit-blacklist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-property-unit-blacklist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-property-unit-whitelist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-property-unit-whitelist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-property-unit-whitelist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-property-value-blacklist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-property-value-blacklist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-property-value-blacklist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declaration-property-value-whitelist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declaration-property-value-whitelist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declaration-property-value-whitelist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/declarationBangSpaceChecker.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declarationBangSpaceChecker'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declarationBangSpaceChecker'
+  >;
 }
 declare module 'stylelint/lib/rules/declarationColonSpaceChecker.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/declarationColonSpaceChecker'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/declarationColonSpaceChecker'
+  >;
 }
 declare module 'stylelint/lib/rules/findMediaOperator.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/findMediaOperator'>;
 }
 declare module 'stylelint/lib/rules/font-family-name-quotes/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/font-family-name-quotes/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/font-family-name-quotes/index'
+  >;
 }
 declare module 'stylelint/lib/rules/font-family-no-duplicate-names/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/font-family-no-duplicate-names/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/font-family-no-duplicate-names/index'
+  >;
 }
 declare module 'stylelint/lib/rules/font-weight-notation/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/font-weight-notation/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/font-weight-notation/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-blacklist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-blacklist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-blacklist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-calc-no-unspaced-operator/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-calc-no-unspaced-operator/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-calc-no-unspaced-operator/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-comma-newline-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-comma-newline-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-comma-newline-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-comma-newline-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-comma-newline-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-comma-newline-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-comma-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-comma-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-comma-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-comma-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-comma-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-comma-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-linear-gradient-no-nonstandard-direction/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-linear-gradient-no-nonstandard-direction/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-linear-gradient-no-nonstandard-direction/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-max-empty-lines/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-max-empty-lines/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-max-empty-lines/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-name-case/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-name-case/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-name-case/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-parentheses-newline-inside/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-parentheses-newline-inside/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-parentheses-newline-inside/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-parentheses-space-inside/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-parentheses-space-inside/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-parentheses-space-inside/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-url-data-uris/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-url-data-uris/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-url-data-uris/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-url-no-scheme-relative/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-url-no-scheme-relative/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-url-no-scheme-relative/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-url-quotes/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-url-quotes/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-url-quotes/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-url-scheme-whitelist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-url-scheme-whitelist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-url-scheme-whitelist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-whitelist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-whitelist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-whitelist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/function-whitespace-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/function-whitespace-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/function-whitespace-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/functionCommaSpaceChecker.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/functionCommaSpaceChecker'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/functionCommaSpaceChecker'
+  >;
 }
 declare module 'stylelint/lib/rules/indentation/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/indentation/index'>;
@@ -1535,10 +1691,14 @@ declare module 'stylelint/lib/rules/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/index'>;
 }
 declare module 'stylelint/lib/rules/keyframe-declaration-no-important/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/keyframe-declaration-no-important/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/keyframe-declaration-no-important/index'
+  >;
 }
 declare module 'stylelint/lib/rules/length-zero-no-unit/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/length-zero-no-unit/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/length-zero-no-unit/index'
+  >;
 }
 declare module 'stylelint/lib/rules/max-empty-lines/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/max-empty-lines/index'>;
@@ -1547,271 +1707,441 @@ declare module 'stylelint/lib/rules/max-line-length/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/max-line-length/index'>;
 }
 declare module 'stylelint/lib/rules/max-nesting-depth/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/max-nesting-depth/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/max-nesting-depth/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-feature-colon-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-feature-colon-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-feature-colon-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-feature-colon-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-feature-colon-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-feature-colon-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-feature-name-blacklist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-feature-name-blacklist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-feature-name-blacklist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-feature-name-case/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-feature-name-case/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-feature-name-case/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-feature-name-no-unknown/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-feature-name-no-unknown/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-feature-name-no-unknown/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-feature-name-no-vendor-prefix/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-feature-name-no-vendor-prefix/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-feature-name-no-vendor-prefix/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-feature-name-whitelist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-feature-name-whitelist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-feature-name-whitelist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-feature-no-missing-punctuation/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-feature-no-missing-punctuation/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-feature-no-missing-punctuation/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-feature-parentheses-space-inside/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-feature-parentheses-space-inside/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-feature-parentheses-space-inside/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-feature-range-operator-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-feature-range-operator-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-feature-range-operator-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-feature-range-operator-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-feature-range-operator-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-feature-range-operator-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-query-list-comma-newline-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-query-list-comma-newline-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-query-list-comma-newline-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-query-list-comma-newline-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-query-list-comma-newline-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-query-list-comma-newline-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-query-list-comma-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-query-list-comma-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-query-list-comma-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/media-query-list-comma-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/media-query-list-comma-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/media-query-list-comma-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/mediaFeatureColonSpaceChecker.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/mediaFeatureColonSpaceChecker'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/mediaFeatureColonSpaceChecker'
+  >;
 }
 declare module 'stylelint/lib/rules/mediaQueryListCommaWhitespaceChecker.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/mediaQueryListCommaWhitespaceChecker'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/mediaQueryListCommaWhitespaceChecker'
+  >;
 }
 declare module 'stylelint/lib/rules/no-browser-hacks/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/no-browser-hacks/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/no-browser-hacks/index'
+  >;
 }
 declare module 'stylelint/lib/rules/no-descending-specificity/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/no-descending-specificity/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/no-descending-specificity/index'
+  >;
 }
 declare module 'stylelint/lib/rules/no-duplicate-selectors/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/no-duplicate-selectors/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/no-duplicate-selectors/index'
+  >;
 }
 declare module 'stylelint/lib/rules/no-empty-source/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/no-empty-source/index'>;
 }
 declare module 'stylelint/lib/rules/no-eol-whitespace/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/no-eol-whitespace/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/no-eol-whitespace/index'
+  >;
 }
 declare module 'stylelint/lib/rules/no-extra-semicolons/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/no-extra-semicolons/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/no-extra-semicolons/index'
+  >;
 }
 declare module 'stylelint/lib/rules/no-indistinguishable-colors/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/no-indistinguishable-colors/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/no-indistinguishable-colors/index'
+  >;
 }
 declare module 'stylelint/lib/rules/no-invalid-double-slash-comments/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/no-invalid-double-slash-comments/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/no-invalid-double-slash-comments/index'
+  >;
 }
 declare module 'stylelint/lib/rules/no-missing-end-of-source-newline/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/no-missing-end-of-source-newline/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/no-missing-end-of-source-newline/index'
+  >;
 }
 declare module 'stylelint/lib/rules/no-unknown-animations/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/no-unknown-animations/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/no-unknown-animations/index'
+  >;
 }
 declare module 'stylelint/lib/rules/no-unsupported-browser-features/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/no-unsupported-browser-features/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/no-unsupported-browser-features/index'
+  >;
 }
 declare module 'stylelint/lib/rules/number-leading-zero/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/number-leading-zero/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/number-leading-zero/index'
+  >;
 }
 declare module 'stylelint/lib/rules/number-max-precision/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/number-max-precision/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/number-max-precision/index'
+  >;
 }
 declare module 'stylelint/lib/rules/number-no-trailing-zeros/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/number-no-trailing-zeros/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/number-no-trailing-zeros/index'
+  >;
 }
 declare module 'stylelint/lib/rules/property-blacklist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/property-blacklist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/property-blacklist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/property-case/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/property-case/index'>;
 }
 declare module 'stylelint/lib/rules/property-no-unknown/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/property-no-unknown/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/property-no-unknown/index'
+  >;
 }
 declare module 'stylelint/lib/rules/property-no-vendor-prefix/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/property-no-vendor-prefix/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/property-no-vendor-prefix/index'
+  >;
 }
 declare module 'stylelint/lib/rules/property-whitelist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/property-whitelist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/property-whitelist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/root-no-standard-properties/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/root-no-standard-properties/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/root-no-standard-properties/index'
+  >;
 }
 declare module 'stylelint/lib/rules/rule-empty-line-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/rule-empty-line-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/rule-empty-line-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/rule-nested-empty-line-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/rule-nested-empty-line-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/rule-nested-empty-line-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/rule-non-nested-empty-line-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/rule-non-nested-empty-line-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/rule-non-nested-empty-line-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-attribute-brackets-space-inside/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-attribute-brackets-space-inside/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-attribute-brackets-space-inside/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-attribute-operator-blacklist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-attribute-operator-blacklist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-attribute-operator-blacklist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-attribute-operator-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-attribute-operator-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-attribute-operator-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-attribute-operator-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-attribute-operator-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-attribute-operator-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-attribute-operator-whitelist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-attribute-operator-whitelist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-attribute-operator-whitelist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-attribute-quotes/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-attribute-quotes/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-attribute-quotes/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-class-pattern/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-class-pattern/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-class-pattern/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-combinator-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-combinator-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-combinator-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-combinator-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-combinator-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-combinator-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-descendant-combinator-no-non-space/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-descendant-combinator-no-non-space/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-descendant-combinator-no-non-space/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-id-pattern/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-id-pattern/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-id-pattern/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-list-comma-newline-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-list-comma-newline-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-list-comma-newline-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-list-comma-newline-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-list-comma-newline-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-list-comma-newline-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-list-comma-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-list-comma-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-list-comma-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-list-comma-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-list-comma-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-list-comma-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-max-class/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-max-class/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-max-class/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-max-compound-selectors/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-max-compound-selectors/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-max-compound-selectors/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-max-empty-lines/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-max-empty-lines/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-max-empty-lines/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-max-specificity/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-max-specificity/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-max-specificity/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-nested-pattern/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-nested-pattern/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-nested-pattern/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-no-attribute/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-no-attribute/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-no-attribute/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-no-combinator/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-no-combinator/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-no-combinator/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-no-empty/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-no-empty/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-no-empty/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-no-id/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/selector-no-id/index'>;
 }
 declare module 'stylelint/lib/rules/selector-no-qualifying-type/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-no-qualifying-type/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-no-qualifying-type/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-no-type/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-no-type/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-no-type/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-no-universal/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-no-universal/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-no-universal/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-no-vendor-prefix/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-no-vendor-prefix/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-no-vendor-prefix/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-pseudo-class-blacklist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-pseudo-class-blacklist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-pseudo-class-blacklist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-pseudo-class-case/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-pseudo-class-case/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-pseudo-class-case/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-pseudo-class-no-unknown/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-pseudo-class-no-unknown/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-pseudo-class-no-unknown/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-pseudo-class-parentheses-space-inside/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-pseudo-class-parentheses-space-inside/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-pseudo-class-parentheses-space-inside/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-pseudo-class-whitelist/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-pseudo-class-whitelist/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-pseudo-class-whitelist/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-pseudo-element-case/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-pseudo-element-case/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-pseudo-element-case/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-pseudo-element-colon-notation/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-pseudo-element-colon-notation/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-pseudo-element-colon-notation/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-pseudo-element-no-unknown/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-pseudo-element-no-unknown/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-pseudo-element-no-unknown/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-root-no-composition/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-root-no-composition/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-root-no-composition/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-type-case/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-type-case/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-type-case/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selector-type-no-unknown/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selector-type-no-unknown/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selector-type-no-unknown/index'
+  >;
 }
 declare module 'stylelint/lib/rules/selectorAttributeOperatorSpaceChecker.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selectorAttributeOperatorSpaceChecker'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selectorAttributeOperatorSpaceChecker'
+  >;
 }
 declare module 'stylelint/lib/rules/selectorCombinatorSpaceChecker.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selectorCombinatorSpaceChecker'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selectorCombinatorSpaceChecker'
+  >;
 }
 declare module 'stylelint/lib/rules/selectorListCommaWhitespaceChecker.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/selectorListCommaWhitespaceChecker'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/selectorListCommaWhitespaceChecker'
+  >;
 }
 declare module 'stylelint/lib/rules/shorthand-property-no-redundant-values/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/shorthand-property-no-redundant-values/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/shorthand-property-no-redundant-values/index'
+  >;
 }
 declare module 'stylelint/lib/rules/string-no-newline/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/string-no-newline/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/string-no-newline/index'
+  >;
 }
 declare module 'stylelint/lib/rules/string-quotes/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/string-quotes/index'>;
 }
 declare module 'stylelint/lib/rules/stylelint-disable-reason/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/stylelint-disable-reason/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/stylelint-disable-reason/index'
+  >;
 }
 declare module 'stylelint/lib/rules/time-min-milliseconds/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/time-min-milliseconds/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/time-min-milliseconds/index'
+  >;
 }
 declare module 'stylelint/lib/rules/time-no-imperceptible/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/time-no-imperceptible/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/time-no-imperceptible/index'
+  >;
 }
 declare module 'stylelint/lib/rules/unit-blacklist/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/unit-blacklist/index'>;
@@ -1826,28 +2156,44 @@ declare module 'stylelint/lib/rules/unit-whitelist/index.js' {
   declare module.exports: $Exports<'stylelint/lib/rules/unit-whitelist/index'>;
 }
 declare module 'stylelint/lib/rules/value-keyword-case/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/value-keyword-case/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/value-keyword-case/index'
+  >;
 }
 declare module 'stylelint/lib/rules/value-list-comma-newline-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/value-list-comma-newline-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/value-list-comma-newline-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/value-list-comma-newline-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/value-list-comma-newline-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/value-list-comma-newline-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/value-list-comma-space-after/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/value-list-comma-space-after/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/value-list-comma-space-after/index'
+  >;
 }
 declare module 'stylelint/lib/rules/value-list-comma-space-before/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/value-list-comma-space-before/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/value-list-comma-space-before/index'
+  >;
 }
 declare module 'stylelint/lib/rules/value-list-max-empty-lines/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/value-list-max-empty-lines/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/value-list-max-empty-lines/index'
+  >;
 }
 declare module 'stylelint/lib/rules/value-no-vendor-prefix/index.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/value-no-vendor-prefix/index'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/value-no-vendor-prefix/index'
+  >;
 }
 declare module 'stylelint/lib/rules/valueListCommaWhitespaceChecker.js' {
-  declare module.exports: $Exports<'stylelint/lib/rules/valueListCommaWhitespaceChecker'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/rules/valueListCommaWhitespaceChecker'
+  >;
 }
 declare module 'stylelint/lib/standalone.js' {
   declare module.exports: $Exports<'stylelint/lib/standalone'>;
@@ -1859,7 +2205,9 @@ declare module 'stylelint/lib/testUtils/createRuleTester.js' {
   declare module.exports: $Exports<'stylelint/lib/testUtils/createRuleTester'>;
 }
 declare module 'stylelint/lib/testUtils/mergeTestDescriptions.js' {
-  declare module.exports: $Exports<'stylelint/lib/testUtils/mergeTestDescriptions'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/testUtils/mergeTestDescriptions'
+  >;
 }
 declare module 'stylelint/lib/utils/addEmptyLineBefore.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/addEmptyLineBefore'>;
@@ -1910,7 +2258,9 @@ declare module 'stylelint/lib/utils/findListStyleType.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/findListStyleType'>;
 }
 declare module 'stylelint/lib/utils/functionArgumentsSearch.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/functionArgumentsSearch'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/functionArgumentsSearch'
+  >;
 }
 declare module 'stylelint/lib/utils/getCacheFile.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/getCacheFile'>;
@@ -1955,10 +2305,14 @@ declare module 'stylelint/lib/utils/isAutoprefixable.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/isAutoprefixable'>;
 }
 declare module 'stylelint/lib/utils/isCounterIncrementCustomIdentValue.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/isCounterIncrementCustomIdentValue'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/isCounterIncrementCustomIdentValue'
+  >;
 }
 declare module 'stylelint/lib/utils/isCounterResetCustomIdentValue.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/isCounterResetCustomIdentValue'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/isCounterResetCustomIdentValue'
+  >;
 }
 declare module 'stylelint/lib/utils/isCustomElement.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/isCustomElement'>;
@@ -1988,37 +2342,55 @@ declare module 'stylelint/lib/utils/isOnlyWhitespace.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/isOnlyWhitespace'>;
 }
 declare module 'stylelint/lib/utils/isRangeContextMediaFeature.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/isRangeContextMediaFeature'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/isRangeContextMediaFeature'
+  >;
 }
 declare module 'stylelint/lib/utils/isSingleLineString.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/isSingleLineString'>;
 }
 declare module 'stylelint/lib/utils/isStandardSyntaxAtRule.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/isStandardSyntaxAtRule'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/isStandardSyntaxAtRule'
+  >;
 }
 declare module 'stylelint/lib/utils/isStandardSyntaxDeclaration.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/isStandardSyntaxDeclaration'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/isStandardSyntaxDeclaration'
+  >;
 }
 declare module 'stylelint/lib/utils/isStandardSyntaxFunction.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/isStandardSyntaxFunction'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/isStandardSyntaxFunction'
+  >;
 }
 declare module 'stylelint/lib/utils/isStandardSyntaxMediaFeature.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/isStandardSyntaxMediaFeature'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/isStandardSyntaxMediaFeature'
+  >;
 }
 declare module 'stylelint/lib/utils/isStandardSyntaxMediaFeatureName.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/isStandardSyntaxMediaFeatureName'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/isStandardSyntaxMediaFeatureName'
+  >;
 }
 declare module 'stylelint/lib/utils/isStandardSyntaxProperty.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/isStandardSyntaxProperty'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/isStandardSyntaxProperty'
+  >;
 }
 declare module 'stylelint/lib/utils/isStandardSyntaxRule.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/isStandardSyntaxRule'>;
 }
 declare module 'stylelint/lib/utils/isStandardSyntaxSelector.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/isStandardSyntaxSelector'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/isStandardSyntaxSelector'
+  >;
 }
 declare module 'stylelint/lib/utils/isStandardSyntaxTypeSelector.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/isStandardSyntaxTypeSelector'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/isStandardSyntaxTypeSelector'
+  >;
 }
 declare module 'stylelint/lib/utils/isStandardSyntaxUrl.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/isStandardSyntaxUrl'>;
@@ -2057,7 +2429,9 @@ declare module 'stylelint/lib/utils/rawNodeString.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/rawNodeString'>;
 }
 declare module 'stylelint/lib/utils/removeEmptyLinesBefore.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/removeEmptyLinesBefore'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/removeEmptyLinesBefore'
+  >;
 }
 declare module 'stylelint/lib/utils/report.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/report'>;
@@ -2066,7 +2440,9 @@ declare module 'stylelint/lib/utils/ruleMessages.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/ruleMessages'>;
 }
 declare module 'stylelint/lib/utils/validateObjectWithStringArrayProps.js' {
-  declare module.exports: $Exports<'stylelint/lib/utils/validateObjectWithStringArrayProps'>;
+  declare module.exports: $Exports<
+    'stylelint/lib/utils/validateObjectWithStringArrayProps'
+  >;
 }
 declare module 'stylelint/lib/utils/validateOptions.js' {
   declare module.exports: $Exports<'stylelint/lib/utils/validateOptions'>;

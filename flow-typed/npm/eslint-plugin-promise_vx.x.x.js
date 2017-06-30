@@ -104,28 +104,44 @@ declare module 'eslint-plugin-promise/rules/avoid-new.js' {
   declare module.exports: $Exports<'eslint-plugin-promise/rules/avoid-new'>;
 }
 declare module 'eslint-plugin-promise/rules/catch-or-return.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/catch-or-return'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/catch-or-return'
+  >;
 }
 declare module 'eslint-plugin-promise/rules/lib/has-promise-callback.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/lib/has-promise-callback'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/lib/has-promise-callback'
+  >;
 }
 declare module 'eslint-plugin-promise/rules/lib/is-callback.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/lib/is-callback'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/lib/is-callback'
+  >;
 }
 declare module 'eslint-plugin-promise/rules/lib/is-inside-callback.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/lib/is-inside-callback'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/lib/is-inside-callback'
+  >;
 }
 declare module 'eslint-plugin-promise/rules/lib/is-inside-promise.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/lib/is-inside-promise'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/lib/is-inside-promise'
+  >;
 }
 declare module 'eslint-plugin-promise/rules/lib/is-named-callback.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/lib/is-named-callback'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/lib/is-named-callback'
+  >;
 }
 declare module 'eslint-plugin-promise/rules/lib/is-promise.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/lib/is-promise'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/lib/is-promise'
+  >;
 }
 declare module 'eslint-plugin-promise/rules/no-callback-in-promise.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/no-callback-in-promise'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/no-callback-in-promise'
+  >;
 }
 declare module 'eslint-plugin-promise/rules/no-native.js' {
   declare module.exports: $Exports<'eslint-plugin-promise/rules/no-native'>;
@@ -134,17 +150,25 @@ declare module 'eslint-plugin-promise/rules/no-nesting.js' {
   declare module.exports: $Exports<'eslint-plugin-promise/rules/no-nesting'>;
 }
 declare module 'eslint-plugin-promise/rules/no-promise-in-callback.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/no-promise-in-callback'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/no-promise-in-callback'
+  >;
 }
 declare module 'eslint-plugin-promise/rules/no-return-wrap.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/no-return-wrap'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/no-return-wrap'
+  >;
 }
 declare module 'eslint-plugin-promise/rules/param-names.js' {
   declare module.exports: $Exports<'eslint-plugin-promise/rules/param-names'>;
 }
 declare module 'eslint-plugin-promise/rules/prefer-await-to-callbacks.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/prefer-await-to-callbacks'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/prefer-await-to-callbacks'
+  >;
 }
 declare module 'eslint-plugin-promise/rules/prefer-await-to-then.js' {
-  declare module.exports: $Exports<'eslint-plugin-promise/rules/prefer-await-to-then'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-promise/rules/prefer-await-to-then'
+  >;
 }

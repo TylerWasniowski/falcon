@@ -234,7 +234,9 @@ declare module 'electron-builder/out/cli/cliOptions.js' {
   declare module.exports: $Exports<'electron-builder/out/cli/cliOptions'>;
 }
 declare module 'electron-builder/out/cli/create-self-signed-cert.js' {
-  declare module.exports: $Exports<'electron-builder/out/cli/create-self-signed-cert'>;
+  declare module.exports: $Exports<
+    'electron-builder/out/cli/create-self-signed-cert'
+  >;
 }
 declare module 'electron-builder/out/cli/install-app-deps.js' {
   declare module.exports: $Exports<'electron-builder/out/cli/install-app-deps'>;
@@ -294,7 +296,9 @@ declare module 'electron-builder/out/platformPackager.js' {
   declare module.exports: $Exports<'electron-builder/out/platformPackager'>;
 }
 declare module 'electron-builder/out/publish/PublishManager.js' {
-  declare module.exports: $Exports<'electron-builder/out/publish/PublishManager'>;
+  declare module.exports: $Exports<
+    'electron-builder/out/publish/PublishManager'
+  >;
 }
 declare module 'electron-builder/out/readInstalled.js' {
   declare module.exports: $Exports<'electron-builder/out/readInstalled'>;
@@ -312,7 +316,9 @@ declare module 'electron-builder/out/targets/archive.js' {
   declare module.exports: $Exports<'electron-builder/out/targets/archive'>;
 }
 declare module 'electron-builder/out/targets/ArchiveTarget.js' {
-  declare module.exports: $Exports<'electron-builder/out/targets/ArchiveTarget'>;
+  declare module.exports: $Exports<
+    'electron-builder/out/targets/ArchiveTarget'
+  >;
 }
 declare module 'electron-builder/out/targets/dmg.js' {
   declare module.exports: $Exports<'electron-builder/out/targets/dmg'>;
@@ -327,7 +333,9 @@ declare module 'electron-builder/out/targets/license.js' {
   declare module.exports: $Exports<'electron-builder/out/targets/license'>;
 }
 declare module 'electron-builder/out/targets/LinuxTargetHelper.js' {
-  declare module.exports: $Exports<'electron-builder/out/targets/LinuxTargetHelper'>;
+  declare module.exports: $Exports<
+    'electron-builder/out/targets/LinuxTargetHelper'
+  >;
 }
 declare module 'electron-builder/out/targets/nsis.js' {
   declare module.exports: $Exports<'electron-builder/out/targets/nsis'>;
@@ -339,10 +347,14 @@ declare module 'electron-builder/out/targets/snap.js' {
   declare module.exports: $Exports<'electron-builder/out/targets/snap'>;
 }
 declare module 'electron-builder/out/targets/targetFactory.js' {
-  declare module.exports: $Exports<'electron-builder/out/targets/targetFactory'>;
+  declare module.exports: $Exports<
+    'electron-builder/out/targets/targetFactory'
+  >;
 }
 declare module 'electron-builder/out/targets/WebInstallerTarget.js' {
-  declare module.exports: $Exports<'electron-builder/out/targets/WebInstallerTarget'>;
+  declare module.exports: $Exports<
+    'electron-builder/out/targets/WebInstallerTarget'
+  >;
 }
 declare module 'electron-builder/out/util/filter.js' {
   declare module.exports: $Exports<'electron-builder/out/util/filter'>;

@@ -36,7 +36,9 @@ declare module 'extract-text-webpack-plugin/OrderUndefinedError' {
 
 // Filename aliases
 declare module 'extract-text-webpack-plugin/ExtractedModule.js' {
-  declare module.exports: $Exports<'extract-text-webpack-plugin/ExtractedModule'>;
+  declare module.exports: $Exports<
+    'extract-text-webpack-plugin/ExtractedModule'
+  >;
 }
 declare module 'extract-text-webpack-plugin/index' {
   declare module.exports: $Exports<'extract-text-webpack-plugin'>;
@@ -48,5 +50,7 @@ declare module 'extract-text-webpack-plugin/loader.js' {
   declare module.exports: $Exports<'extract-text-webpack-plugin/loader'>;
 }
 declare module 'extract-text-webpack-plugin/OrderUndefinedError.js' {
-  declare module.exports: $Exports<'extract-text-webpack-plugin/OrderUndefinedError'>;
+  declare module.exports: $Exports<
+    'extract-text-webpack-plugin/OrderUndefinedError'
+  >;
 }

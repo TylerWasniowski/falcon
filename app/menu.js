@@ -170,14 +170,18 @@ export default class MenuBuilder {
           click: async () => {
             const exportPath = dialog.showSaveDialog(this.mainWindow, {
               filters: [
-                { name: 'json', extensions: ['json'] },
-                { name: 'csv', extensions: ['csv'] }
-              ]
+                { name: 'JSON', extensions: ['json'] },
+                { name: 'CSV', extensions: ['csv'] }
+              ],
+              title: 'Export a database',
+              // @TODO: Change foo to current database table
+              defaultPath: '~/foo.csv'
             });
-            const fileType = exportPath.substring(
+            const fileType: 'json' | 'csv' = exportPath.substring(
               exportPath.lastIndexOf('.') + 1
             );
             await exportFile(fileType, exportPath, {
+              // @TODO: HARDCODE
               table: 'albums'
             });
           }

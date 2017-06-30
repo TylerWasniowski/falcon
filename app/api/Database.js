@@ -1,9 +1,13 @@
 // @flow
 import { db } from 'falcon-core';
 import path from 'path';
+
 import type { exportOptionsType, ProviderInterfaceType } from 'falcon-core';
 import type { DatabaseType } from '../types/DatabaseType';
 
+// const electron = require('electron');
+// console.log(electron);
+// console.log(electron.remote);
 /**
  * @TODO: Make this the default export. Classese are a better choice for
  *        database connections, which are stateful. They require a constant
@@ -49,10 +53,10 @@ export class Database {
    * @HACK: The database is temporarily hardcoded to a fixed sqlite database.
    *        This is just for demo purposes for the time being
    */
-  constructor() {
+  constructor(databasePath: string) {
     this.config = {
       serverInfo: {
-        database: path.join('app', 'demo.sqlite'),
+        database: databasePath,
         client: 'sqlite'
       }
     };
@@ -81,8 +85,9 @@ export class Database {
 // @TODO: Gets and returns an object to be used to set the state of Home
 //        - How will ordering of databases and tables be dealt with? This
 //          example is only given one database, so doesn't deal with it
-async function getDatabases(): Promise<Array<DatabaseType>> {
-  const databasePath = path.join('app', 'demo.sqlite');
+async function getDatabases(
+  databasePath: string
+): Promise<Array<DatabaseType>> {
   const serverInfo = {
     database: databasePath,
     client: 'sqlite'

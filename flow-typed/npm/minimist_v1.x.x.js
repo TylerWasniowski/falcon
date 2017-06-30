@@ -18,5 +18,8 @@ declare module 'minimist' {
     [flag: string]: string | boolean
   };
 
-  declare module.exports: (argv: Array<string>, opts?: minimistOptions) => minimistOutput;
+  declare module.exports: (
+    argv: Array<string>,
+    opts?: minimistOptions
+  ) => minimistOutput;
 }

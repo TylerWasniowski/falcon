@@ -51,7 +51,9 @@ declare module 'boiler-room-custodian/app/modules/config.js' {
   declare module.exports: $Exports<'boiler-room-custodian/app/modules/config'>;
 }
 declare module 'boiler-room-custodian/app/modules/file-ops.js' {
-  declare module.exports: $Exports<'boiler-room-custodian/app/modules/file-ops'>;
+  declare module.exports: $Exports<
+    'boiler-room-custodian/app/modules/file-ops'
+  >;
 }
 declare module 'boiler-room-custodian/app/mop.js' {
   declare module.exports: $Exports<'boiler-room-custodian/app/mop'>;

@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Button } from 'antd';
 import { Link } from 'react-router-dom';
+import { remote } from 'electron';
 import GridWrapper from './GridWrapper';
 import Query from './Query';
 import getDatabases from '../api/Database';
@@ -9,11 +10,15 @@ import type { DatabaseType } from '../types/DatabaseType';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
+const { dialog } = remote;
 
+// @TODO: Home/Falcon's state can only deal with one database at a time
+//        because of this.state.databasePath
 export default class HomePage extends Component {
   state: {
     selectedTableName: ?string,
-    databases: Array<DatabaseType>,
+    databasePath: ?string,
+    databases: ?Array<DatabaseType>,
     showQuery: boolean
   };
 
@@ -23,18 +28,24 @@ export default class HomePage extends Component {
     super(props);
     this.state = {
       selectedTableName: null,
+      databasePath: null,
       databases: [],
       showQuery: false
     };
   }
 
-  async setDatabaseResults() {
-    const databases = await getDatabases();
+  setDatabaseResults = async () => {
+    const filePath = dialog.showOpenDialog({
+      filters: [{ name: 'SQLite', extensions: ['sqlite', 'db'] }],
+      title: 'Set a database'
+    })[0];
+    const databases = await getDatabases(filePath);
     this.setState({
       databases,
-      selectedTableName: 'albums'
+      selectedTableName: databases[0].tables[0].tableName,
+      databasePath: filePath
     });
-  }
+  };
 
   onSelectedTableNameChange(subMenu: SubMenu, self: HomePage) {
     if (!self.didMount) {
@@ -49,7 +60,6 @@ export default class HomePage extends Component {
 
   componentDidMount() {
     this.didMount = true;
-    this.setDatabaseResults();
   }
 
   componentWillUnmount() {
@@ -57,6 +67,20 @@ export default class HomePage extends Component {
   }
 
   render() {
+    if (!(this.state.databases && this.state.selectedTableName)) {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '50vh'
+          }}
+        >
+          <Button onClick={this.setDatabaseResults}>Set a database</Button>
+        </div>
+      );
+    }
     return (
       <div>
         <Layout>
@@ -87,9 +111,7 @@ export default class HomePage extends Component {
                 width={200}
                 style={{
                   background: '#fff',
-                  /**
-                  * @TODO: height: 80vh is a hack for sidebar to fill space
-                  */
+                  // @TODO: height: 80vh is a hack for sidebar to fill space
                   overflow: 'auto',
                   height: '78vh'
                 }}
@@ -125,8 +147,9 @@ export default class HomePage extends Component {
                 </Menu>
               </Sider>
               <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                {(this.state.showQuery && <Query />) ||
-                  <GridWrapper
+                {this.state.showQuery
+                  ? <Query databasePath={this.state.databasePath} />
+                  : <GridWrapper
                     databases={this.state.databases}
                     selectedTableName={this.state.selectedTableName}
                   />}

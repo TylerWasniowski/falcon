@@ -60,7 +60,9 @@ declare module 'eslint-plugin-compat/lib/Versioning' {
 
 // Filename aliases
 declare module 'eslint-plugin-compat/lib/config/recommended.js' {
-  declare module.exports: $Exports<'eslint-plugin-compat/lib/config/recommended'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-compat/lib/config/recommended'
+  >;
 }
 declare module 'eslint-plugin-compat/lib/index.js' {
   declare module.exports: $Exports<'eslint-plugin-compat/lib/index'>;
@@ -72,13 +74,17 @@ declare module 'eslint-plugin-compat/lib/LintTypes.js' {
   declare module.exports: $Exports<'eslint-plugin-compat/lib/LintTypes'>;
 }
 declare module 'eslint-plugin-compat/lib/providers/CanIUseProvider.js' {
-  declare module.exports: $Exports<'eslint-plugin-compat/lib/providers/CanIUseProvider'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-compat/lib/providers/CanIUseProvider'
+  >;
 }
 declare module 'eslint-plugin-compat/lib/providers/index.js' {
   declare module.exports: $Exports<'eslint-plugin-compat/lib/providers/index'>;
 }
 declare module 'eslint-plugin-compat/lib/providers/KangaxProvider.js' {
-  declare module.exports: $Exports<'eslint-plugin-compat/lib/providers/KangaxProvider'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-compat/lib/providers/KangaxProvider'
+  >;
 }
 declare module 'eslint-plugin-compat/lib/rules/compat.js' {
   declare module.exports: $Exports<'eslint-plugin-compat/lib/rules/compat'>;
