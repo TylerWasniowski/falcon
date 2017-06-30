@@ -1163,7 +1163,9 @@ declare module 'uglify-js/test/input/issue-1431/sample.js' {
   declare module.exports: $Exports<'uglify-js/test/input/issue-1431/sample'>;
 }
 declare module 'uglify-js/test/input/issue-1482/bracketize.js' {
-  declare module.exports: $Exports<'uglify-js/test/input/issue-1482/bracketize'>;
+  declare module.exports: $Exports<
+    'uglify-js/test/input/issue-1482/bracketize'
+  >;
 }
 declare module 'uglify-js/test/input/issue-1482/default.js' {
   declare module.exports: $Exports<'uglify-js/test/input/issue-1482/default'>;
@@ -1172,7 +1174,9 @@ declare module 'uglify-js/test/input/issue-1482/input.js' {
   declare module.exports: $Exports<'uglify-js/test/input/issue-1482/input'>;
 }
 declare module 'uglify-js/test/input/issue-1632/^{foo}[bar](baz)+$.js' {
-  declare module.exports: $Exports<'uglify-js/test/input/issue-1632/^{foo}[bar](baz)+$'>;
+  declare module.exports: $Exports<
+    'uglify-js/test/input/issue-1632/^{foo}[bar](baz)+$'
+  >;
 }
 declare module 'uglify-js/test/input/issue-520/input.js' {
   declare module.exports: $Exports<'uglify-js/test/input/issue-520/input'>;
@@ -1205,7 +1209,9 @@ declare module 'uglify-js/test/mocha/cli.js' {
   declare module.exports: $Exports<'uglify-js/test/mocha/cli'>;
 }
 declare module 'uglify-js/test/mocha/comment_before_constant.js' {
-  declare module.exports: $Exports<'uglify-js/test/mocha/comment_before_constant'>;
+  declare module.exports: $Exports<
+    'uglify-js/test/mocha/comment_before_constant'
+  >;
 }
 declare module 'uglify-js/test/mocha/comment-filter.js' {
   declare module.exports: $Exports<'uglify-js/test/mocha/comment-filter'>;
@@ -1238,7 +1244,9 @@ declare module 'uglify-js/test/mocha/glob.js' {
   declare module.exports: $Exports<'uglify-js/test/mocha/glob'>;
 }
 declare module 'uglify-js/test/mocha/huge-number-of-comments.js' {
-  declare module.exports: $Exports<'uglify-js/test/mocha/huge-number-of-comments'>;
+  declare module.exports: $Exports<
+    'uglify-js/test/mocha/huge-number-of-comments'
+  >;
 }
 declare module 'uglify-js/test/mocha/input-sourcemaps.js' {
   declare module.exports: $Exports<'uglify-js/test/mocha/input-sourcemaps'>;

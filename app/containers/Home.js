@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Button } from 'antd';
 import { Link } from 'react-router-dom';
+import { remote } from 'electron';
 import GridWrapper from './GridWrapper';
 import Query from './Query';
 import getDatabases from '../api/Database';
@@ -9,6 +10,7 @@ import type { DatabaseType } from '../types/DatabaseType';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
+const { dialog } = remote;
 
 export default class HomePage extends Component {
   state: {
@@ -28,12 +30,13 @@ export default class HomePage extends Component {
     };
   }
 
-  async setDatabaseResults() {
-    const databases = await getDatabases();
-    this.setState({
-      databases,
-      selectedTableName: 'albums'
+  setDatabaseResults = async () => {
+    const filePath = dialog.showOpenDialog({
+      filters: [{ name: 'SQLite', extensions: ['sqlite'] }],
+      title: 'Set a database'
     });
+    const databases = await getDatabases(filePath[0]);
+    this.setState({ databases, selectedTableName: databases[0].tables[0].tableName });
   }
 
   onSelectedTableNameChange(subMenu: SubMenu, self: HomePage) {
@@ -49,7 +52,6 @@ export default class HomePage extends Component {
 
   componentDidMount() {
     this.didMount = true;
-    this.setDatabaseResults();
   }
 
   componentWillUnmount() {
@@ -57,6 +59,20 @@ export default class HomePage extends Component {
   }
 
   render() {
+    if (this.state.databases.length === 0) {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '50vh'
+          }}
+        >
+          <Button onClick={this.setDatabaseResults}>Set a database</Button>
+        </div>
+      );
+    }
     return (
       <div>
         <Layout>
@@ -87,9 +103,7 @@ export default class HomePage extends Component {
                 width={200}
                 style={{
                   background: '#fff',
-                  /**
-                  * @TODO: height: 80vh is a hack for sidebar to fill space
-                  */
+                  // @TODO: height: 80vh is a hack for sidebar to fill space
                   overflow: 'auto',
                   height: '78vh'
                 }}

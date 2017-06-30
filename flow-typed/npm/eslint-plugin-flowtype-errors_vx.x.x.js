@@ -40,7 +40,9 @@ declare module 'eslint-plugin-flowtype-errors/dist/index' {
 
 // Filename aliases
 declare module 'eslint-plugin-flowtype-errors/dist/collect.js' {
-  declare module.exports: $Exports<'eslint-plugin-flowtype-errors/dist/collect'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-flowtype-errors/dist/collect'
+  >;
 }
 declare module 'eslint-plugin-flowtype-errors/dist/filter.js' {
   declare module.exports: $Exports<'eslint-plugin-flowtype-errors/dist/filter'>;

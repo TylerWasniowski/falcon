@@ -74,8 +74,12 @@ declare module 'react-json-pretty/src/JSONPretty.js' {
   declare module.exports: $Exports<'react-json-pretty/src/JSONPretty'>;
 }
 declare module 'react-json-pretty/tests/pretty_js_snapshot.test.js' {
-  declare module.exports: $Exports<'react-json-pretty/tests/pretty_js_snapshot.test'>;
+  declare module.exports: $Exports<
+    'react-json-pretty/tests/pretty_js_snapshot.test'
+  >;
 }
 declare module 'react-json-pretty/tests/pretty_jsx_snapshot.test.js' {
-  declare module.exports: $Exports<'react-json-pretty/tests/pretty_jsx_snapshot.test'>;
+  declare module.exports: $Exports<
+    'react-json-pretty/tests/pretty_jsx_snapshot.test'
+  >;
 }

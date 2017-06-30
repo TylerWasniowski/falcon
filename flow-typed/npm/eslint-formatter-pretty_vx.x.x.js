@@ -23,7 +23,6 @@ declare module 'eslint-formatter-pretty' {
  * needed.
  */
 
-
 // Filename aliases
 declare module 'eslint-formatter-pretty/index' {
   declare module.exports: $Exports<'eslint-formatter-pretty'>;

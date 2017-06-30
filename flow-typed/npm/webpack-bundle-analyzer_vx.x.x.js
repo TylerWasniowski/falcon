@@ -98,7 +98,9 @@ declare module 'webpack-bundle-analyzer/lib/bin/analyzer.js' {
   declare module.exports: $Exports<'webpack-bundle-analyzer/lib/bin/analyzer'>;
 }
 declare module 'webpack-bundle-analyzer/lib/BundleAnalyzerPlugin.js' {
-  declare module.exports: $Exports<'webpack-bundle-analyzer/lib/BundleAnalyzerPlugin'>;
+  declare module.exports: $Exports<
+    'webpack-bundle-analyzer/lib/BundleAnalyzerPlugin'
+  >;
 }
 declare module 'webpack-bundle-analyzer/lib/index.js' {
   declare module.exports: $Exports<'webpack-bundle-analyzer/lib/index'>;
@@ -125,7 +127,9 @@ declare module 'webpack-bundle-analyzer/src/bin/analyzer.js' {
   declare module.exports: $Exports<'webpack-bundle-analyzer/src/bin/analyzer'>;
 }
 declare module 'webpack-bundle-analyzer/src/BundleAnalyzerPlugin.js' {
-  declare module.exports: $Exports<'webpack-bundle-analyzer/src/BundleAnalyzerPlugin'>;
+  declare module.exports: $Exports<
+    'webpack-bundle-analyzer/src/BundleAnalyzerPlugin'
+  >;
 }
 declare module 'webpack-bundle-analyzer/src/index.js' {
   declare module.exports: $Exports<'webpack-bundle-analyzer/src/index'>;

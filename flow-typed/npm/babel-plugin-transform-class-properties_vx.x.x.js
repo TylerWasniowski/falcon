@@ -28,5 +28,7 @@ declare module 'babel-plugin-transform-class-properties/lib/index' {
 
 // Filename aliases
 declare module 'babel-plugin-transform-class-properties/lib/index.js' {
-  declare module.exports: $Exports<'babel-plugin-transform-class-properties/lib/index'>;
+  declare module.exports: $Exports<
+    'babel-plugin-transform-class-properties/lib/index'
+  >;
 }
