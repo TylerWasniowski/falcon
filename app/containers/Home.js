@@ -12,10 +12,13 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const { dialog } = remote;
 
+// @TODO: Home/Falcon's state can only deal with one database at a time
+//        because of this.state.databasePath
 export default class HomePage extends Component {
   state: {
     selectedTableName: ?string,
-    databases: Array<DatabaseType>,
+    databasePath: ?string,
+    databases: ?Array<DatabaseType>,
     showQuery: boolean
   };
 
@@ -25,6 +28,7 @@ export default class HomePage extends Component {
     super(props);
     this.state = {
       selectedTableName: null,
+      databasePath: null,
       databases: [],
       showQuery: false
     };
@@ -32,12 +36,16 @@ export default class HomePage extends Component {
 
   setDatabaseResults = async () => {
     const filePath = dialog.showOpenDialog({
-      filters: [{ name: 'SQLite', extensions: ['sqlite'] }],
+      filters: [{ name: 'SQLite', extensions: ['sqlite', 'db'] }],
       title: 'Set a database'
+    })[0];
+    const databases = await getDatabases(filePath);
+    this.setState({
+      databases,
+      selectedTableName: databases[0].tables[0].tableName,
+      databasePath: filePath
     });
-    const databases = await getDatabases(filePath[0]);
-    this.setState({ databases, selectedTableName: databases[0].tables[0].tableName });
-  }
+  };
 
   onSelectedTableNameChange(subMenu: SubMenu, self: HomePage) {
     if (!self.didMount) {
@@ -59,7 +67,7 @@ export default class HomePage extends Component {
   }
 
   render() {
-    if (this.state.databases.length === 0) {
+    if (!(this.state.databases && this.state.selectedTableName)) {
       return (
         <div
           style={{
@@ -139,8 +147,9 @@ export default class HomePage extends Component {
                 </Menu>
               </Sider>
               <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                {(this.state.showQuery && <Query />) ||
-                  <GridWrapper
+                {this.state.showQuery
+                  ? <Query databasePath={this.state.databasePath} />
+                  : <GridWrapper
                     databases={this.state.databases}
                     selectedTableName={this.state.selectedTableName}
                   />}

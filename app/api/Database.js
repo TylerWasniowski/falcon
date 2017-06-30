@@ -53,10 +53,10 @@ export class Database {
    * @HACK: The database is temporarily hardcoded to a fixed sqlite database.
    *        This is just for demo purposes for the time being
    */
-  constructor() {
+  constructor(databasePath: string) {
     this.config = {
       serverInfo: {
-        database: path.join('app', 'demo.sqlite'),
+        database: databasePath,
         client: 'sqlite'
       }
     };

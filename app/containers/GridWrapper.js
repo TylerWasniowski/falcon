@@ -1,5 +1,7 @@
 // @flow
 /* eslint no-underscore-dangle: ["error", { "allow": ["_index"] }] */
+/* eslint react/prop-types: 0 */
+
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import _ from 'lodash';
@@ -11,12 +13,10 @@ import type { TableType } from '../types/TableType';
 
 type Props = {
   databases: Array<DatabaseType>,
-  selectedTableName: ?string
+  selectedTableName: string
 };
 
 export default class GridWrapper extends Component {
-  props: Props;
-
   state: {
     foundTable: ?TableType,
     showStructure: boolean,
@@ -109,6 +109,9 @@ export default class GridWrapper extends Component {
     const foundTable = this.props.databases[0].tables.find(
       e => e.tableName === this.props.selectedTableName
     );
+    if (!foundTable) {
+      throw new Error(`Table ${this.props.selectedTableName}not found`);
+    }
     this.setState({
       foundTable,
       loading: false,
@@ -123,6 +126,9 @@ export default class GridWrapper extends Component {
     const foundTable = nextProps.databases[0].tables.find(
       e => e.tableName === nextProps.selectedTableName
     );
+    if (!foundTable) {
+      throw new Error(`${this.props.selectedTableName}could not be found`);
+    }
     this.setState({
       foundTable,
       loading: false,

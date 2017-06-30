@@ -12,10 +12,14 @@ import 'brace/snippets/sql';
 import 'brace/theme/xcode';
 import 'brace/ext/language_tools';
 import 'brace/ext/searchbox';
-import SpecialTypeMarker from '../components/SpecialTypeMarker';
 import type { queryResponseType } from 'falcon-core';
+import SpecialTypeMarker from '../components/SpecialTypeMarker';
 import styles from './Query.css';
 import { Database } from '../api/Database';
+
+type Props = {
+  databasePath: string
+};
 
 export default class Query extends Component {
   state: {
@@ -31,12 +35,12 @@ export default class Query extends Component {
 
   didMount: boolean = false;
 
-  constructor(props: {}) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       result: {},
-      query: "SELECT * FROM 'albums'",
-      database: new Database(),
+      query: '',
+      database: new Database(this.props.databasePath),
       selectedRowIndex: null,
       selectedCellColumnId: null,
       selectedCellRowIndex: null,
