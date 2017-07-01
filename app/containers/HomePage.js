@@ -1,24 +1,25 @@
 // @flow
 import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb, Icon, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Layout, Menu, Icon, Button } from 'antd';
 import { remote } from 'electron';
 import GridWrapper from './GridWrapper';
+import BreadcrumbWrapper from '../components/BreadcrumbWrapper';
 import Query from './Query';
 import getDatabases from '../api/Database';
 import type { DatabaseType } from '../types/DatabaseType';
 
 const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 const { dialog } = remote;
 
-// @TODO: Home/Falcon's state can only deal with one database at a time
-//        because of this.state.databasePath
+/* @TODO: Home/Falcon's can only deal with one database at a time
+        because of this.state.databasePath and databases[0]
+*/
 export default class HomePage extends Component {
   state: {
     selectedTableName: ?string,
     databasePath: ?string,
-    databases: ?Array<DatabaseType>,
+    databases: Array<DatabaseType>,
     showQuery: boolean
   };
 
@@ -58,6 +59,19 @@ export default class HomePage extends Component {
     });
   }
 
+  getBreadcrumbRoute(): Array<string> {
+    if (this.state.showQuery) {
+      return ['Home', 'Databases', 'SQLite', 'Query'];
+    }
+    return [
+      'Home',
+      'Databases',
+      'SQLite',
+      this.state.databases[0].databaseName,
+      this.state.selectedTableName
+    ];
+  }
+
   componentDidMount() {
     this.didMount = true;
   }
@@ -84,28 +98,8 @@ export default class HomePage extends Component {
     return (
       <div>
         <Layout>
-          <Header className="header">
-            <div className="logo" />
-            <Menu
-              theme="dark"
-              mode="horizontal"
-              defaultSelectedKeys={['2']}
-              style={{ lineHeight: '64px' }}
-            >
-              <Menu.Item key="1">
-                <Link to="/home">Home</Link>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Link to="/home">View</Link>
-              </Menu.Item>
-            </Menu>
-          </Header>
           <Content>
-            <Breadcrumb style={{ margin: '12px 0', padding: '0 50px' }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>Databases</Breadcrumb.Item>
-              <Breadcrumb.Item>SQLite</Breadcrumb.Item>
-            </Breadcrumb>
+            <BreadcrumbWrapper routeItems={this.getBreadcrumbRoute()} />
             <Layout style={{ padding: '24px 0', background: '#fff' }}>
               <Sider
                 width={200}
@@ -119,7 +113,7 @@ export default class HomePage extends Component {
                 <Menu
                   mode="inline"
                   defaultSelectedKeys={['1']}
-                  defaultOpenKeys={['compat-db']}
+                  defaultOpenKeys={[this.state.databases[0].databaseName]}
                   style={{ height: '100%' }}
                   onSelect={e => this.onSelectedTableNameChange(e, this)}
                 >
@@ -129,10 +123,11 @@ export default class HomePage extends Component {
                   </Menu.Item>
                   {this.state.databases.map(database =>
                     (<SubMenu
-                      key="compat-db"
+                      key={this.state.databases[0].databaseName}
                       title={
                         <span>
-                          <Icon type="database" />compat-db
+                          <Icon type="database" />{' '}
+                          {this.state.databases[0].databaseName}
                         </span>
                       }
                     >

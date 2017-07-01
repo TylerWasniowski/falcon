@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router';
 import { Row, Alert } from 'antd';
 import { HashRouter as Router } from 'react-router-dom';
 import App from './containers/App';
-import Home from './containers/Home';
+import HomePage from './containers/HomePage';
 import Login from './containers/Login';
 
 export default () =>
@@ -21,7 +21,7 @@ export default () =>
       </Row>
       <Row span={24}>
         <Switch>
-          <Route path="/home/" component={Home} />
+          <Route path="/home/" component={HomePage} />
           <Route path="/" component={Login} history={history} />
         </Switch>
       </Row>

@@ -124,7 +124,11 @@ async function getDatabases(
   ).then(_databases =>
     _databases.map((database, databaseIndex) => ({
       tables: database,
-      databaseName: databases[databaseIndex]
+      // @TODO: databaseName currently returns database path rather than name
+      //        Used substring to get just the name
+      databaseName: databases[databaseIndex].substring(
+        databases[databaseIndex].lastIndexOf('/') + 1
+      )
     }))
   );
 }
