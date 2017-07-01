@@ -60,12 +60,10 @@ export default class HomePage extends Component {
 
   getBreadcrumbRoute(): Array<string> {
     if (this.state.showQuery) {
-      return ['Home', 'Databases', 'SQLite', 'Query'];
+      return ['SQLite', 'Query'];
     }
     if (!this.state.selectedTableName) { throw new Error('this.state.selectedTableName is falsey'); }
     return [
-      'Home',
-      'Databases',
       'SQLite',
       this.state.databases[0].databaseName,
       this.state.selectedTableName
