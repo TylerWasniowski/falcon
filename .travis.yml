@@ -25,6 +25,7 @@ addons:
 install:
   - export CXX="g++-4.8"
   - yarn
+  - cd app && yarn && cd ..
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
 before_script:
@@ -33,9 +34,5 @@ before_script:
   - sleep 3
 
 script:
-  - node -v
-  - yarn -V
-  # - npm run lint
-  # - npm run test
   - npm run package
   - npm run test-e2e
