@@ -2,6 +2,7 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 import { app, Menu, shell, BrowserWindow, dialog } from 'electron';
 import { exportFile } from './api/Database';
+import { OPEN_FILE_CHANNEL } from './types/channels';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -83,6 +84,22 @@ export default class MenuBuilder {
     const subMenuFile = {
       label: 'File',
       submenu: [
+        {
+          label: 'Open File',
+          accelerator: 'Command+O',
+          click: () => {
+            const selectedFiles = dialog.showOpenDialog({
+              filters: [{ name: 'SQLite', extensions: ['sqlite', 'db'] }],
+              title: 'Set a database'
+            });
+            if (!selectedFiles) return;
+            // @TODO: Hardcoded to use only first database selected
+            this.mainWindow.webContents.send(
+              OPEN_FILE_CHANNEL,
+              selectedFiles[0]
+            );
+          }
+        },
         {
           label: 'Show Favorites Menu',
           accelerator: 'Alt+Command+N',

@@ -1,5 +1,6 @@
 // @flow
 /* eslint no-underscore-dangle: ["error", { "allow": ["_index"] }] */
+/* eslint react/prop-types: 0 */
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { message } from 'antd';

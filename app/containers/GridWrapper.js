@@ -147,7 +147,8 @@ export default class GridWrapper extends Component {
           {(!this.state.showStructure &&
             <div className="table-wrap">
               <ReactTable
-                style={{ height: '72vh' }}
+              // @TODO: 83vh is a hack to fill space
+                style={{ height: '83vh' }}
                 className="-striped -highlight"
                 columns={this.state.tableColumns}
                 data={this.state.tableData}

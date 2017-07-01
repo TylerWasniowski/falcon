@@ -1,5 +1,5 @@
 // @flow
-// Used in Home.js to display database contents
+// Used in HomePage.js to display database contents
 export type PaginationType = {
   total: number,
   defaultCurrent?: number,
