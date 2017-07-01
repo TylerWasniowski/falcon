@@ -1,24 +1,24 @@
 // @flow
 import React, { Component } from 'react';
-import { Layout, Menu, Icon, Button } from 'antd';
-import { remote } from 'electron';
+import { Layout, Menu, Icon } from 'antd';
+import { ipcRenderer } from 'electron';
 import GridWrapper from './GridWrapper';
 import BreadcrumbWrapper from '../components/BreadcrumbWrapper';
 import Query from './Query';
 import getDatabases from '../api/Database';
 import type { DatabaseType } from '../types/DatabaseType';
+import { OPEN_FILE_CHANNEL } from '../types/channels';
 
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
-const { dialog } = remote;
 
 /* @TODO: Home/Falcon's can only deal with one database at a time
         because of this.state.databasePath and databases[0]
 */
 export default class HomePage extends Component {
   state: {
-    selectedTableName: ?string,
-    databasePath: ?string,
+    selectedTableName?: string,
+    databasePath?: string,
     databases: Array<DatabaseType>,
     showQuery: boolean
   };
@@ -28,18 +28,15 @@ export default class HomePage extends Component {
   constructor(props: {}) {
     super(props);
     this.state = {
-      selectedTableName: null,
-      databasePath: null,
       databases: [],
       showQuery: false
     };
+    ipcRenderer.on(OPEN_FILE_CHANNEL, (event, filePath) => {
+      this.setDatabaseResults(filePath);
+    });
   }
 
-  setDatabaseResults = async () => {
-    const filePath = dialog.showOpenDialog({
-      filters: [{ name: 'SQLite', extensions: ['sqlite', 'db'] }],
-      title: 'Set a database'
-    })[0];
+  setDatabaseResults = async (filePath: string) => {
     const databases = await getDatabases(filePath);
     this.setState({
       databases,
@@ -63,6 +60,7 @@ export default class HomePage extends Component {
     if (this.state.showQuery) {
       return ['Home', 'Databases', 'SQLite', 'Query'];
     }
+    if (!this.state.selectedTableName) { throw new Error('this.state.selectedTableName is falsey'); }
     return [
       'Home',
       'Databases',
@@ -81,17 +79,30 @@ export default class HomePage extends Component {
   }
 
   render() {
-    if (!(this.state.databases && this.state.selectedTableName)) {
+    if (
+      !(
+        this.state.databases &&
+        this.state.selectedTableName &&
+        this.state.databasePath
+      )
+    ) {
       return (
         <div
           style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            flexDirection: 'column',
             marginTop: '50vh'
           }}
         >
-          <Button onClick={this.setDatabaseResults}>Set a database</Button>
+          <h2>
+            {'File -> Open File'}
+          </h2>
+          <br />
+          <h4>
+            {'To import an SQLite database'}
+          </h4>
         </div>
       );
     }
@@ -105,7 +116,7 @@ export default class HomePage extends Component {
                 width={200}
                 style={{
                   background: '#fff',
-                  // @TODO: height: 80vh is a hack for sidebar to fill space
+                  // @TODO: height: 78vh is a hack for sidebar to fill space
                   overflow: 'auto',
                   height: '78vh'
                 }}
@@ -123,11 +134,10 @@ export default class HomePage extends Component {
                   </Menu.Item>
                   {this.state.databases.map(database =>
                     (<SubMenu
-                      key={this.state.databases[0].databaseName}
+                      key={database.databaseName}
                       title={
                         <span>
-                          <Icon type="database" />{' '}
-                          {this.state.databases[0].databaseName}
+                          <Icon type="database" /> {database.databaseName}
                         </span>
                       }
                     >
