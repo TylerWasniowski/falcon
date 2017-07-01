@@ -20,7 +20,8 @@ export default class HomePage extends Component {
     selectedTableName?: string,
     databasePath?: string,
     databases: Array<DatabaseType>,
-    showQuery: boolean
+    showQuery: boolean,
+    siderCollapsed: boolean
   };
 
   didMount: boolean = false;
@@ -29,7 +30,8 @@ export default class HomePage extends Component {
     super(props);
     this.state = {
       databases: [],
-      showQuery: false
+      showQuery: false,
+      siderCollapsed: false
     };
     ipcRenderer.on(OPEN_FILE_CHANNEL, (event, filePath) => {
       this.setDatabaseResults(filePath);
@@ -118,8 +120,12 @@ export default class HomePage extends Component {
                   background: '#fff',
                   // @TODO: height: 78vh is a hack for sidebar to fill space
                   overflow: 'auto',
-                  height: '78vh'
+                  height: '90vh'
                 }}
+                collapsible
+                collapsedWidth={0}
+                trigger={null}
+                collapsed={this.state.siderCollapsed}
               >
                 <Menu
                   mode="inline"
@@ -151,6 +157,12 @@ export default class HomePage extends Component {
                   )}
                 </Menu>
               </Sider>
+              <Icon
+                className="trigger"
+                type={this.state.siderCollapsed ? 'menu-unfold' : 'menu-fold'}
+                style={{ fontSize: '200%', color: '#08c' }}
+                onClick={() => this.setState({ siderCollapsed: !this.state.siderCollapsed })}
+              />
               <Content style={{ padding: '0 24px', minHeight: 280 }}>
                 {this.state.showQuery
                   ? <Query databasePath={this.state.databasePath} />
