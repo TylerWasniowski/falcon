@@ -64,7 +64,7 @@ export default class Structure extends Component {
           theme="xcode"
           name="querybox"
           ref="queryBoxTextarea"
-          value={"`SELECT * FROM 'users'`"}
+          value={"SELECT * FROM 'users'"}
           width={'100%'}
           height={'200px'}
           showPrintMargin={false}
