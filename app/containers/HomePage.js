@@ -62,7 +62,9 @@ export default class HomePage extends Component {
     if (this.state.showQuery) {
       return ['SQLite', 'Query'];
     }
-    if (!this.state.selectedTableName) { throw new Error('this.state.selectedTableName is falsey'); }
+    if (!this.state.selectedTableName) {
+      throw new Error('this.state.selectedTableName is falsey');
+    }
     return [
       'SQLite',
       this.state.databases[0].databaseName,
@@ -88,6 +90,7 @@ export default class HomePage extends Component {
     ) {
       return (
         <div
+          id="OpenFileDiv"
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -107,7 +110,7 @@ export default class HomePage extends Component {
       );
     }
     return (
-      <div>
+      <div id="HomeDiv">
         <Layout>
           <Content>
             <BreadcrumbWrapper routeItems={this.getBreadcrumbRoute()} />
@@ -159,7 +162,8 @@ export default class HomePage extends Component {
                 className="trigger"
                 type={this.state.siderCollapsed ? 'menu-unfold' : 'menu-fold'}
                 style={{ fontSize: '200%', color: '#08c' }}
-                onClick={() => this.setState({ siderCollapsed: !this.state.siderCollapsed })}
+                onClick={() =>
+                  this.setState({ siderCollapsed: !this.state.siderCollapsed })}
               />
               <Content style={{ padding: '0 24px', minHeight: 280 }}>
                 {this.state.showQuery

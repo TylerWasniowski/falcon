@@ -11,7 +11,7 @@ const logoStyle = {
   display: 'block'
 };
 
-export default function Login() {
+export default function LoginPage() {
   return (
     <Col span={24}>
       <Row type="flex" justify="center">
@@ -69,7 +69,12 @@ export default function Login() {
         </InputGroup>
         <br />
         <Link to="/home">
-          <Button type="primary" loading={false} size="large">
+          <Button
+            id="connectButton"
+            type="primary"
+            loading={false}
+            size="large"
+          >
             Connect
           </Button>
         </Link>
