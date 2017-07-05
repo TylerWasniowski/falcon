@@ -48,13 +48,11 @@ describe('e2e', function testApp() {
       const { client, webContents } = this.app;
       const sqliteFilePath = path.join(
         __dirname,
-        '..',
-        '..',
-        '/app',
         'demo.sqlite'
       );
+      console.log(sqliteFilePath);
       await webContents.send(OPEN_FILE_CHANNEL, sqliteFilePath);
-      await delay(1000);
+      await delay(1500);
       expect(await client.isExisting('#HomeDiv')).toBe(true);
     });
 
@@ -67,7 +65,7 @@ describe('e2e', function testApp() {
     it('should be at table playlists after clicking playlists', async () => {
       const { client } = this.app;
       await client.click('.ant-menu-item:last-of-type');
-      await delay(1000);
+      await delay(1500);
       const breadcrumb = await client.getText('.ant-breadcrumb');
       expect(breadcrumb).toBe('SQLite/demo.sqlite/tracks');
     });
