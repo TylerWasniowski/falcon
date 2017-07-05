@@ -81,9 +81,10 @@ export default class HomePage extends Component {
   }
 
   render() {
+    const { databases } = this.state;
     if (
       !(
-        this.state.databases &&
+        databases &&
         this.state.selectedTableName &&
         this.state.databasePath
       )
@@ -114,14 +115,14 @@ export default class HomePage extends Component {
         <Layout>
           <Content>
             <BreadcrumbWrapper routeItems={this.getBreadcrumbRoute()} />
-            <Layout style={{ padding: '24px 0', background: '#fff' }}>
+            <Layout style={{ padding: '6px 0 0 0', background: '#fff' }}>
               <Sider
                 width={200}
                 style={{
                   background: '#fff',
-                  // @TODO: height: 78vh is a hack for sidebar to fill space
+                  // @TODO: height: 80vh is a hack for sidebar to fill space
                   overflow: 'auto',
-                  height: '90vh'
+                  height: '80vh'
                 }}
                 collapsible
                 collapsedWidth={0}
@@ -130,8 +131,8 @@ export default class HomePage extends Component {
               >
                 <Menu
                   mode="inline"
-                  defaultSelectedKeys={['1']}
-                  defaultOpenKeys={[this.state.databases[0].databaseName]}
+                  defaultSelectedKeys={[databases[0].tables[0].tableName]}
+                  defaultOpenKeys={[databases[0].databaseName]}
                   style={{ height: '100%' }}
                   onSelect={e => this.onSelectedTableNameChange(e, this)}
                 >
@@ -139,7 +140,7 @@ export default class HomePage extends Component {
                     <Icon type="code" />
                     Query
                   </Menu.Item>
-                  {this.state.databases.map(database =>
+                  {databases.map(database =>
                     (<SubMenu
                       key={database.databaseName}
                       title={
@@ -165,11 +166,11 @@ export default class HomePage extends Component {
                 onClick={() =>
                   this.setState({ siderCollapsed: !this.state.siderCollapsed })}
               />
-              <Content style={{ padding: '0 24px', minHeight: 280 }}>
+              <Content style={{ padding: '0 24px', minHeight: 270 }}>
                 {this.state.showQuery
                   ? <Query databasePath={this.state.databasePath} />
                   : <GridWrapper
-                    databases={this.state.databases}
+                    databases={databases}
                     selectedTableName={this.state.selectedTableName}
                   />}
               </Content>
