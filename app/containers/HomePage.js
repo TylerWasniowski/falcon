@@ -117,7 +117,6 @@ export default class HomePage extends Component {
             <BreadcrumbWrapper routeItems={this.getBreadcrumbRoute()} />
             <Layout style={{ padding: '6px 0 0 0', background: '#fff' }}>
               <Sider
-                width={200}
                 style={{
                   background: '#fff',
                   // @TODO: height: 80vh is a hack for sidebar to fill space
@@ -166,7 +165,7 @@ export default class HomePage extends Component {
                 onClick={() =>
                   this.setState({ siderCollapsed: !this.state.siderCollapsed })}
               />
-              <Content style={{ padding: '0 24px', minHeight: 270 }}>
+              <Content style={{ padding: '0 24px', minHeight: 270, width: '50%' }}>
                 {this.state.showQuery
                   ? <Query databasePath={this.state.databasePath} />
                   : <GridWrapper
