@@ -1,13 +1,16 @@
 // @flow
 import React, { Component } from 'react';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu, Icon, Spin, Button } from 'antd';
+import _ from 'lodash';
+import { Link } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
 import GridWrapper from './GridWrapper';
 import BreadcrumbWrapper from '../components/BreadcrumbWrapper';
 import Query from './Query';
 import getDatabases from '../api/Database';
 import type { DatabaseType } from '../types/DatabaseType';
-import { OPEN_FILE_CHANNEL } from '../types/channels';
+import type { TableType } from '../types/TableType';
+import { OPEN_FILE_CHANNEL, DELETE_TABLE_CHANNEL } from '../types/channels';
 
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
@@ -17,9 +20,10 @@ const { Content, Sider } = Layout;
 */
 export default class HomePage extends Component {
   state: {
-    selectedTableName?: string,
-    databasePath?: string,
+    databasePath: string,
     databases: Array<DatabaseType>,
+    tables: Array<TableType>,
+    selectedTableName: ?string,
     showQuery: boolean,
     siderCollapsed: boolean
   };
@@ -29,36 +33,38 @@ export default class HomePage extends Component {
   constructor(props: {}) {
     super(props);
     this.state = {
+      // @TODO: See LoginPage line 131 for why replace'_' with '/'
+      databasePath: this.props.match.params.databasePath.replace(/_/g, '/'),
       databases: [],
+      tables: [],
+      selectedTableName: null,
       showQuery: false,
       siderCollapsed: false
     };
     ipcRenderer.on(OPEN_FILE_CHANNEL, (event, filePath) => {
       this.setDatabaseResults(filePath);
     });
+    ipcRenderer.on(DELETE_TABLE_CHANNEL, () => {
+      this.deleteSelectedTable();
+    });
   }
 
+  // @TODO: Since supporting just SQLite, getDatabases will only return 1 db
   setDatabaseResults = async (filePath: string) => {
     const databases = await getDatabases(filePath);
     this.setState({
       databases,
-      selectedTableName: databases[0].tables[0].tableName,
+      selectedTableName:
+        this.state.selectedTableName || databases[0].tables[0].tableName,
+      tables: _.cloneDeep(databases[0].tables),
       databasePath: filePath
     });
   };
 
-  onSelectedTableNameChange(subMenu: SubMenu, self: HomePage) {
-    if (!self.didMount) {
-      return;
+  getBreadcrumbRoute = (): Array<string> => {
+    if (!this.state.databases[0]) {
+      throw new Error('database should be null');
     }
-
-    this.setState({
-      selectedTableName: subMenu.key,
-      showQuery: subMenu.key === 'Query'
-    });
-  }
-
-  getBreadcrumbRoute(): Array<string> {
     if (this.state.showQuery) {
       return ['SQLite', 'Query'];
     }
@@ -70,10 +76,31 @@ export default class HomePage extends Component {
       this.state.databases[0].databaseName,
       this.state.selectedTableName
     ];
+  };
+
+  handleSelectedTableNameChange(subMenu: SubMenu, self: HomePage) {
+    if (!self.didMount) {
+      return;
+    }
+
+    this.setState({
+      selectedTableName: subMenu.key,
+      showQuery: subMenu.key === 'Query'
+    });
   }
+
+  // deleteSelectedTable removes selected from this.state.tables, but
+  // does not remove it from database
+  deleteSelectedTable = () => {
+    const tables = _.cloneDeep(this.state.tables).filter(
+      table => !_.isEqual(table.tableName, this.state.selectedTableName)
+    );
+    this.setState({ tables });
+  };
 
   componentDidMount() {
     this.didMount = true;
+    this.setDatabaseResults(this.state.databasePath);
   }
 
   componentWillUnmount() {
@@ -83,30 +110,18 @@ export default class HomePage extends Component {
   render() {
     const { databases } = this.state;
     if (
-      !(
-        databases &&
-        this.state.selectedTableName &&
-        this.state.databasePath
-      )
+      !(databases && this.state.selectedTableName && this.state.databasePath)
     ) {
       return (
         <div
-          id="OpenFileDiv"
           style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            flexDirection: 'column',
-            marginTop: '50vh'
+            height: '100vh'
           }}
         >
-          <h2>
-            {'File -> Open File'}
-          </h2>
-          <br />
-          <h4>
-            {'To import an SQLite database'}
-          </h4>
+          <Spin size="large" />
         </div>
       );
     }
@@ -115,6 +130,23 @@ export default class HomePage extends Component {
         <Layout>
           <Content>
             <BreadcrumbWrapper routeItems={this.getBreadcrumbRoute()} />
+            <Icon
+              className="trigger"
+              type={this.state.siderCollapsed ? 'menu-unfold' : 'menu-fold'}
+              style={{ fontSize: '200%', color: '#08c', cursor: 'pointer' }}
+              onClick={() =>
+                this.setState({ siderCollapsed: !this.state.siderCollapsed })}
+            />
+            <Icon
+              type="retweet"
+              style={{ fontSize: '200%', color: '#08c', cursor: 'pointer' }}
+              onClick={() => this.setDatabaseResults(this.state.databasePath)}
+            />
+            <Link to={'/login}'}>
+              <Button type="primary" loading={false}>
+                Back to Login
+              </Button>
+            </Link>
             <Layout style={{ padding: '6px 0 0 0', background: '#fff' }}>
               <Sider
                 style={{
@@ -133,7 +165,7 @@ export default class HomePage extends Component {
                   defaultSelectedKeys={[databases[0].tables[0].tableName]}
                   defaultOpenKeys={[databases[0].databaseName]}
                   style={{ height: '100%' }}
-                  onSelect={e => this.onSelectedTableNameChange(e, this)}
+                  onSelect={e => this.handleSelectedTableNameChange(e, this)}
                 >
                   <Menu.Item key="Query">
                     <Icon type="code" />
@@ -148,7 +180,7 @@ export default class HomePage extends Component {
                         </span>
                       }
                     >
-                      {database.tables.map(table =>
+                      {this.state.tables.map(table =>
                         (<Menu.Item key={table.tableName}>
                           <Icon type="bars" />
                           {table.tableName}
@@ -158,14 +190,9 @@ export default class HomePage extends Component {
                   )}
                 </Menu>
               </Sider>
-              <Icon
-                className="trigger"
-                type={this.state.siderCollapsed ? 'menu-unfold' : 'menu-fold'}
-                style={{ fontSize: '200%', color: '#08c' }}
-                onClick={() =>
-                  this.setState({ siderCollapsed: !this.state.siderCollapsed })}
-              />
-              <Content style={{ padding: '0 24px', minHeight: 270, width: '50%' }}>
+              <Content
+                style={{ padding: '0 24px', minHeight: 270, width: '50%' }}
+              >
                 {this.state.showQuery
                   ? <Query databasePath={this.state.databasePath} />
                   : <GridWrapper

@@ -1,2 +1,26 @@
 @import "~antd/dist/antd.css";
 @import "~react-table/react-table.css";
+
+
+/* @HACK: Consider using SASS/LESS to override styles */
+.ant-layout-content {
+  padding: 0 !important;
+}
+
+.anticon.anticon-menu-fold {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.ant-menu-item-selected {
+  color: white;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: black;
+}
+.ant-menu-inline .ant-menu-item:after, .ant-menu-vertical .ant-menu-item:after {
+    border-right: none
+}
+.ant-layout.ant-layout-has-sider {
+  padding: 0 !important;
+}

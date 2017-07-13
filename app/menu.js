@@ -2,7 +2,11 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 import { app, Menu, shell, BrowserWindow, dialog } from 'electron';
 import { exportFile } from './api/Database';
-import { OPEN_FILE_CHANNEL } from './types/channels';
+import {
+  OPEN_FILE_CHANNEL,
+  DELETE_ROW_CHANNEL,
+  DELETE_TABLE_CHANNEL
+} from './types/channels';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -130,6 +134,21 @@ export default class MenuBuilder {
           label: 'Select All',
           accelerator: 'Command+A',
           selector: 'selectAll:'
+        },
+        { type: 'separator' },
+        {
+          label: 'Delete Table Row',
+          accelerator: 'Backspace',
+          click: () => {
+            this.mainWindow.webContents.send(DELETE_ROW_CHANNEL);
+          }
+        },
+        {
+          label: 'Delete Table',
+          accelerator: 'Command+Backspace',
+          click: () => {
+            this.mainWindow.webContents.send(DELETE_TABLE_CHANNEL);
+          }
         }
       ]
     };

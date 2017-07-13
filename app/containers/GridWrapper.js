@@ -4,12 +4,28 @@
 
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
+import { ipcRenderer } from 'electron';
 import _ from 'lodash';
 import Structure from '../components/Structure';
 import styles from './GridWrapper.css';
 import SpecialTypeMarker from '../components/SpecialTypeMarker';
 import type { DatabaseType } from '../types/DatabaseType';
 import type { TableType } from '../types/TableType';
+import { DELETE_ROW_CHANNEL } from '../types/channels';
+
+function getAllNumbersBetween(x: number, y: number) {
+  const numbers = [];
+  const min = Math.min(x, y);
+  const max = Math.max(x, y);
+  for (let i = min; i <= max; i += 1) {
+    numbers.push(i);
+  }
+  return numbers;
+}
+
+function removeFromArrayAtIndex(array, index) {
+  array.splice(index, 1);
+}
 
 type Props = {
   databases: Array<DatabaseType>,
@@ -24,6 +40,7 @@ export default class GridWrapper extends Component {
     selectedRowIndex: ?number,
     selectedCellColumnId: ?number,
     selectedCellRowIndex: ?number,
+    selectedRowsIndices: Array<number>,
     tableData: Array<{ [key: string]: string | number | boolean }>,
     // @TODO: Cell currently unannotated
     tableColumns: Array<{ Header: string, accessor: string }>
@@ -36,11 +53,15 @@ export default class GridWrapper extends Component {
       showStructure: false,
       loading: true,
       selectedRowIndex: null,
+      selectedRowsIndices: [],
       selectedCellColumnId: null,
       selectedCellRowIndex: null,
       tableData: [],
       tableColumns: []
     };
+    ipcRenderer.on(DELETE_ROW_CHANNEL, () => {
+      this.handleSelectedRowsDeletion();
+    });
   }
 
   getTableData = (table: TableType) => {
@@ -72,9 +93,21 @@ export default class GridWrapper extends Component {
                 autoFocus
                 style={{ width: '100%' }}
                 onBlur={event => {
-                  const tableData = _.cloneDeep(this.state.tableData);
-                  tableData[row.index][row.column.Header] = event.target.value;
-                  this.setState({ tableData });
+                  this.handleCellSaving(
+                    event.target.value,
+                    row.index,
+                    row.column.Header
+                  );
+                }}
+                onKeyDown={event => {
+                  const returnKeyCharCode = event.keyCode;
+                  if (returnKeyCharCode === 13) {
+                    this.handleCellSaving(
+                      event.target.value,
+                      row.index,
+                      row.column.Header
+                    );
+                  }
                 }}
               />
             </div>
@@ -87,7 +120,8 @@ export default class GridWrapper extends Component {
             style={{
               textOverflow: 'ellipsis',
               overflow: 'hidden',
-              whiteSpace: 'nowrap'
+              whiteSpace: 'nowrap',
+              userSelect: 'none'
             }}
           >
             {row.value}
@@ -96,10 +130,78 @@ export default class GridWrapper extends Component {
       }
     }));
 
-  onButtonClick = (e: SyntheticEvent) => {
+  handleCellSaving = (
+    newCellcontent: string,
+    rowIndex: number,
+    rowHeader: string
+  ) => {
+    const tableData = _.cloneDeep(this.state.tableData);
+    tableData[rowIndex][rowHeader] = newCellcontent;
+    this.setState({
+      tableData,
+      selectedCellColumnId: null,
+      selectedCellRowIndex: null
+    });
+  };
+
+  handleButtonClick = (e: SyntheticEvent) => {
     e.preventDefault();
     this.setState({
       showStructure: !this.state.showStructure
+    });
+  };
+
+  handleRowSelection = (rowIndex: number) => {
+    this.setState({
+      selectedRowIndex: rowIndex,
+      selectedRowsIndices: [rowIndex],
+      selectedCellColumnId: null,
+      selectedCellRowIndex: null
+    });
+  };
+
+  handleCtrlRowSelection = (rowIndex: number) => {
+    this.setState({
+      selectedRowIndex: rowIndex,
+      selectedRowsIndices: [...this.state.selectedRowsIndices, rowIndex],
+      selectedCellColumnId: null,
+      selectedCellRowIndex: null
+    });
+  };
+
+  handleShiftRowSelection = (rowIndex: number) => {
+    if (!this.state.selectedRowIndex) {
+      this.handleRowSelection(rowIndex);
+    }
+    this.setState({
+      selectedRowsIndices: getAllNumbersBetween(
+        this.state.selectedRowIndex,
+        rowIndex
+      ),
+      selectedCellColumnId: null,
+      selectedCellRowIndex: null
+    });
+  };
+
+  handleCellSelection = (cellColumnId: number, cellRowIndex: number) => {
+    this.setState({
+      selectedCellColumnId: cellColumnId,
+      selectedCellRowIndex: cellRowIndex
+    });
+  };
+
+  handleSelectedRowsDeletion = () => {
+    const tableData = _.cloneDeep(this.state.tableData);
+    const selectedRowsIndices = [...this.state.selectedRowsIndices];
+    selectedRowsIndices.forEach((e, i) => {
+      // At each removal, need to subtract i to compensate for shorter array
+      const indexToRemove = e - i;
+      removeFromArrayAtIndex(tableData, indexToRemove);
+    });
+    this.setState({
+      tableData,
+      selectedRowsIndices: [],
+      selectedCellRowIndex: null
     });
   };
 
@@ -163,25 +265,25 @@ export default class GridWrapper extends Component {
                   return {
                     style:
                       rowInfo !== undefined &&
-                      rowInfo.row._index === this.state.selectedRowIndex
+                      this.state.selectedRowsIndices.includes(
+                        rowInfo.row._index
+                      )
                         ? { backgroundColor: '#0B54D5', color: 'white' }
                         : {},
                     onClick: e => {
-                      e.preventDefault();
-                      this.setState({
-                        selectedRowIndex: rowInfo.row._index,
-                        selectedCellColumnId: null,
-                        selectedCellRowIndex: null
-                      });
+                      if (e.metaKey) {
+                        this.handleCtrlRowSelection(rowInfo.row._index);
+                      } else if (e.shiftKey) {
+                        this.handleShiftRowSelection(rowInfo.row._index);
+                      } else {
+                        this.handleRowSelection(rowInfo.row._index);
+                      }
                     }
                   };
                 }}
                 getTdProps={(state, rowInfo, column) => ({
                   onDoubleClick: () => {
-                    this.setState({
-                      selectedCellColumnId: column.id,
-                      selectedCellRowIndex: rowInfo.row._index
-                    });
+                    this.handleCellSelection(column.id, rowInfo.row._index);
                   }
                 })}
               />
@@ -194,13 +296,13 @@ export default class GridWrapper extends Component {
         <div className={styles.controls}>
           <button
             disabled={!this.state.showStructure}
-            onClick={this.onButtonClick}
+            onClick={this.handleButtonClick}
           >
             Content
           </button>
           <button
             disabled={this.state.showStructure}
-            onClick={this.onButtonClick}
+            onClick={this.handleButtonClick}
           >
             Structure
           </button>

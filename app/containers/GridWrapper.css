@@ -14,7 +14,9 @@
  */
 .controls {
   margin-top: 2vh;
-
+  position: absolute;
+  bottom: 0;
+  z-index: 1000;
 }
 
 .controls button {

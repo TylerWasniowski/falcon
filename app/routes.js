@@ -21,7 +21,7 @@ export default () =>
       </Row>
       <Row span={24}>
         <Switch>
-          <Route path="/home/" component={HomePage} />
+          <Route path="/home/:databasePath" component={HomePage} />
           <Route path="/" component={LoginPage} history={history} />
         </Switch>
       </Row>

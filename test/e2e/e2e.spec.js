@@ -46,10 +46,7 @@ describe('e2e', function testApp() {
 
     it('should open a demo and be viewing home', async () => {
       const { client, webContents } = this.app;
-      const sqliteFilePath = path.join(
-        __dirname,
-        'demo.sqlite'
-      );
+      const sqliteFilePath = path.join(__dirname, 'demo.sqlite');
       console.log(sqliteFilePath);
       await webContents.send(OPEN_FILE_CHANNEL, sqliteFilePath);
       await delay(1500);

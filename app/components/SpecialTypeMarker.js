@@ -68,7 +68,8 @@ export default function SpecialTypeMarker(props: Props) {
           padding: '2px 5px',
           borderRadius: '2px',
           width: 'min-content',
-          textOverflow: 'ellipsis'
+          textOverflow: 'ellipsis',
+          userSelect: 'none'
         }}
       >
         {props.value}
