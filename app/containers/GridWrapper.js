@@ -212,7 +212,7 @@ export default class GridWrapper extends Component {
       e => e.tableName === this.props.selectedTableName
     );
     if (!foundTable) {
-      throw new Error(`Table ${this.props.selectedTableName}not found`);
+      throw new Error(`Table ${this.props.selectedTableName} not found`);
     }
     this.setState({
       foundTable,
@@ -237,6 +237,7 @@ export default class GridWrapper extends Component {
       tableData: this.getTableData(foundTable),
       tableColumns: this.getTableColumns(foundTable),
       selectedRowIndex: null,
+      selectedRowsIndices: [],
       selectedCellColumnId: null,
       selectedCellRowIndex: null
     });
