@@ -38,9 +38,9 @@ export default class GridWrapper extends Component {
     showStructure: boolean,
     loading: boolean,
     selectedRowIndex: ?number,
+    selectedRowsIndices: Set<number>,
     selectedCellColumnId: ?number,
     selectedCellRowIndex: ?number,
-    selectedRowsIndices: Array<number>,
     tableData: Array<{ [key: string]: string | number | boolean }>,
     // @TODO: Cell currently unannotated
     tableColumns: Array<{ Header: string, accessor: string }>
@@ -53,7 +53,7 @@ export default class GridWrapper extends Component {
       showStructure: false,
       loading: true,
       selectedRowIndex: null,
-      selectedRowsIndices: [],
+      selectedRowsIndices: new Set(),
       selectedCellColumnId: null,
       selectedCellRowIndex: null,
       tableData: [],
@@ -154,29 +154,57 @@ export default class GridWrapper extends Component {
   handleRowSelection = (rowIndex: number) => {
     this.setState({
       selectedRowIndex: rowIndex,
-      selectedRowsIndices: [rowIndex],
+      selectedRowsIndices: new Set().add(rowIndex),
       selectedCellColumnId: null,
       selectedCellRowIndex: null
     });
   };
 
   handleCtrlRowSelection = (rowIndex: number) => {
-    this.setState({
-      selectedRowIndex: rowIndex,
-      selectedRowsIndices: [...this.state.selectedRowsIndices, rowIndex],
-      selectedCellColumnId: null,
-      selectedCellRowIndex: null
-    });
+    const { selectedRowIndex, selectedRowsIndices } = this.state;
+    // Treat like regular row selection
+    if (!selectedRowIndex) {
+      this.handleRowSelection(rowIndex);
+    } else if (selectedRowIndex === rowIndex) {
+      // Remove row selectedRowsIndices and make selectedRow = the row below, above, or null
+      const sortedIndices = [...selectedRowsIndices].sort();
+      selectedRowsIndices.delete(selectedRowIndex);
+      this.setState({
+        selectedRowIndex:
+          sortedIndices[sortedIndices.indexOf(selectedRowIndex + 1)] ||
+          sortedIndices[sortedIndices.indexOf(selectedRowIndex - 1)] ||
+          null,
+        selectedRowsIndices: new Set(selectedRowsIndices),
+        selectedCellColumnId: null,
+        selectedCellRowIndex: null
+      });
+    } else if (selectedRowsIndices.has(rowIndex)) {
+      // Just remove item from selectedRowIndices
+      selectedRowsIndices.delete(rowIndex);
+      this.setState({
+        selectedRowsIndices: new Set(selectedRowsIndices),
+        selectedCellColumnId: null,
+        selectedCellRowIndex: null
+      });
+    } else {
+      // Row not selected. Add it and make it the new slselectedRowIndex
+      this.setState({
+        selectedRowIndex: rowIndex,
+        selectedRowsIndices: new Set(selectedRowsIndices.add(rowIndex)),
+        selectedCellColumnId: null,
+        selectedCellRowIndex: null
+      });
+    }
   };
 
   handleShiftRowSelection = (rowIndex: number) => {
+    // If no selectedRowIndex, treat shiftClick like a regular click
     if (!this.state.selectedRowIndex) {
       this.handleRowSelection(rowIndex);
     }
     this.setState({
-      selectedRowsIndices: getAllNumbersBetween(
-        this.state.selectedRowIndex,
-        rowIndex
+      selectedRowsIndices: new Set(
+        getAllNumbersBetween(this.state.selectedRowIndex, rowIndex)
       ),
       selectedCellColumnId: null,
       selectedCellRowIndex: null
@@ -189,7 +217,6 @@ export default class GridWrapper extends Component {
       selectedCellRowIndex: cellRowIndex
     });
   };
-
   handleSelectedRowsDeletion = () => {
     const tableData = _.cloneDeep(this.state.tableData);
     const selectedRowsIndices = [...this.state.selectedRowsIndices];
@@ -200,7 +227,7 @@ export default class GridWrapper extends Component {
     });
     this.setState({
       tableData,
-      selectedRowsIndices: [],
+      selectedRowsIndices: new Set(),
       selectedCellRowIndex: null
     });
   };
@@ -237,7 +264,7 @@ export default class GridWrapper extends Component {
       tableData: this.getTableData(foundTable),
       tableColumns: this.getTableColumns(foundTable),
       selectedRowIndex: null,
-      selectedRowsIndices: [],
+      selectedRowsIndices: new Set(),
       selectedCellColumnId: null,
       selectedCellRowIndex: null
     });
@@ -266,9 +293,7 @@ export default class GridWrapper extends Component {
                   return {
                     style:
                       rowInfo !== undefined &&
-                      this.state.selectedRowsIndices.includes(
-                        rowInfo.row._index
-                      )
+                      this.state.selectedRowsIndices.has(rowInfo.row._index)
                         ? { backgroundColor: '#0B54D5', color: 'white' }
                         : {},
                     onClick: e => {
