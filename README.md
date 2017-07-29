@@ -9,14 +9,13 @@ A modern, cross-platform, and universal database client
 [![Dependency Status](https://img.shields.io/david/falcon-client/falcon.svg?maxAge=2592)](https://david-dm.org/falcon-client/falcon)
 
 ### IDEA:
-![Demo](https://raw.githubusercontent.com/falcon-client/falcon/4b064b2f53016d6a4e4bed42576c6a8c514e1040/internals/img/falcon-preview.jpg)
+![Falcon Home Page Preview](https://raw.githubusercontent.com/falcon-client/falcon-design/master/screenshots/home-v2.jpg)
 
 ## Installation
 ```bash
 git clone https://github.com/falcon-client/falcon.git
 cd falcon
 yarn
-cd app && yarn && cd ..
 
 # Development
 yarn dev
