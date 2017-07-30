@@ -10,7 +10,8 @@
     "url": "https://github.com/falcon-client"
   },
   "scripts": {
-    "postinstall": "npm rebuild --runtime=electron --target=1.7.0 --dist-url=https://atom.io/download/electron --build-from-source"
+    "electron-rebuild": "../node_modules/.bin/electron-rebuild --version=1.7.0 --force --types prod,dev,optional --module-dir .",
+    "postinstall": "npm run electron-rebuild"
   },
   "license": "MIT",
   "dependencies": {

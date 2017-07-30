@@ -33,5 +33,5 @@ before_script:
   - sleep 3
 
 script:
-  - npm run package
-  - npm run test-e2e
+  - yarn package
+  - yarn test-e2e
