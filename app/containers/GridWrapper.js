@@ -8,6 +8,7 @@ import { ipcRenderer } from 'electron';
 import _ from 'lodash';
 import Structure from '../components/Structure';
 import styles from './GridWrapper.css';
+import { Database } from '../api/Database';
 import SpecialTypeMarker from '../components/SpecialTypeMarker';
 import type { DatabaseType } from '../types/DatabaseType';
 import type { TableType } from '../types/TableType';
@@ -23,17 +24,19 @@ function getAllNumbersBetween(x: number, y: number) {
   return numbers;
 }
 
-function removeFromArrayAtIndex(array, index) {
+function removeFromArrayAtIndex(array: Array<any>, index: number) {
   array.splice(index, 1);
 }
 
 type Props = {
   databases: Array<DatabaseType>,
+  databasePath: string,
   selectedTableName: string
 };
 
 export default class GridWrapper extends Component {
   state: {
+    databaseApi: Database,
     foundTable: ?TableType,
     showStructure: boolean,
     loading: boolean,
@@ -41,6 +44,9 @@ export default class GridWrapper extends Component {
     selectedRowsIndices: Set<number>,
     selectedCellColumnId: ?number,
     selectedCellRowIndex: ?number,
+    proposedDeletionsIndices: Array<number>,
+    proposedInsertionsIndices: Array<number>,
+    proposedUpdateIndices: Array<number>,
     tableData: Array<{ [key: string]: string | number | boolean }>,
     // @TODO: Cell currently unannotated
     tableColumns: Array<{ Header: string, accessor: string }>
@@ -49,6 +55,7 @@ export default class GridWrapper extends Component {
   constructor(props: Props) {
     super(props);
     this.state = {
+      databaseApi: new Database(this.props.databasePath),
       foundTable: null,
       showStructure: false,
       loading: true,
@@ -56,6 +63,9 @@ export default class GridWrapper extends Component {
       selectedRowsIndices: new Set(),
       selectedCellColumnId: null,
       selectedCellRowIndex: null,
+      proposedDeletionsIndices: [],
+      proposedInsertionsIndices: [],
+      proposedUpdateIndices: [],
       tableData: [],
       tableColumns: []
     };
@@ -93,7 +103,7 @@ export default class GridWrapper extends Component {
                 autoFocus
                 style={{ width: '100%' }}
                 onBlur={event => {
-                  this.handleCellSaving(
+                  this.handleCellContentChange(
                     event.target.value,
                     row.index,
                     row.column.Header
@@ -102,7 +112,7 @@ export default class GridWrapper extends Component {
                 onKeyDown={event => {
                   const returnKeyCharCode = event.keyCode;
                   if (returnKeyCharCode === 13) {
-                    this.handleCellSaving(
+                    this.handleCellContentChange(
                       event.target.value,
                       row.index,
                       row.column.Header
@@ -130,11 +140,16 @@ export default class GridWrapper extends Component {
       }
     }));
 
-  handleCellSaving = (
+  /**
+   * Called whenever a cell's content changes. If the cell does not belong
+   * to a newly inserted row, adds it to proposedUpdates
+   */
+  handleCellContentChange = (
     newCellcontent: string,
     rowIndex: number,
     rowHeader: string
   ) => {
+    // Updates tableData
     const tableData = _.cloneDeep(this.state.tableData);
     tableData[rowIndex][rowHeader] = newCellcontent;
     this.setState({
@@ -142,6 +157,11 @@ export default class GridWrapper extends Component {
       selectedCellColumnId: null,
       selectedCellRowIndex: null
     });
+    if (!this.state.proposedInsertionsIndices.includes(rowIndex)) {
+      this.setState({
+        proposedUpdateIndices: [...this.state.proposedUpdateIndices, rowIndex]
+      });
+    }
   };
 
   handleButtonClick = (e: SyntheticEvent) => {
@@ -163,7 +183,7 @@ export default class GridWrapper extends Component {
   handleCtrlRowSelection = (rowIndex: number) => {
     const { selectedRowIndex, selectedRowsIndices } = this.state;
     // Treat like regular row selection
-    if (!selectedRowIndex) {
+    if (selectedRowIndex === null || selectedRowIndex === undefined) {
       this.handleRowSelection(rowIndex);
     } else if (selectedRowIndex === rowIndex) {
       // Remove row selectedRowsIndices and make selectedRow = the row below, above, or null
@@ -217,9 +237,17 @@ export default class GridWrapper extends Component {
       selectedCellRowIndex: cellRowIndex
     });
   };
+
+  /**
+   * Removes selected rows from the table
+   */
   handleSelectedRowsDeletion = () => {
     const tableData = _.cloneDeep(this.state.tableData);
     const selectedRowsIndices = [...this.state.selectedRowsIndices];
+    const proposedDeletionsIndices = [
+      ...this.state.proposedDeletionsIndices,
+      ...this.state.selectedRowsIndices
+    ];
     selectedRowsIndices.forEach((e, i) => {
       // At each removal, need to subtract i to compensate for shorter array
       const indexToRemove = e - i;
@@ -227,8 +255,98 @@ export default class GridWrapper extends Component {
     });
     this.setState({
       tableData,
+      proposedDeletionsIndices,
       selectedRowsIndices: new Set(),
       selectedCellRowIndex: null
+    });
+  };
+
+  handleinsertRows = async () => {
+    const tableData = _.cloneDeep(this.state.tableData);
+    const proposedInsertionsIndices = [
+      ...this.state.proposedInsertionsIndices,
+      tableData.length
+    ];
+    const columnInfo = await this.state.databaseApi.getTableKeys(
+      this.props.selectedTableName
+    );
+    const newRow = {};
+    columnInfo.forEach(column => {
+      newRow[column.name] = column.notnull ? 'PLACEHOLDER' : 'NULL';
+    });
+    tableData.push(newRow);
+    this.setState({ tableData, proposedInsertionsIndices });
+  };
+
+  /**
+   * proposedDeletionsIndices and proposedInsertionsIndices are used to track
+   * which rows needs to be deleted/inserted. Sends this info to the api
+   */
+  handleSaveEdits = async () => {
+    const {
+      tableData,
+      proposedDeletionsIndices,
+      proposedInsertionsIndices,
+      proposedUpdateIndices,
+      databaseApi
+    } = this.state;
+
+    /*
+    Saves insertions.
+    Need to adjust indices because deletion modifies indices of tableData thus
+    for each deletion index < an insertion index, decrement that insertion index
+    */
+    const actualInsertionsIndices = proposedInsertionsIndices.map(e => {
+      let actualInsertionIndex = e;
+      proposedDeletionsIndices.forEach(deletionIndex => {
+        if (deletionIndex < e) {
+          actualInsertionIndex--;
+        }
+      });
+      return actualInsertionIndex;
+    });
+    const proposedInsertions = actualInsertionsIndices.map(i => tableData[i]);
+
+    /*
+    Saves updates.
+    Need to adjust indices because deletion modifies indices of tableData thus
+    for each deletion index < an update index, decrement that update index
+    */
+    const actualUpdateIndices = proposedUpdateIndices.map(e => {
+      let actualUpdateIndex = e;
+      proposedDeletionsIndices.forEach(deletionIndex => {
+        if (deletionIndex < e) {
+          actualUpdateIndex--;
+        }
+      });
+      return actualUpdateIndex;
+    });
+
+    const tablePrimaryKey = await this.state.databaseApi.getPrimaryKey(
+      this.props.selectedTableName
+    );
+    const proposedUpdates = actualUpdateIndices.map(e => ({
+      rowPrimaryKeyValue: tableData[e][tablePrimaryKey.name],
+      changes: tableData[e]
+    }));
+
+    databaseApi
+      .insertRows(this.props.selectedTableName, proposedInsertions)
+      .then(() =>
+        databaseApi
+          .updateRows(this.props.selectedTableName, proposedUpdates)
+          .then(() =>
+            databaseApi.deleteRows(
+              this.props.selectedTableName,
+              proposedDeletionsIndices
+            )
+          )
+      );
+
+    this.setState({
+      proposedDeletionsIndices: [],
+      proposedInsertionsIndices: [],
+      proposedUpdateIndices: []
     });
   };
 
@@ -249,6 +367,14 @@ export default class GridWrapper extends Component {
     });
   };
 
+  componentDidMount = async () => {
+    await this.state.databaseApi.connect();
+  };
+
+  /**
+   * Occurs when state.selectedTableName changes. Should update tableData
+   * and reset selection/editing state
+   */
   componentWillReceiveProps = (nextProps: Props) => {
     this.setState({ loading: true });
     if (nextProps.databases.length === 0) return;
@@ -266,7 +392,9 @@ export default class GridWrapper extends Component {
       selectedRowIndex: null,
       selectedRowsIndices: new Set(),
       selectedCellColumnId: null,
-      selectedCellRowIndex: null
+      selectedCellRowIndex: null,
+      proposedDeletionsIndices: [],
+      proposedInsertionsIndices: []
     });
   };
 
@@ -332,6 +460,9 @@ export default class GridWrapper extends Component {
           >
             Structure
           </button>
+          <button onClick={this.handleinsertRows}>Insert Row</button>
+          <button onClick={this.handleSelectedRowsDeletion}>Delete</button>
+          <button onClick={this.handleSaveEdits}>Save</button>
         </div>
       </div>
     );

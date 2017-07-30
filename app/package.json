@@ -16,6 +16,6 @@
   "license": "MIT",
   "dependencies": {
     "electron-store": "^1.2.0",
-    "falcon-core": "0.0.1-8"
+    "falcon-core": "0.1.0-3"
   }
 }

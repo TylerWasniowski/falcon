@@ -7,7 +7,7 @@ import { ipcRenderer } from 'electron';
 import GridWrapper from './GridWrapper';
 import BreadcrumbWrapper from '../components/BreadcrumbWrapper';
 import Query from './Query';
-import getDatabases from '../api/Database';
+import { getDatabases } from '../api/Database';
 import type { DatabaseType } from '../types/DatabaseType';
 import type { TableType } from '../types/TableType';
 import { OPEN_FILE_CHANNEL, DELETE_TABLE_CHANNEL } from '../types/channels';
@@ -139,6 +139,7 @@ export default class HomePage extends Component {
             />
             <Icon
               type="retweet"
+              id="refreshIcon"
               style={{ fontSize: '200%', color: '#08c', cursor: 'pointer' }}
               onClick={() => this.setDatabaseResults(this.state.databasePath)}
             />
@@ -197,6 +198,7 @@ export default class HomePage extends Component {
                   ? <Query databasePath={this.state.databasePath} />
                   : <GridWrapper
                     databases={databases}
+                    databasePath={this.state.databasePath}
                     selectedTableName={this.state.selectedTableName}
                   />}
               </Content>

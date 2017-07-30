@@ -1,7 +1,6 @@
 // @flow
 import { db } from 'falcon-core';
 import path from 'path';
-
 import type { exportOptionsType, ProviderInterfaceType } from 'falcon-core';
 import type { DatabaseType } from '../types/DatabaseType';
 
@@ -27,6 +26,40 @@ type configType = {
   }
 };
 
+export type TableKeyType = {
+  cid: number,
+  name: string,
+  type: string,
+  notnull: 0 | 1,
+  dflt_value: string,
+  pk: 0 | 1
+};
+
+export type DatabaseApiType = {
+  connection: {
+    client: 'sqlite' | 'mysql' | 'postgresql',
+    connect: configType => void,
+    executeQuery: (
+      conn: string
+    ) => Promise<Array<ProviderInterfaceType.queryResponseType>>
+  },
+  config: configType,
+  session: {
+    createConnection: string => ProviderInterfaceType
+  },
+  connect: () => void,
+  sendQueryToDatabase: (
+    query: string
+  ) => Promise<Array<ProviderInterfaceType.queryResponseType>>,
+  getTableKeys: (table: string, raw: boolean) => Promise<Array<TableKeyType>>,
+  getPrimaryKey: (table: string) => Promise<TableKeyType>,
+  insertRows: (table: string, values: { [string]: any }) => void,
+  deleteRow: (table: string, keys: Array<string> | Array<number>) => void
+};
+
+/**
+ * Adapter between falcon's table and its backend
+ */
 export class Database {
   /**
    * @TODO: Write a flow-typed definition for falcon-core so we can just import
@@ -37,7 +70,21 @@ export class Database {
     connect: configType => void,
     executeQuery: (
       conn: string
-    ) => Promise<Array<ProviderInterfaceType.queryResponseType>>
+    ) => Promise<Array<ProviderInterfaceType.queryResponseType>>,
+    getTableKeys: (table: string, raw: boolean) => Promise<Array<TableKeyType>>,
+    getPrimaryKey: (table: string) => Promise<TableKeyType>,
+    delete: (
+      table: string,
+      keys: Array<string> | Array<number>
+    ) => Promise<boolean>,
+    insert: (
+      table: string,
+      values: Array<{ [string]: any }>
+    ) => Promise<boolean>,
+    update: (
+      table: string,
+      records: Array<{ rowPrimaryKeyValue: string, changes: { [string]: any } }>
+    ) => Promise<boolean>
   };
 
   config: configType;
@@ -79,13 +126,55 @@ export class Database {
     return this.connection.executeQuery(query);
   }
 
+  async getTableKeys(
+    table: string,
+    raw: boolean = false
+  ): Promise<Array<TableKeyType>> {
+    return this.connection.getTableKeys(table, raw);
+  }
+
+  async getPrimaryKey(table: string): Promise<TableKeyType> {
+    return this.connection.getPrimaryKey(table);
+  }
+
+  /**
+   * Deletes rows in a tables. If keys are empty, will do nothing
+   * @TODO: Method assumes that primary key is an integer and that
+   *        rows in table were created in the order the table gave it.
+   *        Find a way to map index-primary key relationship
+   * @param {*} table - name of the table being edited
+   * @param {*} keys  - rows with these keys will be deleted
+   */
+  async deleteRows(table: string, keys: Array<string> | Array<number>) {
+    if (keys.length === 0) {
+      return;
+    }
+    // React Table gives 1-based indexing. if keys are numbers, need to incremt
+    const incrementedKeys = keys.map(key => key + 1);
+    await this.connection.delete(table, incrementedKeys);
+  }
+
+  async insertRows(tableName: string, rows: Array<{ [string]: any }>) {
+    if (rows.length === 0) {
+      return;
+    }
+    await this.connection.insert(tableName, rows);
+  }
+
+  async updateRows(
+    table: string,
+    records: Array<{ rowPrimaryKeyValue: string, changes: { [string]: any } }>
+  ) {
+    if (records.length === 0) {
+      return;
+    }
+    await this.connection.update(table, records);
+  }
+
   static getDatabases = getDatabases;
 }
 
-// @TODO: Gets and returns an object to be used to set the state of Home
-//        - How will ordering of databases and tables be dealt with? This
-//          example is only given one database, so doesn't deal with it
-async function getDatabases(
+export async function getDatabases(
   databasePath: string
 ): Promise<Array<DatabaseType>> {
   const serverInfo = {
@@ -159,23 +248,3 @@ export async function exportFile(
       throw new Error(`Invalid or unsupported export type "${type}"`);
   }
 }
-
-export default getDatabases;
-
-export type DatabaseApiType = {
-  connection: {
-    client: 'sqlite' | 'mysql' | 'postgresql',
-    connect: configType => void,
-    executeQuery: (
-      conn: string
-    ) => Promise<Array<ProviderInterfaceType.queryResponseType>>
-  },
-  config: configType,
-  session: {
-    createConnection: string => ProviderInterfaceType
-  },
-  connect: () => void,
-  sendQueryToDatabase: (
-    query: string
-  ) => Promise<Array<ProviderInterfaceType.queryResponseType>>
-};
