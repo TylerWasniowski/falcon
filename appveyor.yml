@@ -23,7 +23,7 @@ clone_depth: 1
 install:
   - ps: Install-Product node $env:nodejs_version
   - set CI=true
-  - yarn --ignore-optional
+  - yarn --ignore-platform
 
 test_script:
   - yarn package
