@@ -1,5 +1,6 @@
 /* eslint no-restricted-syntax: 0 */
 import path from 'path';
+import { expect as chaiExpect } from 'chai';
 import { Application } from 'spectron';
 import electronPath from 'electron';
 
@@ -46,7 +47,10 @@ describe('e2e', function testApp() {
       it('should be at table albums', async () => {
         const { client } = this.app;
         const breadcrumb = await client.getText('.ant-breadcrumb');
-        expect(breadcrumb).toBe('SQLite/temp.sqlite/albums');
+        chaiExpect(breadcrumb).to.be.oneOf([
+          'SQLite/temp.sqlite/albums',
+          'SQLite/C:\\projects\\falcon\\test\\e2e\\temp.sqlite/albums'
+        ]);
       });
 
       it('should be at table employees after clicking employees', async () => {
@@ -54,7 +58,10 @@ describe('e2e', function testApp() {
         await client.click('.ant-menu-item:nth-child(4)');
         await delay(1000);
         const breadcrumb = await client.getText('.ant-breadcrumb');
-        expect(breadcrumb).toBe('SQLite/temp.sqlite/employees');
+        chaiExpect(breadcrumb).to.be.oneOf([
+          'SQLite/temp.sqlite/employees',
+          'SQLite/C:\\projects\\falcon\\test\\e2e\\temp.sqlite/employees'
+        ]);
       });
 
       it('should validate content of first row in employees', async () => {
