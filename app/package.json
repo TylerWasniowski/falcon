@@ -10,8 +10,7 @@
     "url": "https://github.com/falcon-client"
   },
   "scripts": {
-    "electron-rebuild": "../node_modules/.bin/electron-rebuild --version=1.7.0 --force --types prod,dev,optional --module-dir .",
-    "postinstall": "npm run electron-rebuild"
+    "electron-rebuild": "../node_modules/.bin/electron-rebuild --version=1.7.0 --force --types prod,dev,optional --module-dir ."
   },
   "license": "MIT",
   "dependencies": {
