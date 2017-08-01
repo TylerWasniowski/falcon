@@ -4,7 +4,7 @@
 
 import webpack from 'webpack';
 import merge from 'webpack-merge';
-// import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
+import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import baseConfig from './webpack.config.base';
 
@@ -22,7 +22,9 @@ export default merge.smart(baseConfig, {
   },
 
   plugins: [
-    // new UglifyJSPlugin(),
+    new UglifyJSPlugin({
+      parallel: true
+    }),
 
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.OPEN_ANALYZER === 'true'
