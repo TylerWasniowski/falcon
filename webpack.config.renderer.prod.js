@@ -11,7 +11,7 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
 export default merge.smart(baseConfig, {
-  // devtool: 'eval',
+  devtool: 'source-map',
 
   target: 'electron-renderer',
 
@@ -19,7 +19,7 @@ export default merge.smart(baseConfig, {
 
   output: {
     path: path.join(__dirname, 'app/dist'),
-    publicPath: '../dist/'
+    publicPath: './dist/'
   },
 
   module: {
@@ -28,7 +28,12 @@ export default merge.smart(baseConfig, {
       {
         test: /\.global\.css$/,
         use: ExtractTextPlugin.extract({
-          use: 'css-loader',
+          use: {
+            loader: 'css-loader',
+            options: {
+              minimize: true
+            }
+          },
           fallback: 'style-loader'
         })
       },
@@ -40,6 +45,7 @@ export default merge.smart(baseConfig, {
             loader: 'css-loader',
             options: {
               modules: true,
+              minimize: true,
               importLoaders: 1,
               localIdentName: '[name]__[local]__[hash:base64:5]'
             }
@@ -52,7 +58,10 @@ export default merge.smart(baseConfig, {
         use: ExtractTextPlugin.extract({
           use: [
             {
-              loader: 'css-loader'
+              loader: 'css-loader',
+              options: {
+                minimize: true
+              }
             },
             {
               loader: 'sass-loader'
@@ -65,19 +74,18 @@ export default merge.smart(baseConfig, {
       {
         test: /^((?!\.global).)*\.scss$/,
         use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                importLoaders: 1,
-                localIdentName: '[name]__[local]__[hash:base64:5]'
-              }
-            },
-            {
-              loader: 'sass-loader'
+          use: [{
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              minimize: true,
+              importLoaders: 1,
+              localIdentName: '[name]__[local]__[hash:base64:5]'
             }
-          ]
+          },
+          {
+            loader: 'sass-loader'
+          }]
         })
       },
       // WOFF Font
@@ -138,19 +146,8 @@ export default merge.smart(baseConfig, {
   },
 
   plugins: [
-    /**
-     * Create global constants which can be configured at compile time.
-     *
-     * Useful for allowing different behaviour between development builds and
-     * release builds
-     *
-     * NODE_ENV should be production so that modules do not perform certain
-     * development checks
-     */
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(
-        process.env.NODE_ENV || 'production'
-      )
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'production'
     }),
 
     new UglifyJSPlugin({

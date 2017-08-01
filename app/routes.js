@@ -3,9 +3,18 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 import { Row, Alert } from 'antd';
 import { HashRouter as Router } from 'react-router-dom';
+import Loadable from 'react-loadable';
 import App from './containers/App';
-import HomePage from './containers/HomePage';
-import LoginPage from './containers/LoginPage';
+
+const LoadableHelper = (module, opts = {}) => Loadable({
+  loader: () => module,
+  loading: () => <div>Loading...</div>,
+  delay: 2000,
+  ...opts
+});
+
+const HomePage = LoadableHelper(import('./containers/HomePage'));
+const LoginPage = LoadableHelper(import('./containers/LoginPage'));
 
 export default () =>
   (<Router>
