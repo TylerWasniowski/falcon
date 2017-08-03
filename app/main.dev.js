@@ -2,6 +2,7 @@
 // @flow
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
+import { OPEN_FILE_CHANNEL } from './types/channels';
 
 let mainWindow = null;
 
@@ -38,6 +39,13 @@ app.on('window-all-closed', () => {
   }
 });
 
+// If opening file and app is yet to be open
+let startupFilePath;
+app.on('open-file', (event, filePath) => {
+  event.preventDefault();
+  startupFilePath = filePath;
+});
+
 app.on('ready', async () => {
   if (
     process.env.NODE_ENV === 'development' ||
@@ -55,13 +63,29 @@ app.on('ready', async () => {
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
-  mainWindow.show();
-  mainWindow.focus();
 
+  // @TODO: Use 'ready-to-show' event
+  //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
+  mainWindow.webContents.on('did-finish-load', () => {
+    if (!mainWindow) {
+      throw new Error('"mainWindow" is not defined');
+    }
+    if (startupFilePath) {
+      mainWindow.send(OPEN_FILE_CHANNEL, startupFilePath);
+    }
+    mainWindow.show();
+    mainWindow.focus();
+  });
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
+
+  // If app is open, then just send this to either Login or HomePage
+  app.on('open-file', (event, filePath) => {
+    event.preventDefault();
+    mainWindow.send(OPEN_FILE_CHANNEL, filePath);
+  });
 });

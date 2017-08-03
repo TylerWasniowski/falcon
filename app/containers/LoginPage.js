@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import * as fs from 'fs';
 import { Input, Col, Row, Select, Button, Icon, message } from 'antd';
-import { remote } from 'electron';
+import { remote, ipcRenderer } from 'electron';
 import Store from 'electron-store';
 import SavedDatabases from './SavedDatabases';
 import type { LoginSavedDatabaseType } from '../types/LoginSavedDatabaseType';
+import { OPEN_FILE_CHANNEL } from '../types/channels';
 import img from '../../resources/falcon.png';
 
 const InputGroup = Input.Group;
@@ -44,6 +45,10 @@ export default class LoginPage extends Component {
       databasePath: '',
       savedDatabases: this.store.get('savedDatabases') || []
     };
+    ipcRenderer.on(OPEN_FILE_CHANNEL, (event, filePath) => {
+      this.setState({ databasePath: filePath });
+      this.handleConnect();
+    });
   }
 
   handleDatabasePathSelection = () => {
@@ -71,8 +76,10 @@ export default class LoginPage extends Component {
     }
   };
 
-  handleConnect = (e: SyntheticEvent) => {
-    e.preventDefault();
+  handleConnect = (e?: SyntheticEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
     if (this.validateConnect()) {
       const path = `/home/${this.state.databasePath.replace(/\//g, '_')}`;
       this.props.history.push(path);

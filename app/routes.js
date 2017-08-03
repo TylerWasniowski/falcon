@@ -6,12 +6,13 @@ import { HashRouter as Router } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import App from './containers/App';
 
-const LoadableHelper = (module, opts = {}) => Loadable({
-  loader: () => module,
-  loading: () => <div />,
-  delay: 2000,
-  ...opts
-});
+const LoadableHelper = (module, opts = {}) =>
+  Loadable({
+    loader: () => module,
+    loading: () => <div>Loading...</div>,
+    delay: 2000,
+    ...opts
+  });
 
 const HomePage = LoadableHelper(import('./containers/HomePage'));
 const LoginPage = LoadableHelper(import('./containers/LoginPage'));

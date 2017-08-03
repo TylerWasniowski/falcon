@@ -42,6 +42,16 @@
       "main.js.map",
       "package.json"
     ],
+    "fileAssociations": [
+      {
+        "ext": "sqlite",
+        "name": "SQLite"
+      },
+      {
+        "ext": "db",
+        "name": "Database"
+      }
+    ],
     "dmg": {
       "format": "ULFO",
       "contents": [
@@ -61,6 +71,9 @@
       "target": [
         "nsis"
       ]
+    },
+    "nsis": {
+      "perMachine": true
     },
     "linux": {
       "target": [
