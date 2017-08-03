@@ -5,6 +5,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import merge from 'webpack-merge';
@@ -155,6 +156,12 @@ export default merge.smart(baseConfig, {
     }),
 
     new ExtractTextPlugin('style.css'),
+
+    // Ignore all locale files of moment.js
+    // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack#using-ignoreplugin
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
+    new LodashModuleReplacementPlugin(),
 
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.OPEN_ANALYZER === 'true'

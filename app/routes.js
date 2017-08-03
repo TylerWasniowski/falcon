@@ -8,7 +8,7 @@ import App from './containers/App';
 
 const LoadableHelper = (module, opts = {}) => Loadable({
   loader: () => module,
-  loading: () => <div>Loading...</div>,
+  loading: () => <div />,
   delay: 2000,
   ...opts
 });
@@ -36,3 +36,5 @@ export default () =>
       </Row>
     </App>
   </Router>);
+
+HomePage.preload();

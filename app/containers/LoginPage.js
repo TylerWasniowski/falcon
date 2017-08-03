@@ -96,25 +96,19 @@ export default class LoginPage extends Component {
   validateConnect = () => {
     const { databasePath } = this.state;
     const fileExtension = databasePath.substring(databasePath.lastIndexOf('.'));
-    if (
+    return (
       fs.existsSync(databasePath) &&
       (fileExtension === '.db' || fileExtension === '.sqlite')
-    ) {
-      return true;
-    }
-    return false;
+    );
   };
 
   validateSave = (database: LoginSavedDatabaseType) => {
     const { databaseNickname, savedDatabases } = this.state;
-    if (
+    return (
       this.validateConnect() &&
       databaseNickname !== '' &&
       isDatabaseSaved(savedDatabases, database)
-    ) {
-      return true;
-    }
-    return false;
+    );
   };
 
   render() {
@@ -175,7 +169,7 @@ export default class LoginPage extends Component {
             </Select>
           </InputGroup>
           <br />
-          {/* @TODO: routing messes up when '/' is present. Need to replace*/}
+          {/* @TODO: routing messes up when '/' is present. Need to replace */}
           <Button
             id="connectButton"
             type="primary"
