@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import Store from 'electron-store';
 import _ from 'lodash';
 import type { LoginSavedDatabaseType } from '../types/LoginSavedDatabaseType';
+
 /**
  * Handles saving/loading of connections. Used in LoginPage.js
  */
@@ -84,7 +85,9 @@ export default class Connections {
     const fileExtension = databasePath.substring(databasePath.lastIndexOf('.'));
     return (
       fs.existsSync(databasePath) &&
-      (fileExtension === '.db' || fileExtension === '.sqlite')
+      (fileExtension === '.db' ||
+        fileExtension === '.sqlite' ||
+        fileExtension === '.sqlite3')
     );
   }
 

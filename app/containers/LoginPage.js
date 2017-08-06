@@ -44,7 +44,7 @@ export default class LoginPage extends Component {
 
   handleDatabasePathSelection = () => {
     const selectedFiles = dialog.showOpenDialog({
-      filters: [{ name: 'SQLite', extensions: ['sqlite', 'db'] }],
+      filters: [{ name: 'SQLite', extensions: ['sqlite', 'db', 'sqlite3'] }],
       title: 'Set a database'
     });
     if (!selectedFiles) return;
@@ -90,7 +90,8 @@ export default class LoginPage extends Component {
     const { databasePath } = this.state;
     const suffix =
       databasePath.substring(databasePath.lastIndexOf('.') + 1) === 'sqlite' ||
-      databasePath.substring(databasePath.lastIndexOf('.') + 1) === 'db'
+      databasePath.substring(databasePath.lastIndexOf('.') + 1) === 'db' ||
+      databasePath.substring(databasePath.lastIndexOf('.') + 1) === 'sqlite3'
         ? (<Icon
           type="plus-circle-o"
           style={{ cursor: 'pointer' }}
