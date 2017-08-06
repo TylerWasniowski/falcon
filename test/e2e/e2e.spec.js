@@ -37,10 +37,11 @@ describe('e2e', function testApp() {
         const sqliteFilePath = path.join(__dirname, 'temp.sqlite');
         await client.setValue('input:nth-child(2)', sqliteFilePath);
         await client.click('#connectButton');
+        await delay(500);
         const url = await client.getUrl();
         const route = await url.substring(url.lastIndexOf('/home'));
         const expectedRoute = `/home/${sqliteFilePath.replace(/\//g, '_')}`;
-        await delay(500);
+        await delay(300);
         expect(route).toBe(expectedRoute);
       });
 
