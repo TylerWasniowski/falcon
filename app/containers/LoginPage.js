@@ -65,16 +65,25 @@ export default class LoginPage extends Component {
     }
   };
 
-  handleConnect = (e?: SyntheticEvent) => {
+  handleConnect = async (e?: SyntheticEvent) => {
     if (e) {
       e.preventDefault();
     }
-    if (Connections.validateConnect(this.state.databasePath)) {
-      const path = `/home/${this.state.databasePath.replace(/\//g, '_')}`;
-      this.props.history.push(path);
-    } else {
-      error('Please choose a valid database');
+    if (
+      Connections.validateDatabaseFilePath(this.state.databasePath) !== true
+    ) {
+      error(`${this.state.databasePath} isn't a valid sqlite file`);
+      return;
     }
+
+    const flag = await Connections.validateConnection(this.state.databasePath);
+    if (flag !== true) {
+      error(flag);
+      return;
+    }
+
+    const path = `/home/${this.state.databasePath.replace(/\//g, '_')}`;
+    this.props.history.push(path);
   };
 
   loadSavedDatabase = (databasePath: string, databaseNickname: string) => {

@@ -2,10 +2,12 @@
 import * as fs from 'fs';
 import Store from 'electron-store';
 import _ from 'lodash';
+import { verifySqlite } from './Database';
 import type { LoginSavedDatabaseType } from '../types/LoginSavedDatabaseType';
 
 /**
- * Handles saving/loading of connections. Used in LoginPage.js
+ * Handles saving/loading of connections to electron-store.
+ * Verifies nicknames, paths, and validity of file
  */
 export default class Connections {
   store = new Store();
@@ -57,7 +59,7 @@ export default class Connections {
     const savedDatabases = this.store.get('savedDatabases') || [];
     const { nickname, path } = potentialDatabase;
     return (
-      Connections.validateConnect(path) &&
+      Connections.validateDatabaseFilePath(path) &&
       nickname !== '' &&
       Connections.isDatabaseSaved(savedDatabases, potentialDatabase)
     );
@@ -78,10 +80,10 @@ export default class Connections {
   }
 
   /**
-   * Validates a database file
-   * @return true if databasefile exists and is .db or .sqlite
+   * Validates a database file's path
+   * @return true if databasefile exists and is .db, .sqlite, or sqlite3
    */
-  static validateConnect(databasePath: string): boolean {
+  static validateDatabaseFilePath(databasePath: string): boolean {
     const fileExtension = databasePath.substring(databasePath.lastIndexOf('.'));
     return (
       fs.existsSync(databasePath) &&
@@ -89,6 +91,16 @@ export default class Connections {
         fileExtension === '.sqlite' ||
         fileExtension === '.sqlite3')
     );
+  }
+
+  /**
+   * Checks if a given database file has a problem
+   * @return true if no problem exists, the error if there is a problem
+   */
+  static async validateConnection(
+    databasePath: string
+  ): Promise<string | true> {
+    return verifySqlite(databasePath);
   }
 
   /**

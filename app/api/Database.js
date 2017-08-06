@@ -145,7 +145,7 @@ export class Database {
    * @param {*} table - name of the table being edited
    * @param {*} keys  - rows with these keys will be deleted
    */
-  async deleteRows(table: string, keys: Array<string> | Array<number>) {
+  async deleteRows(table: string, keys: Array<string | number>) {
     if (keys.length === 0) {
       return;
     }
@@ -222,10 +222,11 @@ export async function getDatabases(
   );
 }
 
-type exportType = 'json' | 'csv';
-
+/**
+ * Exports the contents of an sqlite file to a path
+ */
 export async function exportFile(
-  type: exportType,
+  type: 'json' | 'csv',
   exportPath: string,
   exportOptions: exportOptionsType
 ): Promise<string> {
@@ -246,5 +247,27 @@ export async function exportFile(
       return connection.exportCsv(exportPath, exportOptions);
     default:
       throw new Error(`Invalid or unsupported export type "${type}"`);
+  }
+}
+
+/**
+ * Creates a test connection and attempts an operation. If an error occurs,
+ * returns the error message thrown by falcon-core. Otherwise return true
+ */
+export async function verifySqlite(
+  databasePath: string
+): Promise<string | true> {
+  try {
+    const serverInfo = {
+      database: databasePath,
+      client: 'sqlite'
+    };
+    const serverSession = db.createServer(serverInfo);
+    const connection = await serverSession.createConnection(databasePath);
+    await connection.connect(serverInfo);
+    await connection.executeQuery('pragma schema_version');
+    return true;
+  } catch (e) {
+    return e.message;
   }
 }
