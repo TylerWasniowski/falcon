@@ -72,7 +72,7 @@ export default class LoginPage extends Component {
     if (
       Connections.validateDatabaseFilePath(this.state.databasePath) !== true
     ) {
-      error(`${this.state.databasePath} isn't a valid sqlite file`);
+      error("Database path isn't a valid sqlite file");
       return;
     }
 

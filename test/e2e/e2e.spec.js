@@ -32,6 +32,30 @@ describe('e2e', function testApp() {
         expect(route).toBe('/');
       });
 
+      it('should show error messages given bad input', async () => {
+        const { client } = this.app;
+        const nonExistentFilePath = path.join(__dirname, 'nonexistent.file');
+        await client.setValue('input:nth-child(2)', nonExistentFilePath);
+        await client.click('#connectButton');
+        await delay(100);
+        const nonExistentFileError = await client.getText(
+          '.ant-message-notice:first-child'
+        );
+        expect(nonExistentFileError).toBe(
+          "Database path isn't a valid sqlite file"
+        );
+        const badSqliteFilePath = path.join(__dirname, 'badSqliteFile.db');
+        await client.setValue('input:nth-child(2)', badSqliteFilePath);
+        await client.click('#connectButton');
+        await delay(100);
+        const badSqliteFileError = await client.getText(
+          '.ant-message-notice:nth-child(2)'
+        );
+        expect(badSqliteFileError).toBe(
+          'SQLITE_NOTADB: file is encrypted or is not a database'
+        );
+      });
+
       it('should open temp.sqlite and navigate to HomePage', async () => {
         const { client } = this.app;
         const sqliteFilePath = path.join(__dirname, 'temp.sqlite');
