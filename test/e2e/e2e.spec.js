@@ -4,7 +4,7 @@ import { expect as chaiExpect } from 'chai';
 import { Application } from 'spectron';
 import electronPath from 'electron';
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
@@ -34,22 +34,28 @@ describe('e2e', function testApp() {
 
       it('should show error messages given bad input', async () => {
         const { client } = this.app;
+        await client.click('#connectButton');
+        await delay(100);
+        const emptyInput = await client.getText(
+          '.ant-message-notice:first-child'
+        );
+        expect(emptyInput).toBe("Database path isn't a valid sqlite file path");
         const nonExistentFilePath = path.join(__dirname, 'nonexistent.file');
         await client.setValue('input:nth-child(2)', nonExistentFilePath);
         await client.click('#connectButton');
         await delay(100);
         const nonExistentFileError = await client.getText(
-          '.ant-message-notice:first-child'
+          '.ant-message-notice:nth-child(2)'
         );
         expect(nonExistentFileError).toBe(
-          "Database path isn't a valid sqlite file"
+          `${nonExistentFilePath} isn't a valid sqlite file path`
         );
         const badSqliteFilePath = path.join(__dirname, 'badSqliteFile.db');
         await client.setValue('input:nth-child(2)', badSqliteFilePath);
         await client.click('#connectButton');
         await delay(100);
         const badSqliteFileError = await client.getText(
-          '.ant-message-notice:nth-child(2)'
+          '.ant-message-notice:nth-child(3)'
         );
         expect(badSqliteFileError).toBe(
           'SQLITE_NOTADB: file is encrypted or is not a database'
@@ -243,7 +249,7 @@ describe('e2e', function testApp() {
           );
         await delay(200);
         await client.click('button=Delete');
-        await delay(500);
+        await delay(200);
         await client.click('button=Save');
         await delay(1000);
         await client.click('#refreshIcon');
