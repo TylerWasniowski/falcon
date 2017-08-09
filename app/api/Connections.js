@@ -1,5 +1,5 @@
 // @flow
-import * as fs from 'fs';
+import fs from 'fs';
 import Store from 'electron-store';
 import _ from 'lodash';
 import { verifySqlite } from './Database';
@@ -32,18 +32,17 @@ export default class Connections {
    * or if no database is found
    * @return an array containing the new database
    */
-  saveDatabase(
+  async saveDatabase(
     databaseNickname: string,
     databasePath: string
-  ): Array<LoginSavedDatabaseType> {
+  ): Promise<Array<LoginSavedDatabaseType>> {
     const newDatabase = {
       nickname: databaseNickname,
       path: databasePath
     };
 
     const savedDatabases = this.store.get('savedDatabases') || [];
-
-    if (this.validateSave(newDatabase)) {
+    if (await this.validateSave(newDatabase)) {
       savedDatabases.push(newDatabase);
       this.store.set('savedDatabases', savedDatabases);
       return savedDatabases;
@@ -55,11 +54,14 @@ export default class Connections {
    * Validates a potentialDatabase. Database file must exist,
    * @return true if potentialDatabase valid, false if not
    */
-  validateSave(potentialDatabase: LoginSavedDatabaseType): boolean {
+  async validateSave(
+    potentialDatabase: LoginSavedDatabaseType
+  ): Promise<boolean> {
     const savedDatabases = this.store.get('savedDatabases') || [];
     const { nickname, path } = potentialDatabase;
+    const databaseFileExists = await Connections.validateDatabaseFilePath(path);
     return (
-      Connections.validateDatabaseFilePath(path) &&
+      databaseFileExists &&
       nickname !== '' &&
       Connections.isDatabaseSaved(savedDatabases, potentialDatabase)
     );
@@ -83,14 +85,32 @@ export default class Connections {
    * Validates a database file's path
    * @return true if databasefile exists and is .db, .sqlite, or sqlite3
    */
-  static validateDatabaseFilePath(databasePath: string): boolean {
+  static validateDatabaseFilePath(databasePath: string): Promise<boolean> {
     const fileExtension = databasePath.substring(databasePath.lastIndexOf('.'));
-    return (
-      fs.existsSync(databasePath) &&
-      (fileExtension === '.db' ||
-        fileExtension === '.sqlite' ||
-        fileExtension === '.sqlite3')
-    );
+    return new Promise((resolve, reject) => {
+      fs.stat(databasePath, (err, stats) => {
+        if (typeof stats === 'undefined') {
+          resolve(false);
+          return;
+        }
+        if (err) {
+          if (err.code === 'ENOENT') {
+            resolve(false);
+            return;
+          }
+          reject(err);
+          return;
+        }
+        if (
+          stats.isFile() &&
+          (fileExtension === '.db' ||
+            fileExtension === '.sqlite' ||
+            fileExtension === '.sqlite3')
+        ) {
+          resolve(true);
+        }
+      });
+    });
   }
 
   /**

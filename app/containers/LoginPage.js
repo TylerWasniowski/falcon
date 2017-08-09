@@ -52,10 +52,10 @@ export default class LoginPage extends Component {
     this.setState({ databasePath });
   };
 
-  handleSaveDatabase = () => {
+  handleSaveDatabase = async () => {
     try {
       this.setState({
-        savedDatabases: this.connections.saveDatabase(
+        savedDatabases: await this.connections.saveDatabase(
           this.state.databaseNickname,
           this.state.databasePath
         )
@@ -70,7 +70,8 @@ export default class LoginPage extends Component {
       e.preventDefault();
     }
     if (
-      Connections.validateDatabaseFilePath(this.state.databasePath) !== true
+      (await Connections.validateDatabaseFilePath(this.state.databasePath)) !==
+      true
     ) {
       const errorMesage =
         this.state.databasePath === ''
