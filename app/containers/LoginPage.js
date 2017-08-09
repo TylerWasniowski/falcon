@@ -1,10 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import _ from 'lodash';
-import * as fs from 'fs';
 import { Input, Col, Row, Select, Button, Icon, message } from 'antd';
 import { remote, ipcRenderer } from 'electron';
-import Store from 'electron-store';
+import Connections from '../api/Connections';
 import SavedDatabases from './SavedDatabases';
 import type { LoginSavedDatabaseType } from '../types/LoginSavedDatabaseType';
 import { OPEN_FILE_CHANNEL } from '../types/channels';
@@ -18,13 +16,6 @@ const logoStyle = {
 };
 const { dialog } = remote;
 
-function isDatabaseSaved(
-  savedDatabases: Array<LoginSavedDatabaseType>,
-  database: LoginSavedDatabaseType
-) {
-  return savedDatabases.some(e => _.isEqual(e, database));
-}
-
 const error = label => {
   message.error(label);
 };
@@ -36,14 +27,14 @@ export default class LoginPage extends Component {
     savedDatabases: Array<LoginSavedDatabaseType>
   };
 
-  store = new Store();
+  connections = new Connections();
 
   constructor(props: {}) {
     super(props);
     this.state = {
       databaseNickname: '',
       databasePath: '',
-      savedDatabases: this.store.get('savedDatabases') || []
+      savedDatabases: this.connections.getSavedDatabases() || []
     };
     ipcRenderer.on(OPEN_FILE_CHANNEL, (event, filePath) => {
       this.setState({ databasePath: filePath });
@@ -53,7 +44,7 @@ export default class LoginPage extends Component {
 
   handleDatabasePathSelection = () => {
     const selectedFiles = dialog.showOpenDialog({
-      filters: [{ name: 'SQLite', extensions: ['sqlite', 'db'] }],
+      filters: [{ name: 'SQLite', extensions: ['sqlite', 'db', 'sqlite3'] }],
       title: 'Set a database'
     });
     if (!selectedFiles) return;
@@ -61,31 +52,43 @@ export default class LoginPage extends Component {
     this.setState({ databasePath });
   };
 
-  handleSaveDatabase = () => {
-    const newDatabase = {
-      nickname: this.state.databaseNickname,
-      path: this.state.databasePath
-    };
-    if (this.validateSave(newDatabase)) {
-      const savedDatabases = _.cloneDeep(this.state.savedDatabases);
-      savedDatabases.push(newDatabase);
-      this.store.set('savedDatabases', savedDatabases);
-      this.setState({ savedDatabases });
-    } else {
-      error('Saved databases need a nickname and a valid database');
+  handleSaveDatabase = async () => {
+    try {
+      this.setState({
+        savedDatabases: await this.connections.saveDatabase(
+          this.state.databaseNickname,
+          this.state.databasePath
+        )
+      });
+    } catch (e) {
+      error(e);
     }
   };
 
-  handleConnect = (e?: SyntheticEvent) => {
+  handleConnect = async (e?: SyntheticEvent) => {
     if (e) {
       e.preventDefault();
     }
-    if (this.validateConnect()) {
-      const path = `/home/${this.state.databasePath.replace(/\//g, '_')}`;
-      this.props.history.push(path);
-    } else {
-      error('Please choose a valid database');
+    if (
+      (await Connections.validateDatabaseFilePath(this.state.databasePath)) !==
+      true
+    ) {
+      const errorMesage =
+        this.state.databasePath === ''
+          ? "Database path isn't a valid sqlite file path"
+          : `${this.state.databasePath} isn't a valid sqlite file path`;
+      error(errorMesage);
+      return;
     }
+
+    const flag = await Connections.validateConnection(this.state.databasePath);
+    if (flag !== true) {
+      error(flag);
+      return;
+    }
+
+    const path = `/home/${this.state.databasePath.replace(/\//g, '_')}`;
+    this.props.history.push(path);
   };
 
   loadSavedDatabase = (databasePath: string, databaseNickname: string) => {
@@ -93,36 +96,16 @@ export default class LoginPage extends Component {
   };
 
   deleteSavedDatabase = (savedDatabase: LoginSavedDatabaseType) => {
-    const savedDatabases = _.cloneDeep(this.state.savedDatabases).filter(e =>
-      _.isEqual(e, savedDatabase)
-    );
-    this.store.set('savedDatabases', savedDatabases);
+    const savedDatabases = this.connections.deleteSavedDatabase(savedDatabase);
     this.setState({ savedDatabases });
-  };
-
-  validateConnect = () => {
-    const { databasePath } = this.state;
-    const fileExtension = databasePath.substring(databasePath.lastIndexOf('.'));
-    return (
-      fs.existsSync(databasePath) &&
-      (fileExtension === '.db' || fileExtension === '.sqlite')
-    );
-  };
-
-  validateSave = (database: LoginSavedDatabaseType) => {
-    const { databaseNickname, savedDatabases } = this.state;
-    return (
-      this.validateConnect() &&
-      databaseNickname !== '' &&
-      isDatabaseSaved(savedDatabases, database)
-    );
   };
 
   render() {
     const { databasePath } = this.state;
     const suffix =
       databasePath.substring(databasePath.lastIndexOf('.') + 1) === 'sqlite' ||
-      databasePath.substring(databasePath.lastIndexOf('.') + 1) === 'db'
+      databasePath.substring(databasePath.lastIndexOf('.') + 1) === 'db' ||
+      databasePath.substring(databasePath.lastIndexOf('.') + 1) === 'sqlite3'
         ? (<Icon
           type="plus-circle-o"
           style={{ cursor: 'pointer' }}

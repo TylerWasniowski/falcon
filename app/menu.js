@@ -93,7 +93,9 @@ export default class MenuBuilder {
           accelerator: 'Command+O',
           click: () => {
             const selectedFiles = dialog.showOpenDialog({
-              filters: [{ name: 'SQLite', extensions: ['sqlite', 'db'] }],
+              filters: [
+                { name: 'SQLite', extensions: ['sqlite', 'db', 'sqlite3'] }
+              ],
               title: 'Set a database'
             });
             if (!selectedFiles) return;

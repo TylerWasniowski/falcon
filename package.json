@@ -48,6 +48,10 @@
         "name": "SQLite"
       },
       {
+        "ext": "sqlite3",
+        "name": "SQLite"
+      },
+      {
         "ext": "db",
         "name": "Database"
       }

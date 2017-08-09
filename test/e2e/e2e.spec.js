@@ -4,7 +4,7 @@ import { expect as chaiExpect } from 'chai';
 import { Application } from 'spectron';
 import electronPath from 'electron';
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
@@ -32,15 +32,50 @@ describe('e2e', function testApp() {
         expect(route).toBe('/');
       });
 
+      it('should show error messages given bad input', async () => {
+        const { client } = this.app;
+        await client.click('#connectButton');
+        await delay(150);
+        const emptyInputError = await client.getText(
+          '.ant-message-notice-content'
+        );
+        expect(emptyInputError).toBe(
+          "Database path isn't a valid sqlite file path"
+        );
+        await delay(4000);
+        const nonExistentFilePath = path.join(__dirname, 'nonexistent.file');
+        await client.setValue('input:nth-child(2)', nonExistentFilePath);
+        await client.click('#connectButton');
+        await delay(150);
+        const nonExistentFileError = await client.getText(
+          '.ant-message-notice-content'
+        );
+        expect(nonExistentFileError).toBe(
+          `${nonExistentFilePath} isn't a valid sqlite file path`
+        );
+        await delay(4000);
+        const badSqliteFilePath = path.join(__dirname, 'badSqliteFile.db');
+        await client.setValue('input:nth-child(2)', badSqliteFilePath);
+        await client.click('#connectButton');
+        await delay(150);
+        const badSqliteFileError = await client.getText(
+          '.ant-message-notice-content'
+        );
+        expect(badSqliteFileError).toBe(
+          'SQLITE_NOTADB: file is encrypted or is not a database'
+        );
+      });
+
       it('should open temp.sqlite and navigate to HomePage', async () => {
         const { client } = this.app;
         const sqliteFilePath = path.join(__dirname, 'temp.sqlite');
         await client.setValue('input:nth-child(2)', sqliteFilePath);
         await client.click('#connectButton');
+        await delay(500);
         const url = await client.getUrl();
         const route = await url.substring(url.lastIndexOf('/home'));
         const expectedRoute = `/home/${sqliteFilePath.replace(/\//g, '_')}`;
-        await delay(500);
+        await delay(300);
         expect(route).toBe(expectedRoute);
       });
 
@@ -218,7 +253,7 @@ describe('e2e', function testApp() {
           );
         await delay(200);
         await client.click('button=Delete');
-        await delay(500);
+        await delay(200);
         await client.click('button=Save');
         await delay(1000);
         await client.click('#refreshIcon');
