@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Input, Col, Row, Select, Button, Icon, message } from 'antd';
 import { remote, ipcRenderer } from 'electron';
 import Connections from '../api/Connections';
-import SavedDatabases from './SavedDatabases';
+import SavedDatabases from '../components/SavedDatabases';
 import type { LoginSavedDatabaseType } from '../types/LoginSavedDatabaseType';
 import { OPEN_FILE_CHANNEL } from '../types/channels';
 import img from '../../resources/falcon.png';
