@@ -35,35 +35,25 @@ describe('e2e', function testApp() {
       it('should show error messages given bad input', async () => {
         const { client } = this.app;
         await client.click('#connectButton');
-        await delay(150);
-        const emptyInputError = await client.getText(
-          '.ant-message-notice-content'
-        );
-        expect(emptyInputError).toBe(
-          "Database path isn't a valid sqlite file path"
-        );
-        await delay(4000);
+
         const nonExistentFilePath = path.join(__dirname, 'nonexistent.file');
         await client.setValue('input:nth-child(2)', nonExistentFilePath);
         await client.click('#connectButton');
-        await delay(150);
-        const nonExistentFileError = await client.getText(
-          '.ant-message-notice-content'
-        );
-        expect(nonExistentFileError).toBe(
-          `${nonExistentFilePath} isn't a valid sqlite file path`
-        );
-        await delay(4000);
+
         const badSqliteFilePath = path.join(__dirname, 'badSqliteFile.db');
         await client.setValue('input:nth-child(2)', badSqliteFilePath);
         await client.click('#connectButton');
-        await delay(150);
-        const badSqliteFileError = await client.getText(
+
+        await delay(600);
+        const errorMessages = await client.getText(
           '.ant-message-notice-content'
         );
-        expect(badSqliteFileError).toBe(
+
+        expect(errorMessages).toEqual([
+          'Database path is empty',
+          `${nonExistentFilePath} isn't a valid sqlite file path`,
           'SQLITE_NOTADB: file is encrypted or is not a database'
-        );
+        ]);
       });
 
       it('should open temp.sqlite and navigate to HomePage', async () => {

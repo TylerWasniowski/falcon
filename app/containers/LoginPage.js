@@ -75,7 +75,7 @@ export default class LoginPage extends Component {
     ) {
       const errorMesage =
         this.state.databasePath === ''
-          ? "Database path isn't a valid sqlite file path"
+          ? 'Database path is empty'
           : `${this.state.databasePath} isn't a valid sqlite file path`;
       error(errorMesage);
       return;

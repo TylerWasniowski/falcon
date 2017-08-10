@@ -12,35 +12,26 @@ import type { LoginSavedDatabaseType } from '../types/LoginSavedDatabaseType';
 export default class Connections {
   store = new Store();
 
-  constructor() {
-    this.getSavedDatabases.bind(this);
-    this.saveDatabase.bind(this);
-    this.validateSave.bind(this);
-    this.deleteSavedDatabase.bind(this);
-  }
-
   /**
    * @return  saved databases local to the machine. If no such array exists,
    * returns an empty array
    */
-  getSavedDatabases(): Array<LoginSavedDatabaseType> {
-    return this.store.get('savedDatabases') || [];
-  }
+  getSavedDatabases = (): Array<LoginSavedDatabaseType> =>
+    this.store.get('savedDatabases') || [];
 
   /**
    * Saves the database to local storage. Throws an error if nickname is empty
    * or if no database is found
    * @return an array containing the new database
    */
-  async saveDatabase(
+  saveDatabase = async (
     databaseNickname: string,
     databasePath: string
-  ): Promise<Array<LoginSavedDatabaseType>> {
+  ): Promise<Array<LoginSavedDatabaseType>> => {
     const newDatabase = {
       nickname: databaseNickname,
       path: databasePath
     };
-
     const savedDatabases = this.store.get('savedDatabases') || [];
     if (await this.validateSave(newDatabase)) {
       savedDatabases.push(newDatabase);
@@ -48,15 +39,15 @@ export default class Connections {
       return savedDatabases;
     }
     throw new Error('Saved databases need a nickname and a valid database');
-  }
+  };
 
   /**
    * Validates a potentialDatabase. Database file must exist,
    * @return true if potentialDatabase valid, false if not
    */
-  async validateSave(
+  validateSave = async (
     potentialDatabase: LoginSavedDatabaseType
-  ): Promise<boolean> {
+  ): Promise<boolean> => {
     const savedDatabases = this.store.get('savedDatabases') || [];
     const { nickname, path } = potentialDatabase;
     const databaseFileExists = await Connections.validateDatabaseFilePath(path);
@@ -65,21 +56,21 @@ export default class Connections {
       nickname !== '' &&
       Connections.isDatabaseSaved(savedDatabases, potentialDatabase)
     );
-  }
+  };
 
   /**
    * Deletes a savedDatabase from local storage
    * @return an array that does not contain that database
    */
-  deleteSavedDatabase(
+  deleteSavedDatabase = (
     savedDatabase: LoginSavedDatabaseType
-  ): Array<LoginSavedDatabaseType> {
+  ): Array<LoginSavedDatabaseType> => {
     const savedDatabases = _.cloneDeep(
       this.store.get('savedDatabases')
     ).filter(e => _.isEqual(e, savedDatabase));
     this.store.set('savedDatabases', savedDatabases);
     return savedDatabases;
-  }
+  };
 
   /**
    * Validates a database file's path
