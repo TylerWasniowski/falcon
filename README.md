@@ -9,7 +9,7 @@ A modern, cross-platform, and universal database client
 [![Dependency Status](https://img.shields.io/david/falcon-client/falcon.svg?maxAge=2592)](https://david-dm.org/falcon-client/falcon)
 
 ### IDEA:
-![Falcon Home Page Preview](https://raw.githubusercontent.com/falcon-client/falcon-design/master/screenshots/home-v2.jpg)
+![Falcon Home Page Preview](https://raw.githubusercontent.com/amilajack/falcon-ui-rewrite-2/master/internals/img/falcon-demo.png)
 
 ## Installation
 ```bash
