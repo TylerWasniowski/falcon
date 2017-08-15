@@ -35,8 +35,8 @@ type Props = {
 };
 
 export default class GridWrapper extends Component {
+  databaseApi: Database;
   state: {
-    databaseApi: Database,
     foundTable: ?TableType,
     showStructure: boolean,
     loading: boolean,
@@ -54,8 +54,8 @@ export default class GridWrapper extends Component {
 
   constructor(props: Props) {
     super(props);
+    this.databaseApi = new Database(this.props.databasePath);
     this.state = {
-      databaseApi: new Database(this.props.databasePath),
       foundTable: null,
       showStructure: false,
       loading: true,
@@ -267,7 +267,7 @@ export default class GridWrapper extends Component {
       ...this.state.proposedInsertionsIndices,
       tableData.length
     ];
-    const columnInfo = await this.state.databaseApi.getTableKeys(
+    const columnInfo = await this.databaseApi.getTableKeys(
       this.props.selectedTableName
     );
     const newRow = {};
@@ -287,8 +287,7 @@ export default class GridWrapper extends Component {
       tableData,
       proposedDeletionsIndices,
       proposedInsertionsIndices,
-      proposedUpdateIndices,
-      databaseApi
+      proposedUpdateIndices
     } = this.state;
 
     /*
@@ -322,7 +321,7 @@ export default class GridWrapper extends Component {
       return actualUpdateIndex;
     });
 
-    const tablePrimaryKey = await this.state.databaseApi.getPrimaryKey(
+    const tablePrimaryKey = await this.databaseApi.getPrimaryKey(
       this.props.selectedTableName
     );
     const proposedUpdates = actualUpdateIndices.map(e => ({
@@ -330,13 +329,13 @@ export default class GridWrapper extends Component {
       changes: tableData[e]
     }));
 
-    databaseApi
+    this.databaseApi
       .insertRows(this.props.selectedTableName, proposedInsertions)
       .then(() =>
-        databaseApi
+        this.databaseApi
           .updateRows(this.props.selectedTableName, proposedUpdates)
           .then(() =>
-            databaseApi.deleteRows(
+            this.databaseApi.deleteRows(
               this.props.selectedTableName,
               proposedDeletionsIndices
             )
@@ -368,7 +367,7 @@ export default class GridWrapper extends Component {
   };
 
   componentDidMount = async () => {
-    await this.state.databaseApi.connect();
+    await this.databaseApi.connect();
   };
 
   /**
