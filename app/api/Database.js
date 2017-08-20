@@ -54,7 +54,7 @@ export type DatabaseApiType = {
   getTableKeys: (table: string, raw: boolean) => Promise<Array<TableKeyType>>,
   getPrimaryKey: (table: string) => Promise<TableKeyType>,
   insertRows: (table: string, values: { [string]: any }) => void,
-  deleteRow: (table: string, keys: Array<string> | Array<number>) => void
+  deleteRows: (table: string, keys: Array<string> | Array<number>) => void
 };
 
 /**
@@ -151,7 +151,8 @@ export class Database {
     }
     // React Table gives 1-based indexing. if keys are numbers, need to incremt
     const incrementedKeys = keys.map(key => key + 1);
-    await this.connection.delete(table, incrementedKeys);
+    const results = await this.connection.delete(table, incrementedKeys);
+    return results;
   }
 
   async insertRows(tableName: string, rows: Array<{ [string]: any }>) {

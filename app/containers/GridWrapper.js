@@ -261,7 +261,7 @@ export default class GridWrapper extends Component {
     });
   };
 
-  handleinsertRows = async () => {
+  handleInsertRows = async () => {
     const tableData = _.cloneDeep(this.state.tableData);
     const proposedInsertionsIndices = [
       ...this.state.proposedInsertionsIndices,
@@ -443,7 +443,9 @@ export default class GridWrapper extends Component {
             </div>) ||
             <Structure
               selectedTableName={this.props.selectedTableName}
-              databases={this.props.databases}
+              tableKeysPromise={this.databaseApi.getTableKeys(
+                this.props.selectedTableName
+              )}
             />}
         </div>
         <div className={styles.controls}>
@@ -459,7 +461,7 @@ export default class GridWrapper extends Component {
           >
             Structure
           </button>
-          <button onClick={this.handleinsertRows}>Insert Row</button>
+          <button onClick={this.handleInsertRows}>Insert Row</button>
           <button onClick={this.handleSelectedRowsDeletion}>Delete</button>
           <button onClick={this.handleSaveEdits}>Save</button>
         </div>
