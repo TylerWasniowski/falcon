@@ -19,23 +19,27 @@ type Props = {
 };
 
 export default class Structure extends Component {
-  state: { tableKeys: ?Array<TableKeyType> };
+  state: { tableKeys: ?Array<TableKeyType>, loading: boolean };
   constructor(props: Props) {
     super(props);
-    this.state = { tableKeys: null };
+    // Needs state.loading or else props.selectedName and state.tableKeys
+    // won't align
+    this.state = { tableKeys: null, loading: true };
   }
 
   async componentDidMount() {
     this.setState({ tableKeys: await this.props.tableKeysPromise });
+    this.setState({ loading: false });
   }
 
   async componentWillReceiveProps(nextProps: Props) {
+    this.setState({ loading: true });
     this.setState({ tableKeys: await nextProps.tableKeysPromise });
+    this.setState({ loading: false });
   }
 
   render() {
-    console.log(this.state);
-    if (!this.state.tableKeys) return <div />;
+    if (this.state.loading) return <div />;
     return (
       <div>
         <InputGroup>
@@ -80,11 +84,17 @@ export default class Structure extends Component {
           </div>
         </div>
         {this.state.tableKeys.map(column =>
-          (<InputGroup key={column.cid} compact>
+          (<InputGroup
+            key={`${this.props.selectedTableName}${column.cid}`}
+            compact
+          >
             <Input style={{ width: '5%' }} defaultValue={column.cid} />
             <Input style={{ width: '22%' }} defaultValue={column.name} />
             <Input style={{ width: '15%' }} defaultValue={column.type} />
-            <Input style={{ width: '20%' }} defaultValue={column.dflt_value} />
+            <Input
+              style={{ width: '20%' }}
+              defaultValue={column.dflt_defaultValue}
+            />
             <Input style={{ width: '10%' }} defaultValue={column.pk} />
             <Input style={{ width: '28%' }} defaultValue={column.notnull} />
           </InputGroup>)
