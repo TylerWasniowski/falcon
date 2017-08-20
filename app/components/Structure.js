@@ -1,17 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import { Input, Col, Select } from 'antd';
-import AceEditor from 'react-ace';
-import 'brace';
-import 'brace/mode/sql';
-import 'brace/snippets/sql';
-import 'brace/theme/xcode';
-import 'brace/ext/language_tools';
-import 'brace/ext/searchbox';
 import type { TableKeyType } from '../api/Database';
 
 const InputGroup = Input.Group;
-const Option = Select.Option;
 
 type Props = {
   selectedTableName: string,
@@ -28,14 +20,18 @@ export default class Structure extends Component {
   }
 
   async componentDidMount() {
-    this.setState({ tableKeys: await this.props.tableKeysPromise });
-    this.setState({ loading: false });
+    this.setState({
+      tableKeys: await this.props.tableKeysPromise,
+      loading: false
+    });
   }
 
   async componentWillReceiveProps(nextProps: Props) {
     this.setState({ loading: true });
-    this.setState({ tableKeys: await nextProps.tableKeysPromise });
-    this.setState({ loading: false });
+    this.setState({
+      tableKeys: await nextProps.tableKeysPromise,
+      loading: false
+    });
   }
 
   render() {
@@ -49,24 +45,6 @@ export default class Structure extends Component {
           </Col>
         </InputGroup>
         <br />
-
-        <span>View Definition</span>
-        <AceEditor
-          mode="sql"
-          theme="xcode"
-          name="querybox"
-          ref="queryBoxTextarea"
-          value={'PLACEHOLDER TEXT'}
-          width={'100%'}
-          height={'200px'}
-          showPrintMargin={false}
-          editorProps={{ $blockScrolling: Infinity }}
-          enableBasicAutocompletion
-          enableSnippets
-          enableLiveAutocompletion={false}
-        />
-        <br />
-
         <div>
           <div style={{ display: 'inline-block', width: '5%' }}>ID</div>
           <div style={{ display: 'inline-block', width: '22%' }}>
@@ -99,17 +77,6 @@ export default class Structure extends Component {
             <Input style={{ width: '28%' }} defaultValue={column.notnull} />
           </InputGroup>)
         )}
-        <br />
-        <h2>Indexes</h2>
-        <Col span={8}>Index Name</Col>
-        <Col span={8}>Type</Col>
-        <Col span={8}>Columns</Col>
-        <InputGroup compact>
-          <Input style={{ width: '33.3%' }} defaultValue="placeholder" />
-          <Input style={{ width: '33.3%' }} defaultValue="placeholder" />
-          <Input style={{ width: '33.3%' }} defaultValue="placeholder" />
-        </InputGroup>
-        <br />
       </div>
     );
   }
