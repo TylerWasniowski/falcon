@@ -16,7 +16,7 @@ const logoStyle = {
 };
 const { dialog } = remote;
 
-const error = label => {
+const error = (label) => {
   message.error(label);
 };
 

@@ -51,8 +51,11 @@ export type DatabaseApiType = {
   sendQueryToDatabase: (
     query: string
   ) => Promise<Array<ProviderInterfaceType.queryResponseType>>,
-  getTableKeys: (table: string, raw: boolean) => Promise<Array<TableKeyType>>,
-  getPrimaryKey: (table: string) => Promise<TableKeyType>,
+  getTableColumns: (
+    table: string,
+    raw: boolean
+  ) => Promise<Array<TableKeyType>>,
+  getPrimaryKeyColumn: (table: string) => Promise<TableKeyType>,
   insertRows: (table: string, values: { [string]: any }) => void,
   deleteRows: (table: string, keys: Array<string> | Array<number>) => void
 };
@@ -71,8 +74,11 @@ export class Database {
     executeQuery: (
       conn: string
     ) => Promise<Array<ProviderInterfaceType.queryResponseType>>,
-    getTableKeys: (table: string, raw: boolean) => Promise<Array<TableKeyType>>,
-    getPrimaryKey: (table: string) => Promise<TableKeyType>,
+    getTableColumns: (
+      table: string,
+      raw: boolean
+    ) => Promise<Array<TableKeyType>>,
+    getPrimaryKeyColumn: (table: string) => Promise<TableKeyType>,
     delete: (
       table: string,
       keys: Array<string> | Array<number>
@@ -126,15 +132,15 @@ export class Database {
     return this.connection.executeQuery(query);
   }
 
-  async getTableKeys(
+  async getTableColumns(
     table: string,
     raw: boolean = false
   ): Promise<Array<TableKeyType>> {
-    return this.connection.getTableKeys(table, raw);
+    return this.connection.getTableColumns(table, raw);
   }
 
-  async getPrimaryKey(table: string): Promise<TableKeyType> {
-    return this.connection.getPrimaryKey(table);
+  async getPrimaryKeyColumn(table: string): Promise<TableKeyType> {
+    return this.connection.getPrimaryKeyColumn(table);
   }
 
   /**

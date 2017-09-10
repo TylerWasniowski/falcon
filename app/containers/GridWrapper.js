@@ -77,7 +77,7 @@ export default class GridWrapper extends Component {
   getTableData = (table: TableType) => {
     const rows = [...table.rows];
     const tableHeaders = [...table.columns];
-    const tableData = rows.map(e => {
+    const tableData = rows.map((e) => {
       const tableRow = {};
       tableHeaders.forEach((header, i) => {
         tableRow[header] = e.value[i];
@@ -91,7 +91,7 @@ export default class GridWrapper extends Component {
     table.columns.map(e => ({
       Header: e,
       accessor: e,
-      Cell: row => {
+      Cell: (row) => {
         if (
           this.state.selectedCellColumnId === e &&
           this.state.selectedCellRowIndex === row.index
@@ -102,14 +102,14 @@ export default class GridWrapper extends Component {
                 defaultValue={row.value}
                 autoFocus
                 style={{ width: '100%' }}
-                onBlur={event => {
+                onBlur={(event) => {
                   this.handleCellContentChange(
                     event.target.value,
                     row.index,
                     row.column.Header
                   );
                 }}
-                onKeyDown={event => {
+                onKeyDown={(event) => {
                   const returnKeyCharCode = event.keyCode;
                   if (returnKeyCharCode === 13) {
                     this.handleCellContentChange(
@@ -267,11 +267,11 @@ export default class GridWrapper extends Component {
       ...this.state.proposedInsertionsIndices,
       tableData.length
     ];
-    const columnInfo = await this.databaseApi.getTableKeys(
+    const columnInfo = await this.databaseApi.getTableColumns(
       this.props.selectedTableName
     );
     const newRow = {};
-    columnInfo.forEach(column => {
+    columnInfo.forEach((column) => {
       newRow[column.name] = column.notnull ? 'PLACEHOLDER' : 'NULL';
     });
     tableData.push(newRow);
@@ -295,9 +295,9 @@ export default class GridWrapper extends Component {
     Need to adjust indices because deletion modifies indices of tableData thus
     for each deletion index < an insertion index, decrement that insertion index
     */
-    const actualInsertionsIndices = proposedInsertionsIndices.map(e => {
+    const actualInsertionsIndices = proposedInsertionsIndices.map((e) => {
       let actualInsertionIndex = e;
-      proposedDeletionsIndices.forEach(deletionIndex => {
+      proposedDeletionsIndices.forEach((deletionIndex) => {
         if (deletionIndex < e) {
           actualInsertionIndex--;
         }
@@ -311,9 +311,9 @@ export default class GridWrapper extends Component {
     Need to adjust indices because deletion modifies indices of tableData thus
     for each deletion index < an update index, decrement that update index
     */
-    const actualUpdateIndices = proposedUpdateIndices.map(e => {
+    const actualUpdateIndices = proposedUpdateIndices.map((e) => {
       let actualUpdateIndex = e;
-      proposedDeletionsIndices.forEach(deletionIndex => {
+      proposedDeletionsIndices.forEach((deletionIndex) => {
         if (deletionIndex < e) {
           actualUpdateIndex--;
         }
@@ -321,7 +321,7 @@ export default class GridWrapper extends Component {
       return actualUpdateIndex;
     });
 
-    const tablePrimaryKey = await this.databaseApi.getPrimaryKey(
+    const tablePrimaryKey = await this.databaseApi.getPrimaryKeyColumn(
       this.props.selectedTableName
     );
     const proposedUpdates = actualUpdateIndices.map(e => ({
@@ -423,7 +423,7 @@ export default class GridWrapper extends Component {
                       this.state.selectedRowsIndices.has(rowInfo.row._index)
                         ? { backgroundColor: '#0B54D5', color: 'white' }
                         : {},
-                    onClick: e => {
+                    onClick: (e) => {
                       if (e.metaKey) {
                         this.handleCtrlRowSelection(rowInfo.row._index);
                       } else if (e.shiftKey) {
@@ -443,7 +443,7 @@ export default class GridWrapper extends Component {
             </div>) ||
             <Structure
               selectedTableName={this.props.selectedTableName}
-              tableKeysPromise={this.databaseApi.getTableKeys(
+              tableKeysPromise={this.databaseApi.getTableColumns(
                 this.props.selectedTableName
               )}
             />}

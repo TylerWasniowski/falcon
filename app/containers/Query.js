@@ -72,9 +72,9 @@ export default class Query extends Component {
 
   getTableData = (result: queryResponseType) => {
     const tableHeaders = result.fields.map(e => e.name);
-    const tableData = result.rows.map(e => {
+    const tableData = result.rows.map((e) => {
       const tableRow = {};
-      tableHeaders.forEach(header => {
+      tableHeaders.forEach((header) => {
         tableRow[header] = e[header];
       });
       return tableRow;
@@ -83,11 +83,11 @@ export default class Query extends Component {
   };
 
   getTableColumns = (result: queryResponseType) =>
-    result.fields.map(e => {
+    result.fields.map((e) => {
       const obj = {
         Header: e.name,
         accessor: e.name,
-        Cell: row => {
+        Cell: (row) => {
           if (
             this.state.selectedCellColumnId === e.name &&
             this.state.selectedCellRowIndex === row.index
@@ -98,7 +98,7 @@ export default class Query extends Component {
                   defaultValue={row.value}
                   autoFocus
                   style={{ width: '100%' }}
-                  onBlur={event => {
+                  onBlur={(event) => {
                     const tableData = _.cloneDeep(this.state.tableData);
                     tableData[row.index][row.column.Header] =
                       event.target.value;

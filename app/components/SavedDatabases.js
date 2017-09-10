@@ -29,7 +29,7 @@ export default function SavedDatabases(props: Props) {
       <br />
       <Icon
         type="close-circle"
-        onClick={event => {
+        onClick={(event) => {
           event.stopPropagation();
           props.deleteSavedDatabase(e);
         }}
