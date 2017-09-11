@@ -58,7 +58,22 @@ export type DatabaseApiType = {
   ) => Promise<Array<TableKeyType>>,
   getPrimaryKeyColumn: (table: string) => Promise<TableKeyType>,
   insertRows: (table: string, values: { [string]: any }) => void,
-  deleteRows: (table: string, keys: Array<string> | Array<number>) => void
+  deleteRows: (table: string, keys: Array<string> | Array<number>) => void,
+  renameTable: (oldTableName: string, newTableName: string) => Promise<boolean>,
+  dropTable: (table: string) => Promise<string>,
+  addTableColumn: (
+    table: string,
+    columnName: string,
+    columnType: string
+  ) => Promise<string>,
+  renameTableColumns: (
+    table: string,
+    columns: Array<{ oldColumnName: string, newColumnName: string }>
+  ) => Promise<string>,
+  dropTableColumns: (
+    table: string,
+    columnsToDrop: Array<string>
+  ) => Promise<string>
 };
 
 /**
@@ -91,7 +106,25 @@ export class Database {
     update: (
       table: string,
       records: Array<{ rowPrimaryKeyValue: string, changes: { [string]: any } }>
-    ) => Promise<boolean>
+    ) => Promise<boolean>,
+    renameTable: (
+      oldTableName: string,
+      newTableName: string
+    ) => Promise<boolean>,
+    dropTable: (table: string) => Promise<string>,
+    addTableColumn: (
+      table: string,
+      columnName: string,
+      columnType: string
+    ) => Promise<string>,
+    renameTableColumns: (
+      table: string,
+      columns: Array<{ oldColumnName: string, newColumnName: string }>
+    ) => Promise<string>,
+    dropTableColumns: (
+      table: string,
+      columnsToDrop: Array<string>
+    ) => Promise<string>
   };
 
   config: configType;
@@ -177,6 +210,29 @@ export class Database {
       return;
     }
     await this.connection.update(table, records);
+  }
+
+  async renameTable(oldTableName: string, newTableName: string) {
+    await this.connection.renameTable(oldTableName, newTableName);
+  }
+
+  async dropTable(tableName: string) {
+    await this.connection.dropTable(tableName);
+  }
+
+  async addTableColumn(table: string, columnName: string, columnType: string) {
+    return this.connection.addTableColumn(table, columnName, columnType);
+  }
+
+  async renameTableColumns(
+    table: string,
+    columns: Array<{ oldColumnName: string, newColumnName: string }>
+  ) {
+    return this.connection.renameTableColumns(table, columns);
+  }
+
+  async dropTableColumns(table: string, columnsToDrop: Array<string>) {
+    return this.connection.dropTableColumns(table, columnsToDrop);
   }
 
   static getDatabases = getDatabases;

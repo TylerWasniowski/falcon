@@ -446,6 +446,7 @@ export default class GridWrapper extends Component {
               tableColumnsPromise={this.databaseApi.getTableColumns(
                 this.props.selectedTableName
               )}
+              databaseApi={this.databaseApi}
             />}
         </div>
         <div className={styles.controls}>

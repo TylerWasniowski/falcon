@@ -1,25 +1,40 @@
 // @flow
 import React, { Component } from 'react';
 import { Input, Col } from 'antd';
-import type { TableKeyType } from '../api/Database';
+import type { DatabaseApiType, TableKeyType } from '../api/Database';
 
 const InputGroup = Input.Group;
 
 type Props = {
   selectedTableName: string,
-  tableColumnsPromise: Promise<Array<TableKeyType>>
+  tableColumnsPromise: Promise<Array<TableKeyType>>,
+  databaseApi: DatabaseApiType
 };
 
 export default class Structure extends Component {
   state: {
     tableColumns: ?Array<TableKeyType>,
+    tableName: string,
     loading: boolean
   };
   constructor(props: Props) {
     super(props);
     // Needs state.loading or else props.selectedName and state.tableColumns
     // won't align
-    this.state = { tableColumns: null, loading: true };
+    this.state = {
+      tableColumns: null,
+      tableName: props.selectedTableName,
+      loading: true
+    };
+  }
+
+  async saveStructureChanges() {
+    if (this.state.tableName !== this.props.selectedTableName) {
+      this.state.databaseApi.renameTable(
+        this.props.selectedTableName,
+        this.state.tableName
+      );
+    }
   }
 
   async componentDidMount() {
@@ -44,7 +59,10 @@ export default class Structure extends Component {
         <InputGroup>
           <Col span={10}>
             <span>Table Name</span>
-            <Input defaultValue={this.props.selectedTableName} />
+            <Input
+              value={this.state.tableName}
+              onChange={e => this.setState({ tableName: e.target.value })}
+            />
           </Col>
         </InputGroup>
         <br />
