@@ -1,27 +1,30 @@
 // @flow
 import React, { Component } from 'react';
-import { Input, Col, Select } from 'antd';
+import { Input, Col } from 'antd';
 import type { TableKeyType } from '../api/Database';
 
 const InputGroup = Input.Group;
 
 type Props = {
   selectedTableName: string,
-  tableKeysPromise: Promise<Array<TableKeyType>>
+  tableColumnsPromise: Promise<Array<TableKeyType>>
 };
 
 export default class Structure extends Component {
-  state: { tableKeys: ?Array<TableKeyType>, loading: boolean };
+  state: {
+    tableColumns: ?Array<TableKeyType>,
+    loading: boolean
+  };
   constructor(props: Props) {
     super(props);
-    // Needs state.loading or else props.selectedName and state.tableKeys
+    // Needs state.loading or else props.selectedName and state.tableColumns
     // won't align
-    this.state = { tableKeys: null, loading: true };
+    this.state = { tableColumns: null, loading: true };
   }
 
   async componentDidMount() {
     this.setState({
-      tableKeys: await this.props.tableKeysPromise,
+      tableColumns: await this.props.tableColumnsPromise,
       loading: false
     });
   }
@@ -29,7 +32,7 @@ export default class Structure extends Component {
   async componentWillReceiveProps(nextProps: Props) {
     this.setState({ loading: true });
     this.setState({
-      tableKeys: await nextProps.tableKeysPromise,
+      tableColumns: await nextProps.tableColumnsPromise,
       loading: false
     });
   }
@@ -61,7 +64,7 @@ export default class Structure extends Component {
             Constraints
           </div>
         </div>
-        {this.state.tableKeys.map(column =>
+        {this.state.tableColumns.map(column =>
           (<InputGroup
             key={`${this.props.selectedTableName}${column.cid}`}
             compact

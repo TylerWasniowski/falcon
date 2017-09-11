@@ -35,6 +35,7 @@ export type TableKeyType = {
   pk: 0 | 1
 };
 
+// Interface used by Falcon to interact with connected database
 export type DatabaseApiType = {
   connection: {
     client: 'sqlite' | 'mysql' | 'postgresql',

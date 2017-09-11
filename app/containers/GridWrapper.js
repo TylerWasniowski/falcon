@@ -443,7 +443,7 @@ export default class GridWrapper extends Component {
             </div>) ||
             <Structure
               selectedTableName={this.props.selectedTableName}
-              tableKeysPromise={this.databaseApi.getTableColumns(
+              tableColumnsPromise={this.databaseApi.getTableColumns(
                 this.props.selectedTableName
               )}
             />}
