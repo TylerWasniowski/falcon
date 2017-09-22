@@ -1,140 +1,103 @@
 // @flow
 import React, { Component } from 'react';
-import { Input, Col, Select } from 'antd';
-import AceEditor from 'react-ace';
-import 'brace';
-import 'brace/mode/sql';
-import 'brace/snippets/sql';
-import 'brace/theme/xcode';
-import 'brace/ext/language_tools';
-import 'brace/ext/searchbox';
-import type { DatabaseType } from '../types/DatabaseType';
+import { Input, Col } from 'antd';
+import type { DatabaseApiType, TableKeyType } from '../api/Database';
 
 const InputGroup = Input.Group;
-const Option = Select.Option;
 
 type Props = {
-  databases: Array<DatabaseType>,
-  selectedTableName: ?string
+  selectedTableName: string,
+  tableColumnsPromise: Promise<Array<TableKeyType>>,
+  databaseApi: DatabaseApiType
 };
 
 export default class Structure extends Component {
   state: {
-    tableName: string
+    tableColumns: ?Array<TableKeyType>,
+    tableName: string,
+    loading: boolean
   };
-
   constructor(props: Props) {
     super(props);
+    // Needs state.loading or else props.selectedName and state.tableColumns
+    // won't align
     this.state = {
-      tableName: 'FooTable'
+      tableColumns: null,
+      tableName: props.selectedTableName,
+      loading: true
     };
   }
 
+  async saveStructureChanges() {
+    if (this.state.tableName !== this.props.selectedTableName) {
+      this.state.databaseApi.renameTable(
+        this.props.selectedTableName,
+        this.state.tableName
+      );
+    }
+  }
+
+  async componentDidMount() {
+    this.setState({
+      tableColumns: await this.props.tableColumnsPromise,
+      loading: false
+    });
+  }
+
+  async componentWillReceiveProps(nextProps: Props) {
+    this.setState({ loading: true });
+    this.setState({
+      tableColumns: await nextProps.tableColumnsPromise,
+      loading: false
+    });
+  }
+
   render() {
+    if (this.state.loading) return <div />;
     return (
       <div>
         <InputGroup>
           <Col span={10}>
             <span>Table Name</span>
-            <Input defaultValue={this.state.tableName} />
-          </Col>
-          <Col span={2}>
-            <span>Schema</span>
-            <br />
-            <Select defaultValue="text" style={{ width: '6.3vw' }}>
-              <Option value="text">text</Option>
-              <Option value="varchar">varchar</Option>
-              <Option value="double">double</Option>
-            </Select>
-          </Col>
-          <Col span={3}>
-            <span>Tablespace</span>
-            <br />
-            <Select defaultValue="pg_default">
-              <Option value="pg_default">pg_default</Option>
-              <Option value="pg_global">pg_global</Option>
-            </Select>
+            <Input
+              value={this.state.tableName}
+              onChange={e => this.setState({ tableName: e.target.value })}
+            />
           </Col>
         </InputGroup>
         <br />
-
-        <span>View Definition</span>
-        <AceEditor
-          mode="sql"
-          theme="xcode"
-          name="querybox"
-          ref="queryBoxTextarea"
-          value={"SELECT * FROM 'users'"}
-          width={'100%'}
-          height={'200px'}
-          showPrintMargin={false}
-          editorProps={{ $blockScrolling: Infinity }}
-          enableBasicAutocompletion
-          enableSnippets
-          enableLiveAutocompletion={false}
-        />
-        <br />
-
-        <Col span={6}>Column Name</Col>
-        <Col span={6}>Type</Col>
-        <Col span={6}>Default</Col>
-        <Col span={6}>Contraints</Col>
-        <InputGroup compact>
-          <Input style={{ width: '25%' }} defaultValue="placeholder" />
-          <Select defaultValue="integer" style={{ width: '25%' }}>
-            <Option value="integer">integer</Option>
-            <Option value="text">text</Option>
-          </Select>
-          <Select defaultValue="nodefault" style={{ width: '8%' }}>
-            <Option value="nodefault">no default</Option>
-            <Option value="constant">constant</Option>
-            <Option value="expression">expression</Option>
-            <Option value="sequence">sequence</Option>
-          </Select>
-          <Input style={{ width: '17%' }} defaultValue="placeholder" />
-          <Input style={{ width: '25%' }} defaultValue="placeholder" />
-        </InputGroup>
-        <InputGroup compact>
-          <Input style={{ width: '25%' }} defaultValue="placeholder" />
-          <Select defaultValue="integer" style={{ width: '25%' }}>
-            <Option value="integer">integer</Option>
-            <Option value="text">text</Option>
-          </Select>
-          <Select defaultValue="nodefault" style={{ width: '8%' }}>
-            <Option value="nodefault">no default</Option>
-            <Option value="constant">constant</Option>
-            <Option value="expression">expression</Option>
-            <Option value="sequence">sequence</Option>
-          </Select>
-          <Input style={{ width: '17%' }} defaultValue="placeholder" />
-          <Input style={{ width: '25%' }} defaultValue="placeholder" />
-        </InputGroup>
-        <InputGroup compact>
-          <Input style={{ width: '25%' }} defaultValue="placeholder" />
-          <Select defaultValue="integer" style={{ width: '25%' }}>
-            <Option value="integer">integer</Option>
-            <Option value="text">text</Option>
-          </Select>
-          <Select defaultValue="nodefault" style={{ width: '8%' }}>
-            <Option value="nodefault">no default</Option>
-            <Option value="constant">constant</Option>
-            <Option value="expression">expression</Option>
-            <Option value="sequence">sequence</Option>
-          </Select>
-          <Input style={{ width: '17%' }} defaultValue="placeholder" />
-          <Input style={{ width: '25%' }} defaultValue="placeholder" />
-        </InputGroup>
-        <br />
-        <h2>Indexes</h2>
-        <Col span={8}>Index Name</Col>
-        <Col span={8}>Type</Col>
-        <Col span={8}>Columns</Col>
-        <InputGroup compact>
-          <Input style={{ width: '33.3%' }} defaultValue="placeholder" />
-          <Input style={{ width: '33.3%' }} defaultValue="placeholder" />
-          <Input style={{ width: '33.3%' }} defaultValue="placeholder" />
-        </InputGroup>
-        <br />
+        <div>
+          <div style={{ display: 'inline-block', width: '5%' }}>ID</div>
+          <div style={{ display: 'inline-block', width: '22%' }}>
+            Column Name
+          </div>
+          <div style={{ display: 'inline-block', width: '15%' }}>Type</div>
+          <div style={{ display: 'inline-block', width: '20%' }}>
+            Default Value
+          </div>
+          <div style={{ display: 'inline-block', width: '10%' }}>
+            Primary Key
+          </div>
+          <div style={{ display: 'inline-block', width: '28%' }}>
+            Constraints
+          </div>
+        </div>
+        {this.state.tableColumns.map(column =>
+          (<InputGroup
+            key={`${this.props.selectedTableName}${column.cid}`}
+            compact
+          >
+            <Input style={{ width: '5%' }} defaultValue={column.cid} />
+            <Input style={{ width: '22%' }} defaultValue={column.name} />
+            <Input style={{ width: '15%' }} defaultValue={column.type} />
+            <Input
+              style={{ width: '20%' }}
+              defaultValue={column.dflt_defaultValue}
+            />
+            <Input style={{ width: '10%' }} defaultValue={column.pk} />
+            <Input style={{ width: '28%' }} defaultValue={column.notnull} />
+          </InputGroup>)
+        )}
       </div>
     );
   }

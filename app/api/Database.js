@@ -35,6 +35,7 @@ export type TableKeyType = {
   pk: 0 | 1
 };
 
+// Interface used by Falcon to interact with connected database
 export type DatabaseApiType = {
   connection: {
     client: 'sqlite' | 'mysql' | 'postgresql',
@@ -51,10 +52,28 @@ export type DatabaseApiType = {
   sendQueryToDatabase: (
     query: string
   ) => Promise<Array<ProviderInterfaceType.queryResponseType>>,
-  getTableKeys: (table: string, raw: boolean) => Promise<Array<TableKeyType>>,
-  getPrimaryKey: (table: string) => Promise<TableKeyType>,
+  getTableColumns: (
+    table: string,
+    raw: boolean
+  ) => Promise<Array<TableKeyType>>,
+  getPrimaryKeyColumn: (table: string) => Promise<TableKeyType>,
   insertRows: (table: string, values: { [string]: any }) => void,
-  deleteRow: (table: string, keys: Array<string> | Array<number>) => void
+  deleteRows: (table: string, keys: Array<string> | Array<number>) => void,
+  renameTable: (oldTableName: string, newTableName: string) => Promise<boolean>,
+  dropTable: (table: string) => Promise<string>,
+  addTableColumn: (
+    table: string,
+    columnName: string,
+    columnType: string
+  ) => Promise<string>,
+  renameTableColumns: (
+    table: string,
+    columns: Array<{ oldColumnName: string, newColumnName: string }>
+  ) => Promise<string>,
+  dropTableColumns: (
+    table: string,
+    columnsToDrop: Array<string>
+  ) => Promise<string>
 };
 
 /**
@@ -71,8 +90,11 @@ export class Database {
     executeQuery: (
       conn: string
     ) => Promise<Array<ProviderInterfaceType.queryResponseType>>,
-    getTableKeys: (table: string, raw: boolean) => Promise<Array<TableKeyType>>,
-    getPrimaryKey: (table: string) => Promise<TableKeyType>,
+    getTableColumns: (
+      table: string,
+      raw: boolean
+    ) => Promise<Array<TableKeyType>>,
+    getPrimaryKeyColumn: (table: string) => Promise<TableKeyType>,
     delete: (
       table: string,
       keys: Array<string> | Array<number>
@@ -84,7 +106,25 @@ export class Database {
     update: (
       table: string,
       records: Array<{ rowPrimaryKeyValue: string, changes: { [string]: any } }>
-    ) => Promise<boolean>
+    ) => Promise<boolean>,
+    renameTable: (
+      oldTableName: string,
+      newTableName: string
+    ) => Promise<boolean>,
+    dropTable: (table: string) => Promise<string>,
+    addTableColumn: (
+      table: string,
+      columnName: string,
+      columnType: string
+    ) => Promise<string>,
+    renameTableColumns: (
+      table: string,
+      columns: Array<{ oldColumnName: string, newColumnName: string }>
+    ) => Promise<string>,
+    dropTableColumns: (
+      table: string,
+      columnsToDrop: Array<string>
+    ) => Promise<string>
   };
 
   config: configType;
@@ -126,15 +166,15 @@ export class Database {
     return this.connection.executeQuery(query);
   }
 
-  async getTableKeys(
+  async getTableColumns(
     table: string,
     raw: boolean = false
   ): Promise<Array<TableKeyType>> {
-    return this.connection.getTableKeys(table, raw);
+    return this.connection.getTableColumns(table, raw);
   }
 
-  async getPrimaryKey(table: string): Promise<TableKeyType> {
-    return this.connection.getPrimaryKey(table);
+  async getPrimaryKeyColumn(table: string): Promise<TableKeyType> {
+    return this.connection.getPrimaryKeyColumn(table);
   }
 
   /**
@@ -151,7 +191,8 @@ export class Database {
     }
     // React Table gives 1-based indexing. if keys are numbers, need to incremt
     const incrementedKeys = keys.map(key => key + 1);
-    await this.connection.delete(table, incrementedKeys);
+    const results = await this.connection.delete(table, incrementedKeys);
+    return results;
   }
 
   async insertRows(tableName: string, rows: Array<{ [string]: any }>) {
@@ -169,6 +210,29 @@ export class Database {
       return;
     }
     await this.connection.update(table, records);
+  }
+
+  async renameTable(oldTableName: string, newTableName: string) {
+    await this.connection.renameTable(oldTableName, newTableName);
+  }
+
+  async dropTable(tableName: string) {
+    await this.connection.dropTable(tableName);
+  }
+
+  async addTableColumn(table: string, columnName: string, columnType: string) {
+    return this.connection.addTableColumn(table, columnName, columnType);
+  }
+
+  async renameTableColumns(
+    table: string,
+    columns: Array<{ oldColumnName: string, newColumnName: string }>
+  ) {
+    return this.connection.renameTableColumns(table, columns);
+  }
+
+  async dropTableColumns(table: string, columnsToDrop: Array<string>) {
+    return this.connection.dropTableColumns(table, columnsToDrop);
   }
 
   static getDatabases = getDatabases;
