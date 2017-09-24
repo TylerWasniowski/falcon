@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { Switch, Route } from 'react-router';
 import { Row, Alert } from 'antd';
 import { HashRouter as Router } from 'react-router-dom';

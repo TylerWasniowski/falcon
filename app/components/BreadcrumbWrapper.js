@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { Breadcrumb } from 'antd';
 
 type Props = {

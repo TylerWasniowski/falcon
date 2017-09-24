@@ -7,13 +7,13 @@ import { message } from 'antd';
 import AceEditor from 'react-ace';
 import ReactTable from 'react-table';
 import debounce from 'lodash/debounce';
+import type { queryResponseType } from 'falcon-core';
 import 'brace';
 import 'brace/mode/sql';
 import 'brace/snippets/sql';
 import 'brace/theme/xcode';
 import 'brace/ext/language_tools';
 import 'brace/ext/searchbox';
-import type { queryResponseType } from 'falcon-core';
 import SpecialTypeMarker from '../components/SpecialTypeMarker';
 import styles from './Query.css';
 import { Database } from '../api/Database';
@@ -22,18 +22,19 @@ type Props = {
   databasePath: string
 };
 
-export default class Query extends Component {
-  state: {
-    result: queryResponseType,
-    query: string,
-    database: Database,
-    selectedRowIndex: ?number,
-    selectedCellColumnId: ?number,
-    selectedCellRowIndex: ?number,
-    tableData: Array<{ [key: string]: string | number | boolean }>,
-    tableColumns: Array<{ Header: string, accessor: string }>
-  };
+type State = {
+  result: queryResponseType,
+  query: string,
+  database: Database,
+  selectedRowIndex: ?number,
+  selectedCellColumnId: ?number,
+  selectedCellRowIndex: ?number,
+  tableData: Array<{ [key: string]: string | number | boolean }>,
+  tableColumns: Array<{ Header: string, accessor: string }>
+};
 
+export default class Query extends Component<void, Props, State> {
+  state: State;
   didMount: boolean = false;
 
   constructor(props: Props) {

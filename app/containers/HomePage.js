@@ -4,7 +4,8 @@ import { Layout, Menu, Icon, Spin, Button } from 'antd';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
-import GridWrapper from './GridWrapper';
+import type { ContextRouter } from 'react-router-dom';
+import TableView from './TableView';
 import BreadcrumbWrapper from '../components/BreadcrumbWrapper';
 import Query from './Query';
 import { getDatabases } from '../api/Database';
@@ -15,22 +16,27 @@ import { OPEN_FILE_CHANNEL, DELETE_TABLE_CHANNEL } from '../types/channels';
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
 
+type Props = {
+  ...ContextRouter
+};
+
+type State = {
+  databasePath: string,
+  databases: Array<DatabaseType>,
+  tables: Array<TableType>,
+  selectedTableName: ?string,
+  showQuery: boolean,
+  siderCollapsed: boolean
+};
+
 /* @TODO: Home/Falcon's can only deal with one database at a time
         because of this.state.databasePath and databases[0]
 */
-export default class HomePage extends Component {
-  state: {
-    databasePath: string,
-    databases: Array<DatabaseType>,
-    tables: Array<TableType>,
-    selectedTableName: ?string,
-    showQuery: boolean,
-    siderCollapsed: boolean
-  };
-
+export default class HomePage extends Component<void, Props, State> {
+  state: State;
   didMount: boolean = false;
 
-  constructor(props: {}) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       // @TODO: See LoginPage line 131 for why replace'_' with '/'
@@ -196,7 +202,7 @@ export default class HomePage extends Component {
               >
                 {this.state.showQuery
                   ? <Query databasePath={this.state.databasePath} />
-                  : <GridWrapper
+                  : <TableView
                     databases={databases}
                     databasePath={this.state.databasePath}
                     selectedTableName={this.state.selectedTableName}

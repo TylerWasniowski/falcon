@@ -48,7 +48,8 @@
       "order": ["type-annotations", "constructor", "static-methods", "everything-else", "lifecycle", "render"]
     }],
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
-    "react/prefer-stateless-function": "off"
+    "react/prefer-stateless-function": "off",
+    "react/prop-types": [0, {"skipUndeclared": true}]
   },
   "plugins": [
     "flowtype",
