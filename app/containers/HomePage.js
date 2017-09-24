@@ -4,8 +4,8 @@ import { Layout, Menu, Icon, Spin, Button } from 'antd';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
-import GridWrapper from './GridWrapper';
 import type { ContextRouter } from 'react-router-dom';
+import TableView from './TableView';
 import BreadcrumbWrapper from '../components/BreadcrumbWrapper';
 import Query from './Query';
 import { getDatabases } from '../api/Database';
@@ -202,7 +202,7 @@ export default class HomePage extends Component<void, Props, State> {
               >
                 {this.state.showQuery
                   ? <Query databasePath={this.state.databasePath} />
-                  : <GridWrapper
+                  : <TableView
                     databases={databases}
                     databasePath={this.state.databasePath}
                     selectedTableName={this.state.selectedTableName}

@@ -7,7 +7,7 @@ import ReactTable from 'react-table';
 import { ipcRenderer } from 'electron';
 import _ from 'lodash';
 import Structure from '../components/Structure';
-import styles from './GridWrapper.css';
+import styles from './TableView.css';
 import { Database } from '../api/Database';
 import SpecialTypeMarker from '../components/SpecialTypeMarker';
 import type { DatabaseType } from '../types/DatabaseType';
@@ -50,7 +50,7 @@ type State = {
   tableColumns: Array<{ Header: string, accessor: string }>
 };
 
-export default class GridWrapper extends Component<void, Props, State> {
+export default class TableView extends Component<void, Props, State> {
   databaseApi: Database;
   state: State;
 
