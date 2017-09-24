@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Input, Col, Row, Select, Button, Icon, message } from 'antd';
 import { remote, ipcRenderer } from 'electron';
+import type { ContextRouter } from 'react-router-dom';
 import Connections from '../api/Connections';
 import SavedDatabases from '../components/SavedDatabases';
 import type { LoginSavedDatabaseType } from '../types/LoginSavedDatabaseType';
@@ -20,16 +21,21 @@ const error = (label) => {
   message.error(label);
 };
 
-export default class LoginPage extends Component {
-  state: {
-    databaseNickname: string,
-    databasePath: string,
-    savedDatabases: Array<LoginSavedDatabaseType>
-  };
+type Props = {
+  ...ContextRouter
+};
 
+type State = {
+  databaseNickname: string,
+  databasePath: string,
+  savedDatabases: Array<LoginSavedDatabaseType>
+};
+
+export default class LoginPage extends Component<void, Props, State> {
+  state: State;
   connections = new Connections();
 
-  constructor(props: {}) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       databaseNickname: '',
@@ -65,7 +71,7 @@ export default class LoginPage extends Component {
     }
   };
 
-  handleConnect = async (e?: SyntheticEvent) => {
+  handleConnect = async (e?: SyntheticEvent<>) => {
     if (e) {
       e.preventDefault();
     }

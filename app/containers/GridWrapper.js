@@ -34,23 +34,25 @@ type Props = {
   selectedTableName: string
 };
 
-export default class GridWrapper extends Component {
+type State = {
+  foundTable: ?TableType,
+  showStructure: boolean,
+  loading: boolean,
+  selectedRowIndex: ?number,
+  selectedRowsIndices: Set<number>,
+  selectedCellColumnId: ?number,
+  selectedCellRowIndex: ?number,
+  proposedDeletionsIndices: Array<number>,
+  proposedInsertionsIndices: Array<number>,
+  proposedUpdateIndices: Array<number>,
+  tableData: Array<{ [key: string]: string | number | boolean }>,
+  // @TODO: Cell currently unannotated
+  tableColumns: Array<{ Header: string, accessor: string }>
+};
+
+export default class GridWrapper extends Component<void, Props, State> {
   databaseApi: Database;
-  state: {
-    foundTable: ?TableType,
-    showStructure: boolean,
-    loading: boolean,
-    selectedRowIndex: ?number,
-    selectedRowsIndices: Set<number>,
-    selectedCellColumnId: ?number,
-    selectedCellRowIndex: ?number,
-    proposedDeletionsIndices: Array<number>,
-    proposedInsertionsIndices: Array<number>,
-    proposedUpdateIndices: Array<number>,
-    tableData: Array<{ [key: string]: string | number | boolean }>,
-    // @TODO: Cell currently unannotated
-    tableColumns: Array<{ Header: string, accessor: string }>
-  };
+  state: State;
 
   constructor(props: Props) {
     super(props);
@@ -164,7 +166,7 @@ export default class GridWrapper extends Component {
     }
   };
 
-  handleButtonClick = (e: SyntheticEvent) => {
+  handleButtonClick = (e: SyntheticEvent<>) => {
     e.preventDefault();
     this.setState({
       showStructure: !this.state.showStructure
@@ -299,7 +301,7 @@ export default class GridWrapper extends Component {
       let actualInsertionIndex = e;
       proposedDeletionsIndices.forEach((deletionIndex) => {
         if (deletionIndex < e) {
-          actualInsertionIndex--;
+          actualInsertionIndex -= 1;
         }
       });
       return actualInsertionIndex;
@@ -315,7 +317,7 @@ export default class GridWrapper extends Component {
       let actualUpdateIndex = e;
       proposedDeletionsIndices.forEach((deletionIndex) => {
         if (deletionIndex < e) {
-          actualUpdateIndex--;
+          actualUpdateIndex -= 1;
         }
       });
       return actualUpdateIndex;

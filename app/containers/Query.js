@@ -22,18 +22,19 @@ type Props = {
   databasePath: string
 };
 
-export default class Query extends Component {
-  state: {
-    result: queryResponseType,
-    query: string,
-    database: Database,
-    selectedRowIndex: ?number,
-    selectedCellColumnId: ?number,
-    selectedCellRowIndex: ?number,
-    tableData: Array<{ [key: string]: string | number | boolean }>,
-    tableColumns: Array<{ Header: string, accessor: string }>
-  };
+type State = {
+  result: queryResponseType,
+  query: string,
+  database: Database,
+  selectedRowIndex: ?number,
+  selectedCellColumnId: ?number,
+  selectedCellRowIndex: ?number,
+  tableData: Array<{ [key: string]: string | number | boolean }>,
+  tableColumns: Array<{ Header: string, accessor: string }>
+};
 
+export default class Query extends Component<void, Props, State> {
+  state: State;
   didMount: boolean = false;
 
   constructor(props: Props) {

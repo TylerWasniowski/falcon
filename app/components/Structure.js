@@ -1,22 +1,25 @@
 // @flow
 import React, { Component } from 'react';
 import { Input, Col } from 'antd';
-import type { DatabaseApiType, TableKeyType } from '../api/Database';
+import { Database } from '../api/Database';
+import type { TableKeyType } from '../api/Database';
 
 const InputGroup = Input.Group;
 
 type Props = {
   selectedTableName: string,
   tableColumnsPromise: Promise<Array<TableKeyType>>,
-  databaseApi: DatabaseApiType
+  databaseApi: Database
 };
 
-export default class Structure extends Component {
-  state: {
-    tableColumns: ?Array<TableKeyType>,
-    tableName: string,
-    loading: boolean
-  };
+type State = {
+  tableColumns: ?Array<TableKeyType>,
+  tableName: string,
+  loading: boolean
+};
+
+export default class Structure extends Component<void, Props, State> {
+  state: State;
   constructor(props: Props) {
     super(props);
     // Needs state.loading or else props.selectedName and state.tableColumns
@@ -30,7 +33,7 @@ export default class Structure extends Component {
 
   async saveStructureChanges() {
     if (this.state.tableName !== this.props.selectedTableName) {
-      this.state.databaseApi.renameTable(
+      this.props.databaseApi.renameTable(
         this.props.selectedTableName,
         this.state.tableName
       );

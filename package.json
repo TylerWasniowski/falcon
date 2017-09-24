@@ -184,7 +184,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "fbjs-scripts": "^0.8.0",
     "file-loader": "^0.11.2",
-    "flow-bin": "^0.53.1",
+    "flow-bin": "^0.55.0",
     "flow-runtime": "^0.14.0",
     "flow-typed": "^2.1.2",
     "identity-obj-proxy": "^3.0.0",
