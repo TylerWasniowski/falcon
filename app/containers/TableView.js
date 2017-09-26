@@ -50,7 +50,7 @@ type State = {
   tableColumns: Array<{ Header: string, accessor: string }>
 };
 
-export default class TableView extends Component<void, Props, State> {
+export default class TableView extends Component<Props, State> {
   databaseApi: Database;
   state: State;
 

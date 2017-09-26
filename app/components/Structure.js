@@ -18,7 +18,7 @@ type State = {
   loading: boolean
 };
 
-export default class Structure extends Component<void, Props, State> {
+export default class Structure extends Component<Props, State> {
   state: State;
   constructor(props: Props) {
     super(props);

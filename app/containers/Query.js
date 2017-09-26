@@ -33,7 +33,7 @@ type State = {
   tableColumns: Array<{ Header: string, accessor: string }>
 };
 
-export default class Query extends Component<void, Props, State> {
+export default class Query extends Component<Props, State> {
   state: State;
   didMount: boolean = false;
 

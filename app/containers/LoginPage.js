@@ -31,7 +31,7 @@ type State = {
   savedDatabases: Array<LoginSavedDatabaseType>
 };
 
-export default class LoginPage extends Component<void, Props, State> {
+export default class LoginPage extends Component<Props, State> {
   state: State;
   connections = new Connections();
 

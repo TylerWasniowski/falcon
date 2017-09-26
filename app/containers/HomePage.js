@@ -32,7 +32,7 @@ type State = {
 /* @TODO: Home/Falcon's can only deal with one database at a time
         because of this.state.databasePath and databases[0]
 */
-export default class HomePage extends Component<void, Props, State> {
+export default class HomePage extends Component<Props, State> {
   state: State;
   didMount: boolean = false;
 
