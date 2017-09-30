@@ -220,7 +220,6 @@
     "fsevents": "^1.1.2",
     "history": "^4.6.3",
     "lodash": "^4.17.4",
-    "preact": "^8.2.1",
     "react": "^15.6.1",
     "react-ace": "^5.1.2",
     "react-dom": "^15.6.1",
