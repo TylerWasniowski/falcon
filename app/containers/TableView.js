@@ -369,8 +369,8 @@ export default class TableView extends Component<Props, State> {
     });
   };
 
-  componentDidMount = async () => {
-    await this.databaseApi.connect();
+  componentDidMount = () => {
+    this.databaseApi.connect();
   };
 
   /**
