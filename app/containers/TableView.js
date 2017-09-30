@@ -29,7 +29,7 @@ function removeFromArrayAtIndex(array: Array<any>, index: number) {
 }
 
 type Props = {
-  databases: Array<DatabaseType>,
+  database: DatabaseType,
   databasePath: string,
   selectedTableName: string
 };
@@ -223,7 +223,9 @@ export default class TableView extends Component<Props, State> {
     // If no selectedRowIndex, treat shiftClick like a regular click
     if (!this.state.selectedRowIndex) {
       this.handleRowSelection(rowIndex);
+      return;
     }
+
     this.setState({
       selectedRowsIndices: new Set(
         getAllNumbersBetween(this.state.selectedRowIndex, rowIndex)
@@ -353,8 +355,7 @@ export default class TableView extends Component<Props, State> {
 
   componentWillMount = () => {
     this.setState({ loading: true });
-    if (this.props.databases.length === 0) return;
-    const foundTable = this.props.databases[0].tables.find(
+    const foundTable = this.props.database.tables.find(
       e => e.tableName === this.props.selectedTableName
     );
     if (!foundTable) {
@@ -378,8 +379,7 @@ export default class TableView extends Component<Props, State> {
    */
   componentWillReceiveProps = (nextProps: Props) => {
     this.setState({ loading: true });
-    if (nextProps.databases.length === 0) return;
-    const foundTable = nextProps.databases[0].tables.find(
+    const foundTable = nextProps.database.tables.find(
       e => e.tableName === nextProps.selectedTableName
     );
     if (!foundTable) {

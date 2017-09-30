@@ -22,7 +22,7 @@ type Props = {
 
 type State = {
   databasePath: string,
-  databases: Array<DatabaseType>,
+  database: ?DatabaseType,
   tables: Array<TableType>,
   selectedTableName: ?string,
   showQuery: boolean,
@@ -41,7 +41,7 @@ export default class HomePage extends Component<Props, State> {
     this.state = {
       // @TODO: See LoginPage line 131 for why replace'_' with '/'
       databasePath: this.props.match.params.databasePath.replace(/_/g, '/'),
-      databases: [],
+      database: null,
       tables: [],
       selectedTableName: null,
       showQuery: false,
@@ -57,19 +57,22 @@ export default class HomePage extends Component<Props, State> {
 
   // @TODO: Since supporting just SQLite, getDatabases will only return 1 db
   setDatabaseResults = async (filePath: string) => {
-    const databases = await getDatabases(filePath);
+    const databasesArr = await getDatabases(filePath);
+    const database = databasesArr[0];
+
     this.setState({
-      databases,
+      database,
       selectedTableName:
-        this.state.selectedTableName || databases[0].tables[0].tableName,
-      tables: _.cloneDeep(databases[0].tables),
+        this.state.selectedTableName || database.tables[0].tableName,
+      // @TODO: Use tableName instead of whole table object contents
+      tables: _.cloneDeep(database.tables),
       databasePath: filePath
     });
   };
 
   getBreadcrumbRoute = (): Array<string> => {
-    if (!this.state.databases[0]) {
-      throw new Error('database should be null');
+    if (!this.state.database) {
+      throw new Error("database shouldn't be null");
     }
     if (this.state.showQuery) {
       return ['SQLite', 'Query'];
@@ -79,7 +82,7 @@ export default class HomePage extends Component<Props, State> {
     }
     return [
       'SQLite',
-      this.state.databases[0].databaseName,
+      this.state.database.databaseName,
       this.state.selectedTableName
     ];
   };
@@ -114,10 +117,8 @@ export default class HomePage extends Component<Props, State> {
   }
 
   render() {
-    const { databases } = this.state;
-    if (
-      !(databases && this.state.selectedTableName && this.state.databasePath)
-    ) {
+    const { database, selectedTableName, databasePath } = this.state;
+    if (!(database && selectedTableName && databasePath)) {
       return (
         <div
           style={{
@@ -147,7 +148,7 @@ export default class HomePage extends Component<Props, State> {
               type="retweet"
               id="refreshIcon"
               style={{ fontSize: '200%', color: '#08c', cursor: 'pointer' }}
-              onClick={() => this.setDatabaseResults(this.state.databasePath)}
+              onClick={() => this.setDatabaseResults(databasePath)}
             />
             <Link to={'/login}'}>
               <Button type="primary" loading={false}>
@@ -169,8 +170,8 @@ export default class HomePage extends Component<Props, State> {
               >
                 <Menu
                   mode="inline"
-                  defaultSelectedKeys={[databases[0].tables[0].tableName]}
-                  defaultOpenKeys={[databases[0].databaseName]}
+                  defaultSelectedKeys={[database.tables[0].tableName]}
+                  defaultOpenKeys={[database.databaseName]}
                   style={{ height: '100%' }}
                   onSelect={e => this.handleSelectedTableNameChange(e, this)}
                 >
@@ -178,34 +179,32 @@ export default class HomePage extends Component<Props, State> {
                     <Icon type="code" />
                     Query
                   </Menu.Item>
-                  {databases.map(database =>
-                    (<SubMenu
-                      key={database.databaseName}
-                      title={
-                        <span>
-                          <Icon type="database" /> {database.databaseName}
-                        </span>
-                      }
-                    >
-                      {this.state.tables.map(table =>
-                        (<Menu.Item key={table.tableName}>
-                          <Icon type="bars" />
-                          {table.tableName}
-                        </Menu.Item>)
-                      )}
-                    </SubMenu>)
-                  )}
+                  <SubMenu
+                    key={database.databaseName}
+                    title={
+                      <span>
+                        <Icon type="database" /> {database.databaseName}
+                      </span>
+                    }
+                  >
+                    {this.state.tables.map(table =>
+                      (<Menu.Item key={table.tableName}>
+                        <Icon type="bars" />
+                        {table.tableName}
+                      </Menu.Item>)
+                    )}
+                  </SubMenu>
                 </Menu>
               </Sider>
               <Content
                 style={{ padding: '0 24px', minHeight: 270, width: '50%' }}
               >
                 {this.state.showQuery
-                  ? <Query databasePath={this.state.databasePath} />
+                  ? <Query databasePath={databasePath} />
                   : <TableView
-                    databases={databases}
-                    databasePath={this.state.databasePath}
-                    selectedTableName={this.state.selectedTableName}
+                    database={database}
+                    databasePath={databasePath}
+                    selectedTableName={selectedTableName}
                   />}
               </Content>
             </Layout>
