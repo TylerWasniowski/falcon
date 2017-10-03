@@ -15,7 +15,7 @@ import 'brace/theme/xcode';
 import 'brace/ext/language_tools';
 import 'brace/ext/searchbox';
 import SpecialTypeMarker from '../components/SpecialTypeMarker';
-import styles from './Query.css';
+import styles from './QueryView.css';
 import { Database } from '../api/Database';
 
 type Props = {
@@ -33,8 +33,7 @@ type State = {
   tableColumns: Array<{ Header: string, accessor: string }>
 };
 
-export default class Query extends Component<Props, State> {
-  state: State;
+export default class QueryView extends Component<Props, State> {
   didMount: boolean = false;
 
   constructor(props: Props) {
@@ -51,7 +50,7 @@ export default class Query extends Component<Props, State> {
     };
   }
 
-  async onInputChange(query: string, self: Query) {
+  async onInputChange(query: string, self: QueryView) {
     if (!self || !self.didMount) {
       return;
     }

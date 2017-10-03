@@ -6,10 +6,10 @@ import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import { ipcRenderer } from 'electron';
 import _ from 'lodash';
-import Structure from '../components/Structure';
-import styles from './TableView.css';
 import { Database } from '../api/Database';
+import StructureView from './StructureView';
 import SpecialTypeMarker from '../components/SpecialTypeMarker';
+import styles from './TableView.css';
 import type { DatabaseType } from '../types/DatabaseType';
 import type { TableType } from '../types/TableType';
 import { DELETE_ROW_CHANNEL } from '../types/channels';
@@ -52,8 +52,6 @@ type State = {
 
 export default class TableView extends Component<Props, State> {
   databaseApi: Database;
-  state: State;
-
   constructor(props: Props) {
     super(props);
     this.databaseApi = new Database(this.props.databasePath);
@@ -372,7 +370,6 @@ export default class TableView extends Component<Props, State> {
   componentDidMount = () => {
     this.databaseApi.connect();
   };
-
   /**
    * Occurs when state.selectedTableName changes. Should update tableData
    * and reset selection/editing state
@@ -443,7 +440,7 @@ export default class TableView extends Component<Props, State> {
                 })}
               />
             </div>) ||
-            <Structure
+            <StructureView
               selectedTableName={this.props.selectedTableName}
               tableColumnsPromise={this.databaseApi.getTableColumns(
                 this.props.selectedTableName

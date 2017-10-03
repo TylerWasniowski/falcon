@@ -18,8 +18,7 @@ type State = {
   loading: boolean
 };
 
-export default class Structure extends Component<Props, State> {
-  state: State;
+export default class StructureView extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     // Needs state.loading or else props.selectedName and state.tableColumns
@@ -31,7 +30,7 @@ export default class Structure extends Component<Props, State> {
     };
   }
 
-  async saveStructureChanges() {
+  saveStructureChanges() {
     if (this.state.tableName !== this.props.selectedTableName) {
       this.props.databaseApi.renameTable(
         this.props.selectedTableName,

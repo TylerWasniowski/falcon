@@ -7,7 +7,7 @@ import { ipcRenderer } from 'electron';
 import type { ContextRouter } from 'react-router-dom';
 import TableView from './TableView';
 import BreadcrumbWrapper from '../components/BreadcrumbWrapper';
-import Query from './Query';
+import QueryView from './QueryView';
 import { getDatabases } from '../api/Database';
 import type { DatabaseType } from '../types/DatabaseType';
 import type { TableType } from '../types/TableType';
@@ -29,11 +29,7 @@ type State = {
   siderCollapsed: boolean
 };
 
-/* @TODO: Home/Falcon's can only deal with one database at a time
-        because of this.state.databasePath and databases[0]
-*/
 export default class HomePage extends Component<Props, State> {
-  state: State;
   didMount: boolean = false;
 
   constructor(props: Props) {
@@ -200,7 +196,7 @@ export default class HomePage extends Component<Props, State> {
                 style={{ padding: '0 24px', minHeight: 270, width: '50%' }}
               >
                 {this.state.showQuery
-                  ? <Query databasePath={databasePath} />
+                  ? <QueryView databasePath={databasePath} />
                   : <TableView
                     database={database}
                     databasePath={databasePath}

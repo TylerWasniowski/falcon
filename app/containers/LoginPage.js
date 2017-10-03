@@ -32,7 +32,6 @@ type State = {
 };
 
 export default class LoginPage extends Component<Props, State> {
-  state: State;
   connections = new Connections();
 
   constructor(props: Props) {
