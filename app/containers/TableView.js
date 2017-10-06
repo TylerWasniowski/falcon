@@ -426,7 +426,7 @@ export default class TableView extends Component<Props, State> {
                         ? { backgroundColor: '#0B54D5', color: 'white' }
                         : {},
                     onClick: (e) => {
-                      if (e.metaKey) {
+                      if (e.metaKey || e.ctrlKey) {
                         this.handleCtrlRowSelection(rowInfo.row._index);
                       } else if (e.shiftKey) {
                         this.handleShiftRowSelection(rowInfo.row._index);
